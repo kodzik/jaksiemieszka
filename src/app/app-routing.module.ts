@@ -1,7 +1,14 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { LeafletTestComponent } from './leaflet-test/leaflet-test.component';
+import { MapTestComponent } from './map-test/map-test.component';
+import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
 
-const routes: Routes = [];
+const routes: Routes = [
+  { path: 'gmap', component: MapTestComponent },
+  { path: 'openmap', component: OpenmapTestComponent },
+  { path: '', component: LeafletTestComponent }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

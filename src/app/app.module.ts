@@ -1,18 +1,48 @@
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
 import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { MapTestComponent } from './map-test/map-test.component';
+
+import { GMapModule } from 'primeng/gmap';
+import { CheckboxModule } from 'primeng/checkbox';
+import { DialogModule } from 'primeng/dialog';
+import { ButtonModule } from 'primeng/button';
+import { InputTextModule } from 'primeng/inputtext';
+import { MessagesModule } from 'primeng/messages';
+import { MessageModule } from 'primeng/message';
+import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
+import { LeafletTestComponent } from './leaflet-test/leaflet-test.component';
+import { HttpClientModule } from '@angular/common/http';
+import { MarkerService } from './marker.service';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    MapTestComponent,
+    OpenmapTestComponent,
+    LeafletTestComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    BrowserAnimationsModule,
+    AppRoutingModule,
+    GMapModule,
+    CheckboxModule,
+    DialogModule,
+    ButtonModule,
+    InputTextModule,
+    FormsModule,
+    ReactiveFormsModule,
+    MessagesModule,
+    MessageModule,
+    HttpClientModule
   ],
-  providers: [],
+  providers: [MarkerService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
