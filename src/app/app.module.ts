@@ -18,9 +18,11 @@ import { MessageModule } from 'primeng/message';
 import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
 import { LeafletTestComponent } from './leaflet-test/leaflet-test.component';
 import { HttpClientModule } from '@angular/common/http';
-import { MarkerService } from './marker.service';
-import { PopupService } from './popup.service';
-import { ShapeService } from './shape.service';
+import { MarkerService } from './_services/marker.service';
+import { PopupService } from './_services/popup.service';
+import { ShapeService } from './_services/shape.service';
+import { GraphQLModule } from './graphql.module';
+import { ApolloTestComponent } from './apollo-test/apollo-test.component';
 
 
 @NgModule({
@@ -29,6 +31,7 @@ import { ShapeService } from './shape.service';
     MapTestComponent,
     OpenmapTestComponent,
     LeafletTestComponent,
+    ApolloTestComponent,
   ],
   imports: [
     BrowserModule,
@@ -43,7 +46,8 @@ import { ShapeService } from './shape.service';
     ReactiveFormsModule,
     MessagesModule,
     MessageModule,
-    HttpClientModule
+    HttpClientModule,
+    GraphQLModule
   ],
   providers: [MarkerService, PopupService, ShapeService],
   bootstrap: [AppComponent]
