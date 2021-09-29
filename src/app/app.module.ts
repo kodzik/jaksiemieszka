@@ -23,6 +23,7 @@ import { PopupService } from './_services/popup.service';
 import { ShapeService } from './_services/shape.service';
 import { GraphQLModule } from './graphql.module';
 import { ApolloTestComponent } from './apollo-test/apollo-test.component';
+import { HomeComponent } from './home/home.component';
 
 
 @NgModule({
@@ -32,6 +33,7 @@ import { ApolloTestComponent } from './apollo-test/apollo-test.component';
     OpenmapTestComponent,
     LeafletTestComponent,
     ApolloTestComponent,
+    HomeComponent,
   ],
   imports: [
     BrowserModule,

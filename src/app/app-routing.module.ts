@@ -1,16 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApolloTestComponent } from './apollo-test/apollo-test.component';
+import { HomeComponent } from './home/home.component';
 import { LeafletTestComponent } from './leaflet-test/leaflet-test.component';
 import { MapTestComponent } from './map-test/map-test.component';
 import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
+import { AuthGuard } from './_helpers/auth.guard';
 
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
 
 const routes: Routes = [
+  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
   { path: 'gmap', component: MapTestComponent },
   { path: 'openmap', component: OpenmapTestComponent },
-  { path: '', component: LeafletTestComponent },
+  { path: 'leaf', component: LeafletTestComponent },
   { path: 'apollo', component: ApolloTestComponent },
   { path: 'account', loadChildren: accountModule },
 
