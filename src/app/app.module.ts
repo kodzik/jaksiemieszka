@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { BrowserModule } from '@angular/platform-browser';
@@ -15,16 +16,27 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
+import {CardModule} from 'primeng/card';
+
+
 import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
 import { LeafletTestComponent } from './leaflet-test/leaflet-test.component';
-import { HttpClientModule } from '@angular/common/http';
-import { MarkerService } from './_services/marker.service';
-import { PopupService } from './_services/popup.service';
-import { ShapeService } from './_services/shape.service';
+
 import { GraphQLModule } from './graphql.module';
 import { ApolloTestComponent } from './apollo-test/apollo-test.component';
 import { HomeComponent } from './home/home.component';
 
+import { MarkerService } from './_services/marker.service';
+import { PopupService } from './_services/popup.service';
+import { ShapeService } from './_services/shape.service';
+
+import { MatToolbarModule } from '@angular/material/toolbar';
+import { MatIconModule } from "@angular/material/icon";
+import { MatButtonModule } from "@angular/material/button";
+import { MatCardModule } from '@angular/material/card';
+
+import { CommentComponent } from './comment/comment.component';
+import { MapComponent } from './map/map.component';
 
 @NgModule({
   declarations: [
@@ -34,12 +46,19 @@ import { HomeComponent } from './home/home.component';
     LeafletTestComponent,
     ApolloTestComponent,
     HomeComponent,
+    CommentComponent,
+    MapComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
+
     GMapModule,
+    HttpClientModule,
+    GraphQLModule,
+
+    CardModule,
     CheckboxModule,
     DialogModule,
     ButtonModule,
@@ -48,8 +67,12 @@ import { HomeComponent } from './home/home.component';
     ReactiveFormsModule,
     MessagesModule,
     MessageModule,
-    HttpClientModule,
-    GraphQLModule
+
+    MatToolbarModule,
+    MatIconModule,
+    MatButtonModule,
+    MatCardModule,
+
   ],
   providers: [MarkerService, PopupService, ShapeService],
   bootstrap: [AppComponent]
