@@ -10,9 +10,15 @@ export class CommentComponent implements OnInit {
   
   @Input() comment: Comment; //= {id:'1', username: 'asd', date:'6/15/19, 10:54 PM'};
 
-  constructor() { }
+  changeText: boolean;
+
+  constructor( ) { }
 
   ngOnInit(): void {
   }
+
+  showMarker(){
+  }
+
 
 }

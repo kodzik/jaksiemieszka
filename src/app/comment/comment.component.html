@@ -9,10 +9,15 @@
     </ng-template>
 </p-card> -->
 
+<!-- <div >
+    <span *ngIf="!changeText">Hide</span>
+    <span *ngIf="changeText">Show</span>
+</div> -->
 
-<mat-card>
-    <mat-card-title>        
+<mat-card (mouseover)="changeText=true" (mouseout)="changeText=false">
+    <mat-card-title>     
         {{comment.username}}    
+        {{changeText}}   
     </mat-card-title>
 
     <mat-card-subtitle>        

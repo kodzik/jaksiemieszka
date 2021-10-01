@@ -16,6 +16,14 @@ export class MarkerService {
     return 20 * (val / maxVal);
   }
 
+  addMarker(map: L.Map, lon: number, lat: number, content: string): void {
+    L.marker([lon, lat]).addTo(map)
+    .bindPopup(content)
+    .openPopup();
+    // const lon = c.geometry.coordinates[0];
+    // const lat = c.geometry.coordinates[1];
+  }
+
   makeCapitalMarkers(map: L.Map): void { 
     this.http.get(this.capitals).subscribe((res: any) => {
       for (const c of res.features) {

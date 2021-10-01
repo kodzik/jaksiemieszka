@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MarkerService } from "../_services/marker.service";
 import * as L from 'leaflet';
 
 @Component({
@@ -8,13 +9,15 @@ import * as L from 'leaflet';
 })
 export class MapComponent implements OnInit {
 
-  private map: any;
+  public map: any;
 
-  private initMap(): void {
+  public initMap(): void {
     this.map = L.map('map', {
-      center: [ 39.8282, -98.5795 ],
-      zoom: 3
+      center: [52.217779314315, 21.042614221109],
+      zoom: 11
     });
+
+    // this.map = L.map('map').setView([52.217779314315, 21.042614221109], 11);
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -24,18 +27,19 @@ export class MapComponent implements OnInit {
 
     tiles.addTo(this.map);
 
-    L.marker([51.5, -0.09]).addTo(this.map)
-    .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-    .openPopup();
+    // L.marker([52.261348417047, 21.025018929958]).addTo(this.map)
+    // .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
+    // .openPopup();
   }
 
-  constructor() { }
+  constructor(private markerService: MarkerService) { }
 
   ngOnInit(): void {
   }
 
   ngAfterViewInit(){
     this.initMap();
+
   }
 
 }
