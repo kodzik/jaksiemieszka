@@ -1,5 +1,7 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { Comment } from '../_models/comment';
+import { CommentService } from '../_services/comment.service';
+import { MarkerService } from '../_services/marker.service';
 
 @Component({
   selector: 'app-comment',
@@ -12,13 +14,15 @@ export class CommentComponent implements OnInit {
 
   changeText: boolean;
 
-  constructor( ) { }
+  constructor(
+    private markerService: MarkerService,
+    private commentService: CommentService
+    ) { }
 
   ngOnInit(): void {
   }
 
-  showMarker(){
+  highlightMarker() {
+    this.commentService.highlightMarker( this.comment )
   }
-
-
 }

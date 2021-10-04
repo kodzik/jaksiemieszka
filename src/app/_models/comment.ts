@@ -1,7 +1,7 @@
 export class Comment {
     id: string;
     username: string;
-    date: string;
-    location: {lat: number, lon: number}
+    date: Date | string;
+    location: {lat: number, lng: number}
     content?: string;
 }

@@ -14,7 +14,8 @@
     <span *ngIf="changeText">Show</span>
 </div> -->
 
-<mat-card (mouseover)="changeText=true" (mouseout)="changeText=false">
+<mat-card (mouseover)="highlightMarker()" >
+    <!-- (mouseout)="changeText=false" -->
     <mat-card-title>     
         {{comment.username}}    
         {{changeText}}   

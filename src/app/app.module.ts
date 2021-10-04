@@ -1,4 +1,6 @@
 import { NgModule } from '@angular/core';
+import {ScrollingModule} from '@angular/cdk/scrolling';
+
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
@@ -16,7 +18,7 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
-import {CardModule} from 'primeng/card';
+import { CardModule } from 'primeng/card';
 
 
 import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
@@ -37,6 +39,7 @@ import { MatCardModule } from '@angular/material/card';
 
 import { CommentComponent } from './comment/comment.component';
 import { MapComponent } from './map/map.component';
+import { CommentsComponent } from './comments/comments.component';
 
 @NgModule({
   declarations: [
@@ -48,12 +51,14 @@ import { MapComponent } from './map/map.component';
     HomeComponent,
     CommentComponent,
     MapComponent,
+    CommentsComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
-
+    ScrollingModule,
+    
     GMapModule,
     HttpClientModule,
     GraphQLModule,

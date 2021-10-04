@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as L from 'leaflet';
 import { PopupService } from './popup.service';
+import { Comment } from '../_models/comment';
+// import {  } from "leaflet.smooth_marker_bouncing";
 
 @Injectable({
   providedIn: 'root'
@@ -16,12 +18,20 @@ export class MarkerService {
     return 20 * (val / maxVal);
   }
 
-  addMarker(map: L.Map, lon: number, lat: number, content: string): void {
-    L.marker([lon, lat]).addTo(map)
-    .bindPopup(content)
-    .openPopup();
+  addMarker(map: L.Map, lng: number, lat: number, content: string): void {
+    L.marker([lng, lat]).addTo(map)
+    // .bindPopup(content)
+    // .openPopup();
     // const lon = c.geometry.coordinates[0];
     // const lat = c.geometry.coordinates[1];
+  }
+
+  addMarkerFromComment(map: L.Map, comment: Comment){
+    this.addMarker(map, comment.location.lat, comment.location.lng, '')
+  }
+
+  bounceMarker(){
+
   }
 
   makeCapitalMarkers(map: L.Map): void { 

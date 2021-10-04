@@ -14,14 +14,12 @@
     </mat-toolbar>
 </p>
 
-<div class="grid">
-    <div #comments_section class="col-6">
-        <div *ngFor="let comment of comments">
-            <app-comment [comment]=comment></app-comment>
-        </div>
+<div class="grid d-flex">
+    <div #comments_section class="col-4">
+      <app-comments></app-comments>
     </div>
 
-    <div #map_section class="col-6">
+    <div #map_section class="col-8">
         <app-map></app-map>
     </div>
 </div>

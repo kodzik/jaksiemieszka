@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { MarkerService } from "../_services/marker.service";
 import * as L from 'leaflet';
+import { CommentService } from '../_services/comment.service';
+import { Comment } from '../_models/comment';
 
 @Component({
   selector: 'app-map',
@@ -10,6 +12,7 @@ import * as L from 'leaflet';
 export class MapComponent implements OnInit {
 
   public map: any;
+  testMessage: Comment;
 
   public initMap(): void {
     this.map = L.map('map', {
@@ -32,7 +35,10 @@ export class MapComponent implements OnInit {
     // .openPopup();
   }
 
-  constructor(private markerService: MarkerService) { }
+  constructor(
+    private markerService: MarkerService,
+    private commentService: CommentService) {
+    }
 
   ngOnInit(): void {
   }
@@ -40,6 +46,21 @@ export class MapComponent implements OnInit {
   ngAfterViewInit(){
     this.initMap();
 
+    this.map.on("click", (e: { latlng: { lng: number; lat: number; }; }) => {
+      // console.log(e.latlng); // get the coordinates
+      // L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map); // add the marker onclick
+
+      this.commentService.addnewComment(e.latlng)
+      this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '')
+    });
+
+    this.commentService.highlightedComment.subscribe(comment => {
+      this.testMessage = comment
+      console.log(this.testMessage);
+      this.markerService.addMarkerFromComment(this.map, this.testMessage)
+    });
   }
+
+  
 
 }
