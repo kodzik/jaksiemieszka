@@ -18,8 +18,8 @@ import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
 import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
-import { CardModule } from 'primeng/card';
-
+// import { CardModule } from 'primeng/card';
+import { RatingModule } from 'primeng/rating';
 
 import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
 import { LeafletTestComponent } from './leaflet-test/leaflet-test.component';
@@ -40,6 +40,7 @@ import { MatCardModule } from '@angular/material/card';
 import { CommentComponent } from './comment/comment.component';
 import { MapComponent } from './map/map.component';
 import { CommentsComponent } from './comments/comments.component';
+import { AddCommentComponent } from './add-comment/add-comment.component';
 
 @NgModule({
   declarations: [
@@ -52,20 +53,22 @@ import { CommentsComponent } from './comments/comments.component';
     CommentComponent,
     MapComponent,
     CommentsComponent,
+    AddCommentComponent,
   ],
   imports: [
     BrowserModule,
     BrowserAnimationsModule,
     AppRoutingModule,
     ScrollingModule,
-    
+
     GMapModule,
     HttpClientModule,
     GraphQLModule,
 
-    CardModule,
+    // CardModule,
     CheckboxModule,
     DialogModule,
+    RatingModule,
     ButtonModule,
     InputTextModule,
     FormsModule,

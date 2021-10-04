@@ -14,14 +14,14 @@
     <span *ngIf="changeText">Show</span>
 </div> -->
 
-<mat-card (mouseover)="highlightMarker()" >
+<mat-card (click)="highlightMarker()" >
     <!-- (mouseout)="changeText=false" -->
-    <mat-card-title>     
-        {{comment.username}}    
-        {{changeText}}   
+    <mat-card-title>
+        {{comment.username}}
+        {{changeText}}
     </mat-card-title>
 
-    <mat-card-subtitle>        
+    <mat-card-subtitle>
         {{comment.id}}
         {{comment.date}}
     </mat-card-subtitle>

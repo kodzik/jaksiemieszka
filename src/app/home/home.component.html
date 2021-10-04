@@ -16,6 +16,11 @@
 
 <div class="grid d-flex">
     <div #comments_section class="col-4">
+
+      <div>
+        <p-button class="navButton" (onClick)=addComment() icon="pi pi-angle-double-right" ></p-button>
+      </div>
+
       <app-comments></app-comments>
     </div>
 
