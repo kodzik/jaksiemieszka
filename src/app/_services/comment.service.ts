@@ -19,7 +19,7 @@ export class CommentService {
     let comment = new Comment
     comment.id = '124'
     comment.date = new Date();
-    comment.username = 'chuj'
+    comment.username = 'Marjan'
     comment.location = {lat: location.lat, lng: location.lng};
     this.newCommentSource.next(comment)
     // console.log("New comment", comment);

@@ -20,6 +20,9 @@ import { MessagesModule } from 'primeng/messages';
 import { MessageModule } from 'primeng/message';
 // import { CardModule } from 'primeng/card';
 import { RatingModule } from 'primeng/rating';
+import { ScrollPanelModule } from 'primeng/scrollpanel';
+import {VirtualScrollerModule} from 'primeng/virtualscroller';
+
 
 import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
 import { LeafletTestComponent } from './leaflet-test/leaflet-test.component';
@@ -75,6 +78,8 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
     ReactiveFormsModule,
     MessagesModule,
     MessageModule,
+    ScrollPanelModule,
+    VirtualScrollerModule,
 
     MatToolbarModule,
     MatIconModule,

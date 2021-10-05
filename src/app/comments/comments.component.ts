@@ -3,7 +3,7 @@ import { CommentService } from '../_services/comment.service';
 
 const COMMENTS = [
   // {id: '1'}
-  { id: '1', username:'Superman', date: "6/15/19, 10:54 PM", location: {lat: 52.223142679517, lng: 20.910263299484} },
+  { id: '1', username:'Superman', date: new Date(), location: {lat: 52.223142679517, lng: 20.910263299484} },
   // { id: '2', username:'Elo', date: "6/15/19, 10:54 PM", location: {lat: 52.261252543145, lng: 21.024761437893} },
 
   // { id: '3', username:'asdasd', date: "6/15/19, 10:54 PM" },
@@ -25,7 +25,7 @@ export class CommentsComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.comments.push({ id: '1', username:'Superman', date: "6/15/19, 10:54 PM", location: {lat: 52.223142679517, lng: 20.910263299484} });
+    this.comments.push({ id: '1', username:'Superman', date: new Date(), location: {lat: 52.223142679517, lng: 20.910263299484} });
   }
 
   ngAfterViewInit(){
