@@ -15,6 +15,8 @@ export class CommentService {
   
   constructor() { }
 
+  
+
   addnewComment(location: { lng: number; lat: number; }){
     let comment = new Comment
     comment.id = '124'

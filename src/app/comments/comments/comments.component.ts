@@ -1,5 +1,5 @@
 import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { CommentService } from '../_services/comment.service';
+import { CommentService } from '../../_services/comment.service';
 
 const COMMENTS = [
   // {id: '1'}

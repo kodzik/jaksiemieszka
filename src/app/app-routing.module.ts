@@ -8,17 +8,21 @@ import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
+const commentsModule = () => import('./comments/comments.module').then(x => x.CommentsModule);
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, canActivate: [AuthGuard] },
-  { path: 'gmap', component: MapTestComponent },
-  { path: 'openmap', component: OpenmapTestComponent },
-  { path: 'leaf', component: LeafletTestComponent },
-  { path: 'apollo', component: ApolloTestComponent },
-  { path: 'account', loadChildren: accountModule },
-
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard],
+    children: [
+      { path: 'gmap', component: MapTestComponent },
+      { path: 'openmap', component: OpenmapTestComponent },
+      { path: 'leaf', component: LeafletTestComponent },
+      { path: 'apollo', component: ApolloTestComponent },
+      { path: 'account', loadChildren: accountModule },
+      { path: 'comments', loadChildren: commentsModule },
+    ]
+},
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({

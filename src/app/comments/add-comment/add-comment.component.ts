@@ -24,8 +24,13 @@ export class AddCommentComponent implements OnInit {
       locationScore: [''],
       noiseScore: [''],
       airScore: [''],
-      content: [''],
+      freeComment: [''],
     });
+  }
+
+  onSubmit(){
+    console.log('onSubmit');
+    
   }
 
 }

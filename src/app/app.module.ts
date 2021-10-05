@@ -1,11 +1,9 @@
 import { NgModule } from '@angular/core';
-import { ScrollingModule } from '@angular/cdk/scrolling';
-
-import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-
+import { HttpClientModule } from '@angular/common/http';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -22,32 +20,27 @@ import { MarkerService } from './_services/marker.service';
 import { PopupService } from './_services/popup.service';
 import { ShapeService } from './_services/shape.service';
 
-import { MatToolbarModule } from '@angular/material/toolbar';
-import { MatIconModule } from "@angular/material/icon";
-import { MatButtonModule } from "@angular/material/button";
-import { MatCardModule } from '@angular/material/card';
-
-import { CommentComponent } from './comments/comment/comment.component';
 import { MapComponent } from './map/map.component';
-import { CommentsComponent } from './comments/comments.component';
-import { AddCommentComponent } from './comments/add-comment/add-comment.component';
+
 import { SharedModule } from "./_shared/shared/shared.module";
+import { CommentsModule } from './comments/comments.module';
 
 @NgModule({
   declarations: [
     AppComponent,
+
     MapTestComponent,
     OpenmapTestComponent,
     LeafletTestComponent,
     ApolloTestComponent,
+
     HomeComponent,
-    CommentComponent,
     MapComponent,
-    CommentsComponent,
-    AddCommentComponent,
+
   ],
   imports: [
     SharedModule,
+    CommentsModule,
 
     BrowserModule,
     BrowserAnimationsModule,
@@ -56,18 +49,9 @@ import { SharedModule } from "./_shared/shared/shared.module";
 
     HttpClientModule,
     GraphQLModule,
-
-    FormsModule,
-    ReactiveFormsModule,
-
-    MatToolbarModule,
-    MatIconModule,
-    MatButtonModule,
-    MatCardModule,
-
   ],
   exports:[
-    SharedModule,
+    // SharedModule,
   ],
   providers: [MarkerService, PopupService, ShapeService],
   bootstrap: [AppComponent]

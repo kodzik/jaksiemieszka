@@ -18,10 +18,20 @@
     <div #comments_section class="col-4">
 
       <div>
-        <!-- <p-button class="navButton" (onClick)=addComment() icon="pi pi-plus-circle" ></p-button> -->
+        <p-button class="navButton" (onClick)=showRef(templateTwo) icon="pi pi-plus-circle" ></p-button>
       </div>
 
-      <app-comments></app-comments>
+      <ng-container *ngTemplateOutlet="template || templateOne"></ng-container>
+
+      <ng-template #templateOne>
+        <app-comments></app-comments>
+      </ng-template>
+      
+      <ng-template #templateTwo>
+        <app-add-comment></app-add-comment>
+      </ng-template>
+
+      <!-- <app-layout></app-layout> -->
     </div>
 
     <div #map_section class="col-8">
