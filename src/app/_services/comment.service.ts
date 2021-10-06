@@ -15,9 +15,12 @@ export class CommentService {
   
   constructor() { }
 
-  
+  addnewComment(comment: Comment){
+    console.log("Comment service, new comment:", comment);
+    this.newCommentSource.next(comment);
+  }
 
-  addnewComment(location: { lng: number; lat: number; }){
+  addComment(location: { lng: number; lat: number; }){
     let comment = new Comment
     comment.id = '124'
     comment.date = new Date();

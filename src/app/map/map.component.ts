@@ -50,7 +50,7 @@ export class MapComponent implements OnInit {
       // console.log(e.latlng); // get the coordinates
       // L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map); // add the marker onclick
 
-      this.commentService.addnewComment(e.latlng)
+      this.commentService.addComment(e.latlng)
       this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '')
     });
 

@@ -1,4 +1,5 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input, OnInit, TemplateRef } from '@angular/core';
+import { CommentService } from '../_services/comment.service';
 
 @Component({
   selector: 'app-home',
@@ -7,18 +8,21 @@ import { Component, OnInit, TemplateRef } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
+  @Input() headerTemplate: TemplateRef<any>; // Custom template provided by parent
   template: TemplateRef<any>;
 
-  constructor() { }
+  windowIndex: number = 0;
+
+  constructor(private cmtService: CommentService) { }
 
   ngOnInit(): void {
+    this.cmtService.newComment.subscribe(cmt => {
+      this.windowIndex = 0
+    })
   }
 
-  showRef(template: TemplateRef<any>) {
-    this.template = template;
-  }
-
-  addComment(){
+  switchWindow(){
+    this.windowIndex = (this.windowIndex + 1)%2;
   }
 
 }

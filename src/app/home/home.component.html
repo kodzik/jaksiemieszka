@@ -18,20 +18,21 @@
     <div #comments_section class="col-4">
 
       <div>
-        <p-button class="navButton" (onClick)=showRef(templateTwo) icon="pi pi-plus-circle" ></p-button>
+        <p-button class="navButton" (onClick)=switchWindow() icon="pi pi-plus-circle" ></p-button>
       </div>
 
-      <ng-container *ngTemplateOutlet="template || templateOne"></ng-container>
+      <div [ngSwitch]='windowIndex'>
 
-      <ng-template #templateOne>
-        <app-comments></app-comments>
-      </ng-template>
-      
-      <ng-template #templateTwo>
-        <app-add-comment></app-add-comment>
-      </ng-template>
+        <div *ngSwitchCase="0">
+          <app-comments></app-comments>
+        </div>
 
-      <!-- <app-layout></app-layout> -->
+        <div *ngSwitchCase="1">
+          <app-add-comment></app-add-comment>
+        </div>
+
+      </div>
+
     </div>
 
     <div #map_section class="col-8">

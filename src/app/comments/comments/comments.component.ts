@@ -30,13 +30,9 @@ export class CommentsComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(){
     this.commentService.newComment.subscribe(comment => {
-      this.test(comment)
+      this.comments.push(comment);
     });
   }
 
-  test(msg: any){
-    this.comments.push(msg);
-    console.log("test",msg);
-  }
 
 }

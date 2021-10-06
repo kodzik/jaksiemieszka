@@ -12,26 +12,22 @@
 
 
 <div *ngIf="comments; else elseBlock">
-    <div *ngFor="let comment of comments">
-        <div *ngIf="comment">
-            <app-comment [comment]=comment></app-comment>
-        </div>
-    </div>
+
     <!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
         <div *cdkVirtualFor="let comment of comments" class="example-item">
             <app-comment [comment]=comment></app-comment>
         </div>
     </cdk-virtual-scroll-viewport> -->
 
-    <!-- <p-scrollPanel [style]="{width: '100%', height: '200px'}">
-        Content
-    </p-scrollPanel> -->
+    <p-scrollPanel [style]="{width: '100%', height: '80vh'}">
+        <div *ngFor="let comment of comments">
+            <div *ngIf="comment">
+                <app-comment [comment]=comment></app-comment>
+            </div>
+        </div>
+    </p-scrollPanel>
 </div>
-
-
 
 <ng-template #elseBlock>
     No comments available.
 </ng-template>
-<!-- comments.length > 0 -->
-<!-- comments?.capabilities?.items?.length > 0 -->
