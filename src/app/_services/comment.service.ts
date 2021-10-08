@@ -1,36 +1,40 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { Comment } from '../_models/comment';
+import { IComment } from '../_models/comment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommentService {
 
-  private commentSource = new Subject<Comment>();
+  // comment: Comment
+
+  private commentSource = new Subject<IComment>();
   highlightedComment = this.commentSource.asObservable();
 
-  private newCommentSource = new Subject<Comment>();
+  private newCommentSource = new Subject<IComment>();
   newComment = this.newCommentSource.asObservable();
   
   constructor() { }
 
-  addnewComment(comment: Comment){
+  addnewComment(comment: IComment){
     console.log("Comment service, new comment:", comment);
     this.newCommentSource.next(comment);
   }
 
-  addComment(location: { lng: number; lat: number; }){
-    let comment = new Comment
-    comment.id = '124'
-    comment.date = new Date();
-    comment.username = 'Marjan'
-    comment.location = {lat: location.lat, lng: location.lng};
-    this.newCommentSource.next(comment)
-    // console.log("New comment", comment);
-  }
+  // addComment(location: { lng: number; lat: number; }){
+  //   const comment: IComment = <IComment>{
+  //     id = '124'
+  //     date = new Date();
+  //     username = 'Marjan'
+  //     comment.location = {lat: location.lat, lng: location.lng};
+  //   }
 
-  highlightMarker(comment: Comment) {
+  //   this.newCommentSource.next(comment)
+  //   // console.log("New comment", comment);
+  // }
+
+  highlightMarker(comment: IComment) {
     this.commentSource.next(comment)
   }
 }

@@ -24,6 +24,12 @@
     <mat-card-subtitle>
         Id: {{comment.id}}
         Date: {{comment.date | date: 'medium' }}
+
+        <span>
+            <h4>AVG: {{comment.avg}}</h4>
+            <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
+        </span>
+
     </mat-card-subtitle>
 
     <mat-card-actions>

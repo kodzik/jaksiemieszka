@@ -1,6 +1,6 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { Comment } from 'src/app/_models/comment';
+import { CComment, IComment } from 'src/app/_models/comment';
 import { CommentService } from 'src/app/_services/comment.service';
 
 @Component({
@@ -12,6 +12,7 @@ export class AddCommentComponent implements OnInit {
 
   // @Output() commentSubmited = new EventEmitter<string>();
   commentForm: FormGroup;
+  comment: IComment;
 
   constructor(
     private fb: FormBuilder,
@@ -27,31 +28,61 @@ export class AddCommentComponent implements OnInit {
   createForm() {
     this.commentForm = this.fb.group({
       location: [''],
+
       locationScore: [''],
       noiseScore: [''],
       airScore: [''],
+      cultureScore: [''],
+      eduScore: [''],
+      sportScore: [''],
+      trafficScore: [''],
+
       freeComment: [''],
     });
   }
 
   get location(){ return this.commentForm.get('location')}
-  get locationScore(){ return this.commentForm.get('locationScore')}
-  get noiseScore(){ return this.commentForm.get('noiseScore')}
-  get airScore(){ return this.commentForm.get('airScore')}
+
+  get locationScore(){ return this.commentForm.get('locationScore')?.value}
+  get noiseScore(){ return this.commentForm.get('noiseScore')?.value}
+  get airScore(){ return this.commentForm.get('airScore')?.value}
+  get cultureScore(){ return this.commentForm.get('cultureScore')?.value}
+  get eduScore(){ return this.commentForm.get('eduScore')?.value}
+  get sportScore(){ return this.commentForm.get('sportScore')?.value}
+  get trafficScore(){ return this.commentForm.get('trafficScore')?.value}
+
   get freeComment(){ return this.commentForm.get('freeComment');}
 
   onSubmit(){
     // console.log('onSubmit');
-    let comment = new Comment;
-    comment.id = '' //TODO Generate id
+    let comment = new CComment;
+
+    comment.id = 'Guest' //TODO Generate id
     comment.date = new Date();
     comment.location = {lat: Number(this.location), lng: Number(this.location)} //TODO get appropriate numbers from location
     comment.rating = {
       air: Number(this.airScore),
       location: Number(this.locationScore),
       noise: Number(this.noiseScore),
-    }
+      culture: Number(this.cultureScore), 
+      education: Number(this.eduScore),
+      sport: Number(this.sportScore),
+      traffic: Number(this.trafficScore),
+      }
+    comment.avg = this.calculateAvgScore(comment),
+
     this.cmtService.addnewComment(comment)
+  }
+
+  calculateAvgScore(comment: IComment): number{
+    let index = 0;
+    Object.values(comment.rating).forEach(element => {
+      if(element != 0) {
+        comment.avg += element; 
+        index+=1; 
+      }
+    });
+    return (comment.avg / index);
   }
 
 }

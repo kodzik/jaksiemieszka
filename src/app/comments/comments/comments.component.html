@@ -21,7 +21,7 @@
 
     <p-scrollPanel [style]="{width: '100%', height: '80vh'}">
         <div *ngFor="let comment of comments">
-            <div *ngIf="comment">
+            <div *ngIf="comment!=undefined">
                 <app-comment [comment]=comment></app-comment>
             </div>
         </div>

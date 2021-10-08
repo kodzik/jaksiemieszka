@@ -17,10 +17,22 @@
         
         <h4>Hałas</h4> 
         <p-rating formControlName="noiseScore" [cancel]="false" required></p-rating>
-        
+      
         <h4>Jakość powietrza</h4> 
-        <p-rating formControlName="airScore" [cancel]="false" required></p-rating>
+        <p-rating formControlName="airScore" [cancel]="false" required></p-rating>  
+
+        <h4>Dostęp do kultury</h4> 
+        <p-rating formControlName="cultureScore" [cancel]="false" required></p-rating>
   
+        <h4>Dostęp do edukacji</h4> 
+        <p-rating formControlName="eduScore" [cancel]="false" required></p-rating>
+
+        <h4>Dostęp do sportu</h4> 
+        <p-rating formControlName="sportScore" [cancel]="false" required></p-rating>
+
+        <h4>Korki</h4> 
+        <p-rating formControlName="trafficScore" [cancel]="false" required></p-rating>
+
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Leave a comment</mat-label>
           <textarea matInput formControlName="freeComment" placeholder="Ex. It makes me feel..."></textarea>

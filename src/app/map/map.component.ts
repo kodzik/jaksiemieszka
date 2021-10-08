@@ -2,7 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { MarkerService } from "../_services/marker.service";
 import * as L from 'leaflet';
 import { CommentService } from '../_services/comment.service';
-import { Comment } from '../_models/comment';
+import { IComment } from '../_models/comment';
+import { ShapeService } from '../_services/shape.service';
 
 @Component({
   selector: 'app-map',
@@ -12,7 +13,8 @@ import { Comment } from '../_models/comment';
 export class MapComponent implements OnInit {
 
   public map: any;
-  testMessage: Comment;
+  districts: any;
+  testMessage: IComment;
 
   public initMap(): void {
     this.map = L.map('map', {
@@ -37,7 +39,8 @@ export class MapComponent implements OnInit {
 
   constructor(
     private markerService: MarkerService,
-    private commentService: CommentService) {
+    private commentService: CommentService,
+    private shapeService: ShapeService) {
     }
 
   ngOnInit(): void {
@@ -49,8 +52,7 @@ export class MapComponent implements OnInit {
     this.map.on("click", (e: { latlng: { lng: number; lat: number; }; }) => {
       // console.log(e.latlng); // get the coordinates
       // L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map); // add the marker onclick
-
-      this.commentService.addComment(e.latlng)
+      // this.commentService.addComment(e.latlng)
       this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '')
     });
 
@@ -59,8 +61,58 @@ export class MapComponent implements OnInit {
       console.log(this.testMessage);
       this.markerService.addMarkerFromComment(this.map, this.testMessage)
     });
+
+    this.shapeService.getStateShapes().subscribe(states => {
+      this.districts = states;
+      this.initDistrictLayer();
+    });
   }
 
+  private initDistrictLayer() {
+    const stateLayer = L.geoJSON(this.districts, {
+      style: (feature) => ({
+        weight: 3,
+        opacity: 0.5,
+        color: '#008f68',
+        fillOpacity: 0.8,
+        fillColor: '#6DB65B'
+      }),
+
+      onEachFeature: (feature, layer) => (
+        layer.on({
+          mouseover:  (e) => (this.highlightFeature(e)),
+          mouseout:   (e) => (this.resetFeature(e)),
+          click:      (e) => ( console.log("District: ", feature.properties.name) )
+        })
+      )
+    });
+
+    this.map.addLayer(stateLayer);
+    stateLayer.bringToBack();
+  }
+
+  private highlightFeature(e: any) {
+    const layer = e.target;
   
+    layer.setStyle({
+      weight: 10,
+      opacity: 1.0,
+      color: '#DFA612',
+      fillOpacity: 1.0,
+      fillColor: '#FAE042'
+    });
+  }
+  
+  private resetFeature(e: any) {
+    const layer = e.target;
+  
+    layer.setStyle({
+      weight: 3,
+      opacity: 0.5,
+      color: '#008f68',
+      fillOpacity: 0.8,
+      fillColor: '#6DB65B'
+    });
+  }
 
 }

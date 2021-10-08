@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import * as L from 'leaflet';
 import { PopupService } from './popup.service';
-import { Comment } from '../_models/comment';
+import { IComment } from '../_models/comment';
 // import {  } from "leaflet.smooth_marker_bouncing";
 
 @Injectable({
@@ -26,7 +26,7 @@ export class MarkerService {
     // const lat = c.geometry.coordinates[1];
   }
 
-  addMarkerFromComment(map: L.Map, comment: Comment){
+  addMarkerFromComment(map: L.Map, comment: IComment){
     this.addMarker(map, comment.location.lat, comment.location.lng, '')
   }
 
