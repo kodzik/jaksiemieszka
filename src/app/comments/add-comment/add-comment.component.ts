@@ -41,7 +41,7 @@ export class AddCommentComponent implements OnInit {
     });
   }
 
-  get location(){ return this.commentForm.get('location')}
+  get location(){ return this.commentForm.get('location')?.value}
 
   get locationScore(){ return this.commentForm.get('locationScore')?.value}
   get noiseScore(){ return this.commentForm.get('noiseScore')?.value}
@@ -51,7 +51,7 @@ export class AddCommentComponent implements OnInit {
   get sportScore(){ return this.commentForm.get('sportScore')?.value}
   get trafficScore(){ return this.commentForm.get('trafficScore')?.value}
 
-  get freeComment(){ return this.commentForm.get('freeComment');}
+  get freeComment(){ return this.commentForm.get('freeComment')?.value;}
 
   onSubmit(){
     // console.log('onSubmit');
