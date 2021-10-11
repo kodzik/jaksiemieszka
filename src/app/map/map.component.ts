@@ -16,6 +16,7 @@ export class MapComponent implements OnInit {
   districts: any;
   testMessage: IComment;
 
+
   public initMap(): void {
     this.map = L.map('map', {
       center: [52.217779314315, 21.042614221109],
@@ -50,22 +51,24 @@ export class MapComponent implements OnInit {
     this.initMap();
 
     this.map.on("click", (e: { latlng: { lng: number; lat: number; }; }) => {
-      // console.log(e.latlng); // get the coordinates
+      this.markerService.currentMarker = e.latlng;
       // L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map); // add the marker onclick
-      // this.commentService.addComment(e.latlng)
-      this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '')
+      // if(this.markerService.enableMarkers){
+        this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '')
+      //   this.markerService.enableMarkers = false;
+      // }
     });
-
+    
     this.commentService.highlightedComment.subscribe(comment => {
       this.testMessage = comment
       console.log(this.testMessage);
       this.markerService.addMarkerFromComment(this.map, this.testMessage)
     });
 
-    this.shapeService.getStateShapes().subscribe(states => {
-      this.districts = states;
-      this.initDistrictLayer();
-    });
+    // this.shapeService.getStateShapes().subscribe(states => {
+    //   this.districts = states;
+    //   this.initDistrictLayer();
+    // });
   }
 
   private initDistrictLayer() {

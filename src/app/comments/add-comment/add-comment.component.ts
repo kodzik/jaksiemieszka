@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CComment, IComment } from 'src/app/_models/comment';
 import { CommentService } from 'src/app/_services/comment.service';
+import { MarkerService } from 'src/app/_services/marker.service';
 
 @Component({
   selector: 'app-add-comment',
@@ -16,7 +17,8 @@ export class AddCommentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private cmtService: CommentService
+    private cmtService: CommentService,
+    private markerService: MarkerService,
     ) {
     this.createForm();
   }
@@ -41,8 +43,8 @@ export class AddCommentComponent implements OnInit {
     });
   }
 
-  get location(){ return this.commentForm.get('location')?.value}
-
+  // get location(){ return this.commentForm.get('location')?.value}
+  get location(){ return this.markerService.currentMarker}
   get locationScore(){ return this.commentForm.get('locationScore')?.value}
   get noiseScore(){ return this.commentForm.get('noiseScore')?.value}
   get airScore(){ return this.commentForm.get('airScore')?.value}
@@ -50,7 +52,6 @@ export class AddCommentComponent implements OnInit {
   get eduScore(){ return this.commentForm.get('eduScore')?.value}
   get sportScore(){ return this.commentForm.get('sportScore')?.value}
   get trafficScore(){ return this.commentForm.get('trafficScore')?.value}
-
   get freeComment(){ return this.commentForm.get('freeComment')?.value;}
 
   onSubmit(){
@@ -83,6 +84,15 @@ export class AddCommentComponent implements OnInit {
       }
     });
     return (comment.avg / index);
+  }
+
+  onLocationInputClick(){
+    console.log("on loc input");
+    this.markerService.enableMarkers = true;
+  }
+
+  onLocationInputBlur(){
+    console.warn(this.markerService.currentMarker);
   }
 
 }
