@@ -43,8 +43,10 @@ export class AddCommentComponent implements OnInit {
     });
   }
 
-  // get location(){ return this.commentForm.get('location')?.value}
-  get location(){ return this.markerService.currentMarker}
+  get currentMarker(): any{return this.markerService.currentMarker}
+
+  get location(){ return this.commentForm.get('location')?.value}
+  // get location(){ return ''}
   get locationScore(){ return this.commentForm.get('locationScore')?.value}
   get noiseScore(){ return this.commentForm.get('noiseScore')?.value}
   get airScore(){ return this.commentForm.get('airScore')?.value}
@@ -87,12 +89,13 @@ export class AddCommentComponent implements OnInit {
   }
 
   onLocationInputClick(){
-    console.log("on loc input");
+    console.log("on loc input", this.currentMarker);
     this.markerService.enableMarkers = true;
   }
 
   onLocationInputBlur(){
-    console.warn(this.markerService.currentMarker);
+    console.warn(this.currentMarker);
+
   }
 
 }
