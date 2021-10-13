@@ -14,6 +14,7 @@ export class AddCommentComponent implements OnInit {
   // @Output() commentSubmited = new EventEmitter<string>();
   commentForm: FormGroup;
   comment: IComment;
+  currentLoc: any;
 
   constructor(
     private fb: FormBuilder,
@@ -46,7 +47,7 @@ export class AddCommentComponent implements OnInit {
   get currentMarker(): any{return this.markerService.currentMarker}
 
   get location(){ return this.commentForm.get('location')?.value}
-  // get location(){ return ''}
+  // get location(){ return this.currentMarker}
   get locationScore(){ return this.commentForm.get('locationScore')?.value}
   get noiseScore(){ return this.commentForm.get('noiseScore')?.value}
   get airScore(){ return this.commentForm.get('airScore')?.value}

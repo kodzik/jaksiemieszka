@@ -44,8 +44,11 @@
   
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Location</mat-label>
-          <input matInput [formControl]="location" placeholder="Ex. pat@example.com" (click)="onLocationInputClick()" (blur)="onLocationInputBlur()">
+          <input matInput [(ngModel)]="currentLoc" placeholder="Ex. pat@example.com" (click)="onLocationInputClick()" (blur)="onLocationInputBlur()" [ngModelOptions]="{standalone: true}">
           {{currentMarker.latlng}}
+          <button *ngIf="location" matSuffix mat-icon-button aria-label="Clear" (click)="currentLoc=''">
+            <mat-icon>close</mat-icon>
+          </button>
           <!-- <mat-error *ngIf="location.hasError('email') && !location.hasError('required')">
             Please enter a valid email address
           </mat-error>
