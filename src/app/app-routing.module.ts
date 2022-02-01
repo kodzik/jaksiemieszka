@@ -22,7 +22,7 @@ const routes: Routes = [
     ]
 },
   // otherwise redirect to home
-  { path: '**', redirectTo: 'home' }
+  { path: '**', redirectTo: '' }
 ];
 
 @NgModule({

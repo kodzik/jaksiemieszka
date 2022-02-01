@@ -14,6 +14,7 @@ export class AddCommentComponent implements OnInit {
   // @Output() commentSubmited = new EventEmitter<string>();
   commentForm: FormGroup;
   comment: IComment;
+  currentLoc: any;
 
   constructor(
     private fb: FormBuilder,
@@ -43,8 +44,10 @@ export class AddCommentComponent implements OnInit {
     });
   }
 
-  get location(){ return this.commentForm.get('location')?.value}
+  get currentMarker(): any{return this.markerService.currentMarker}
 
+  get location(){ return this.commentForm.get('location')?.value}
+  // get location(){ return this.currentMarker}
   get locationScore(){ return this.commentForm.get('locationScore')?.value}
   get noiseScore(){ return this.commentForm.get('noiseScore')?.value}
   get airScore(){ return this.commentForm.get('airScore')?.value}
@@ -52,7 +55,6 @@ export class AddCommentComponent implements OnInit {
   get eduScore(){ return this.commentForm.get('eduScore')?.value}
   get sportScore(){ return this.commentForm.get('sportScore')?.value}
   get trafficScore(){ return this.commentForm.get('trafficScore')?.value}
-
   get freeComment(){ return this.commentForm.get('freeComment')?.value;}
 
   addLocation(){
@@ -90,6 +92,16 @@ export class AddCommentComponent implements OnInit {
       }
     });
     return (comment.avg / index);
+  }
+
+  onLocationInputClick(){
+    console.log("on loc input", this.currentMarker);
+    this.markerService.enableMarkers = true;
+  }
+
+  onLocationInputBlur(){
+    console.warn(this.currentMarker);
+
   }
 
 }
