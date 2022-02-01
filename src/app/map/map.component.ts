@@ -53,7 +53,10 @@ export class MapComponent implements OnInit {
       // console.log(e.latlng); // get the coordinates
       // L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map); // add the marker onclick
       // this.commentService.addComment(e.latlng)
-      this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '')
+      if(this.markerService.enableMarkers === true) {
+        this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '');
+        this.markerService.enableMarkers = false;
+      }
     });
 
     this.commentService.highlightedComment.subscribe(comment => {
@@ -62,10 +65,10 @@ export class MapComponent implements OnInit {
       this.markerService.addMarkerFromComment(this.map, this.testMessage)
     });
 
-    this.shapeService.getStateShapes().subscribe(states => {
-      this.districts = states;
-      this.initDistrictLayer();
-    });
+    // this.shapeService.getStateShapes().subscribe(states => {
+    //   this.districts = states;
+    //   this.initDistrictLayer();
+    // });
   }
 
   private initDistrictLayer() {
@@ -93,7 +96,7 @@ export class MapComponent implements OnInit {
 
   private highlightFeature(e: any) {
     const layer = e.target;
-  
+
     layer.setStyle({
       weight: 10,
       opacity: 1.0,
@@ -102,10 +105,10 @@ export class MapComponent implements OnInit {
       fillColor: '#FAE042'
     });
   }
-  
+
   private resetFeature(e: any) {
     const layer = e.target;
-  
+
     layer.setStyle({
       weight: 3,
       opacity: 0.5,

@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CComment, IComment } from 'src/app/_models/comment';
 import { CommentService } from 'src/app/_services/comment.service';
+import { MarkerService } from 'src/app/_services/marker.service';
 
 @Component({
   selector: 'app-add-comment',
@@ -16,7 +17,8 @@ export class AddCommentComponent implements OnInit {
 
   constructor(
     private fb: FormBuilder,
-    private cmtService: CommentService
+    private cmtService: CommentService,
+    private markerService: MarkerService,
     ) {
     this.createForm();
   }
@@ -53,6 +55,11 @@ export class AddCommentComponent implements OnInit {
 
   get freeComment(){ return this.commentForm.get('freeComment')?.value;}
 
+  addLocation(){
+    console.log("On input click");
+    this.markerService.enableMarkers = true;
+  }
+
   onSubmit(){
     // console.log('onSubmit');
     let comment = new CComment;
@@ -64,7 +71,7 @@ export class AddCommentComponent implements OnInit {
       air: Number(this.airScore),
       location: Number(this.locationScore),
       noise: Number(this.noiseScore),
-      culture: Number(this.cultureScore), 
+      culture: Number(this.cultureScore),
       education: Number(this.eduScore),
       sport: Number(this.sportScore),
       traffic: Number(this.trafficScore),
@@ -78,8 +85,8 @@ export class AddCommentComponent implements OnInit {
     let index = 0;
     Object.values(comment.rating).forEach(element => {
       if(element != 0) {
-        comment.avg += element; 
-        index+=1; 
+        comment.avg += element;
+        index+=1;
       }
     });
     return (comment.avg / index);

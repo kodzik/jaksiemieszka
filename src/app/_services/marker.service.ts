@@ -10,6 +10,8 @@ import { IComment } from '../_models/comment';
 })
 export class MarkerService {
 
+  enableMarkers: boolean = false;
+
   capitals: string = '/assets/data/usa-capitals.geojson';
 
   constructor(private http: HttpClient, private popupService: PopupService ) { }
@@ -30,11 +32,7 @@ export class MarkerService {
     this.addMarker(map, comment.location.lat, comment.location.lng, '')
   }
 
-  bounceMarker(){
-
-  }
-
-  makeCapitalMarkers(map: L.Map): void { 
+  makeCapitalMarkers(map: L.Map): void {
     this.http.get(this.capitals).subscribe((res: any) => {
       for (const c of res.features) {
         const lon = c.geometry.coordinates[0];
@@ -57,7 +55,7 @@ export class MarkerService {
         const circle = L.circleMarker([lat, lon], {
           radius: MarkerService.scaledRadius(c.properties.population, maxPop)
         });
-        
+
         circle.bindPopup(this.popupService.makeCapitalPopup(c.properties));
         circle.addTo(map);
       }

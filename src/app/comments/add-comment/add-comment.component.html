@@ -12,46 +12,49 @@
       <form [formGroup]="commentForm" class="p-fluid form-group" (ngSubmit)="onSubmit()">
         <!-- <input class="input form-control ng-invalid ng-dirty" id="loca" formControlName="username"  type="text" pInputText  required  />  -->
         <!-- CHOOSE LOCATION -->
-        <h4>Lokalizacja</h4> 
-        <p-rating formControlName="locationScore" [cancel]="false" required>Lokalizacja</p-rating>
-        
-        <h4>Hałas</h4> 
-        <p-rating formControlName="noiseScore" [cancel]="false" required></p-rating>
-      
-        <h4>Jakość powietrza</h4> 
-        <p-rating formControlName="airScore" [cancel]="false" required></p-rating>  
 
-        <h4>Dostęp do kultury</h4> 
+        <h4>Lokalizacja</h4>
+        <p-rating formControlName="locationScore" [cancel]="false" required>Lokalizacja</p-rating>
+
+        <h4>Hałas</h4>
+        <p-rating formControlName="noiseScore" [cancel]="false" required></p-rating>
+
+        <h4>Jakość powietrza</h4>
+        <p-rating formControlName="airScore" [cancel]="false" required></p-rating>
+
+        <h4>Dostęp do kultury</h4>
         <p-rating formControlName="cultureScore" [cancel]="false" required></p-rating>
-  
-        <h4>Dostęp do edukacji</h4> 
+
+        <h4>Dostęp do edukacji</h4>
         <p-rating formControlName="eduScore" [cancel]="false" required></p-rating>
 
-        <h4>Dostęp do sportu</h4> 
+        <h4>Dostęp do sportu</h4>
         <p-rating formControlName="sportScore" [cancel]="false" required></p-rating>
 
-        <h4>Korki</h4> 
+        <h4>Korki</h4>
         <p-rating formControlName="trafficScore" [cancel]="false" required></p-rating>
 
         <mat-form-field class="example-full-width" appearance="fill">
           <mat-label>Leave a comment</mat-label>
           <textarea matInput formControlName="freeComment" placeholder="Ex. It makes me feel..."></textarea>
-          <mat-hint ><strong>Don't disclose personal info</strong> </mat-hint>
+          <!-- <mat-hint ><strong>Don't disclose personal info</strong> </mat-hint> -->
 
-          <mat-hint >{{freeComment.value}} / 256</mat-hint>
+          <!-- <mat-hint >{{freeComment.value}} / 256</mat-hint> -->
 
         </mat-form-field>
-  
-        <mat-form-field class="example-full-width" appearance="fill">
-          <mat-label>Email</mat-label>
-          <input type="email" matInput [formControl]="location" placeholder="Ex. pat@example.com">
-          <mat-error *ngIf="location.hasError('email') && !location.hasError('required')">
-            Please enter a valid email address
-          </mat-error>
-          <mat-error *ngIf="location.hasError('required')">
-            Email is <strong>required</strong>
-          </mat-error>
-        </mat-form-field>
+
+        <div>
+          <mat-form-field class="example-full-width" appearance="fill">
+            <mat-label>Location</mat-label>
+            <input matInput [formControl]="location" (click)="addLocation()"  placeholder="Kliknij na mapę by dodać marker">
+            <!-- <mat-error *ngIf="location.hasError('email') && !location.hasError('required')">
+              Please enter a valid email address
+            </mat-error>
+            <mat-error *ngIf="location.hasError('required')">
+              Email is <strong>required</strong>
+            </mat-error> -->
+          </mat-form-field>
+        </div>
 
         <mat-card-actions>
           <!-- <button mat-button>LIKE</button> -->
@@ -59,6 +62,6 @@
         </mat-card-actions>
       </form>
 
-  </mat-card-content>	
+  </mat-card-content>
 
 </mat-card>
