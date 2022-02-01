@@ -12,12 +12,9 @@ export class MarkerService {
 
   enableMarkers: boolean = false;
 
-<<<<<<< HEAD
-=======
   currentMarkerChange: Subject<any> = new Subject<any>();
   currentMarker: any;
 
->>>>>>> 7deeb54bcf789398240138d794eaf83092a3beaf
   capitals: string = '/assets/data/usa-capitals.geojson';
 
   constructor(private http: HttpClient, private popupService: PopupService ) {
@@ -57,11 +54,7 @@ export class MarkerService {
     this.addMarker(map, comment.location.lat, comment.location.lng, '')
   }
 
-<<<<<<< HEAD
   makeCapitalMarkers(map: L.Map): void {
-=======
-  makeCapitalMarkers(map: L.Map): void { 
->>>>>>> 7deeb54bcf789398240138d794eaf83092a3beaf
     this.http.get(this.capitals).subscribe((res: any) => {
       for (const c of res.features) {
         const lon = c.geometry.coordinates[0];
