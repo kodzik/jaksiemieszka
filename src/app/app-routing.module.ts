@@ -11,7 +11,8 @@ const accountModule = () => import('./account/account.module').then(x => x.Accou
 const commentsModule = () => import('./comments/comments.module').then(x => x.CommentsModule);
 
 const routes: Routes = [
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard],
+  { 
+    path: 'home', component: HomeComponent, canActivate: [AuthGuard],
     children: [
       { path: 'gmap', component: MapTestComponent },
       { path: 'openmap', component: OpenmapTestComponent },
@@ -20,9 +21,9 @@ const routes: Routes = [
       { path: 'account', loadChildren: accountModule },
       { path: 'comments', loadChildren: commentsModule },
     ]
-},
+  },
   // otherwise redirect to home
-  { path: '**', redirectTo: '' }
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({

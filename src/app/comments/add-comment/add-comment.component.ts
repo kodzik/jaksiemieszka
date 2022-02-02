@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { CComment, IComment } from 'src/app/_models/comment';
 import { CommentService } from 'src/app/_services/comment.service';
 import { MarkerService } from 'src/app/_services/marker.service';
+import * as L from 'leaflet';
 
 @Component({
   selector: 'app-add-comment',
