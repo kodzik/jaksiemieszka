@@ -1,4 +1,5 @@
-import { AfterViewInit, ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs';
 import { CommentService } from '../../_services/comment.service';
 
 const COMMENTS = [
@@ -25,25 +26,29 @@ const COMMENTS = [
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class CommentsComponent implements OnInit, AfterViewInit {
+export class CommentsComponent implements OnInit {
 
   comments = COMMENTS;
-  // comments: any;
 
   constructor(private commentService: CommentService) {
   }
 
   ngOnInit(): void {
+    // this.comments = []
+    // this.commentService.newComment.subscribe(comment => {
+    //   console.warn("chujwdupe nowe komcie:", comment);
+      
+    //   this.comments.push(comment);
+    // });
+
+
+    // this.comments = this.commentService.comments <========= TO MA WRÓCIĆ
+
+
+
     // this.comments.push({ id: '1', username:'Superman', date: new Date(), location: {lat: 52.223142679517, lng: 20.910263299484} });
   }
-
-  ngAfterViewInit(){
-    this.commentService.newComment.subscribe(comment => {
-      this.comments.push(comment);
-    });
-  }
-
 
 }

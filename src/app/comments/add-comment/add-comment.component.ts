@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { Subject } from 'rxjs';
 import { CComment, IComment } from 'src/app/_models/comment';
 import { CommentService } from 'src/app/_services/comment.service';
 import { MarkerService } from 'src/app/_services/marker.service';
@@ -9,12 +10,15 @@ import { MarkerService } from 'src/app/_services/marker.service';
   templateUrl: './add-comment.component.html',
   styleUrls: ['./add-comment.component.scss']
 })
-export class AddCommentComponent implements OnInit {
+export class AddCommentComponent implements OnInit, OnDestroy {
 
   // @Output() commentSubmited = new EventEmitter<string>();
   commentForm: FormGroup;
   comment: IComment;
   currentLoc: any;
+
+  private newCommentSource = new Subject<IComment>();
+  newComment = this.newCommentSource.asObservable();
 
   constructor(
     private fb: FormBuilder,
@@ -26,6 +30,7 @@ export class AddCommentComponent implements OnInit {
 
   ngOnInit(): void {
     this.createForm();
+    this.markerService.enableMarkers = true;
   }
 
   createForm() {
@@ -63,10 +68,9 @@ export class AddCommentComponent implements OnInit {
   }
 
   onSubmit(){
-    // console.log('onSubmit');
     let comment = new CComment;
 
-    comment.id = 'Guest' //TODO Generate id
+    comment.id = String(Math.floor(Math.random() * 100))  //TODO Generate id
     comment.date = new Date();
     comment.location = {lat: Number(this.location), lng: Number(this.location)} //TODO get appropriate numbers from location
     comment.rating = {
@@ -81,6 +85,13 @@ export class AddCommentComponent implements OnInit {
     comment.avg = this.calculateAvgScore(comment),
 
     this.cmtService.addnewComment(comment)
+    // this.addnewComment(comment)
+  }
+
+  addnewComment(comment: IComment){
+    console.log("Comment service, new comment:", comment);
+    this.newCommentSource.next(comment);
+    // this.newCommentSource.next();
   }
 
   calculateAvgScore(comment: IComment): number{
@@ -95,13 +106,15 @@ export class AddCommentComponent implements OnInit {
   }
 
   onLocationInputClick(){
-    console.log("on loc input", this.currentMarker);
-    this.markerService.enableMarkers = true;
+  //   console.log("on loc input", this.currentMarker);
+  //   this.markerService.enableMarkers = true;
   }
 
   onLocationInputBlur(){
     console.warn(this.currentMarker);
-
   }
 
+  ngOnDestroy(): void {
+    this.markerService.enableMarkers = false;
+  }
 }

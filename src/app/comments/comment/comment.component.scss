@@ -1,0 +1,23 @@
+.card{
+    display: flex;
+    flex-direction: row;
+    
+    min-height: 180px;
+    background-color: #2E2E2E;
+    border-radius: 6px;
+}
+
+.card .rating .number{
+    height: 50px;
+    width: 30px;
+    background-color: #FFFFFF;
+    border-radius: 6px;
+    padding: 1rem;
+}
+
+.card .rating .stars{
+    border: solid;
+    border-width: 1px;
+    border-color: #707070;
+    border-radius: 6px;
+}

@@ -24,6 +24,7 @@ import { MapComponent } from './map/map.component';
 
 import { SharedModule } from "./_shared/shared/shared.module";
 import { CommentsModule } from './comments/comments.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { CommentsModule } from './comments/comments.module';
 
     HomeComponent,
     MapComponent,
+    NavbarComponent,
 
   ],
   imports: [
