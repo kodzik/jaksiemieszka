@@ -1,7 +1,26 @@
-.example-spacer {
-    flex: 1 1 auto;
-  }
-
 .main {
   background-color: #858585;
+}
+
+.main .navbar{
+
+}
+
+.main .content{
+  display: flex;
+  flex-direction: row;
+}
+
+.main .content .comments_section{
+  
+}
+
+.map_section{
+
+}
+
+.map_section .map{
+  // height: 90vh;
+  // max-height: 100%;
+  // margin: 0.5rem;
 }
