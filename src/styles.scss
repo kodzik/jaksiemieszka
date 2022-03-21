@@ -3,3 +3,12 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+    font-family: "Poppins";
+    src: local("Poppins"), url(./assets/fonts/Poppins/Poppins-Bold.ttf) format("truetype");
+}
+
+:host ::ng-deep .p-rating-star{
+    color: #000;
+}

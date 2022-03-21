@@ -9,26 +9,18 @@
     <!-- </div> -->
 <!-- </div> -->
 
-
-
-<div *ngIf="comments; else elseBlock">
-
-    <!-- <cdk-virtual-scroll-viewport itemSize="50" class="example-viewport">
-        <div *cdkVirtualFor="let comment of comments" class="example-item">
-            <app-comment [comment]=comment></app-comment>
-        </div>
-    </cdk-virtual-scroll-viewport> -->
-
-    {{comments.length}}
+<div *ngIf="comments.length != 0; else elseBlock">
     <p-scrollPanel [style]="{width: '100%', height: '80vh'}">
         <div *ngFor="let comment of comments">
-            <!-- <div *ngIf="comment!=undefined"> -->
-                <app-comment [comment]=comment></app-comment>
-            <!-- </div> -->
+            <app-comment [comment]=comment></app-comment>
         </div>
     </p-scrollPanel>
 </div>
 
 <ng-template #elseBlock>
-    No comments available.
+    <div class="no-comments">
+        <p>
+            Dodaj pierwszy komentarz!
+        </p>
+    </div>
 </ng-template>

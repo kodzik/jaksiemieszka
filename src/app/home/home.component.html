@@ -23,10 +23,6 @@
   <div class="content">
       <div class="comments_section">
 
-        <div>
-          <p-button class="navButton" (onClick)=switchWindow() icon="pi pi-plus-circle" ></p-button>
-        </div>
-
         <div [ngSwitch]='windowIndex'>
 
           <div *ngSwitchCase="0">
@@ -38,8 +34,12 @@
           </div>
 
         </div>
-
+        <div>
+          <p-button class="navButton" (onClick)=switchWindow() icon="pi pi-plus-circle" ></p-button>
+        </div>
       </div>
+
+
 
       <div class="map_section">
         <div class="map">

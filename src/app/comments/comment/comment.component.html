@@ -42,18 +42,38 @@
 <br> -->
 
 <div class="card">
-    <div>
+    <div class="content">
         <div class="rating">
             <div class="number">
-                <h4>{{comment.avg}}</h4>
+                {{comment.avg | number: '1.1-1'}}
             </div>
             <div class="stars">
                 <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
             </div>
         </div>
         <div class="cmt-text">
-
+            <div *ngIf="comment.content == undefined; else elseBlock">
+                {{comment.content}}
+            </div>
+            <ng-template #elseBlock>
+                Brak komentarza.
+            </ng-template>
         </div>
+
+    </div>
+    <div class="subcontent">
+        <div class="user">
+            <i class="pi pi-user"></i>
+            {{comment.username}}
+        </div>
+        <div class="location">
+            <i class="pi pi-map-marker"></i>
+            Praga Północ, Burdzińskiego
+        </div>
+        <div class="rate-btn"></div>
+    </div>
+    <div class="expand-btn">
+        ...
     </div>
 </div>
 
