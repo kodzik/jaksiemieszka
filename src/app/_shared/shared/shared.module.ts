@@ -3,6 +3,8 @@ import { CommonModule } from '@angular/common';
 import { PrimesharedModule } from '../primeshared/primeshared.module';
 import { MatSharedModule } from '../mat-shared/mat-shared.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
@@ -10,6 +12,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     
+    // BrowserModule,
+    // BrowserAnimationsModule,
+
     PrimesharedModule,
     MatSharedModule,
     

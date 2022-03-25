@@ -1,0 +1,22 @@
+@mixin border {
+    border: solid;
+    border-width: 1px;
+    border-color: #707070;
+    border-radius: 6px;
+}
+
+h1{
+    font-family: "Poppins";
+    font-weight: 100;
+}
+
+$background: #707070;
+
+.zero{
+    text-align: center
+}
+
+.new-form{
+    @include border();
+    background-color: $background;
+}

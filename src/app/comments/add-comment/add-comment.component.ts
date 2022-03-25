@@ -82,7 +82,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
       sport: Number(this.sportScore),
       traffic: Number(this.trafficScore),
       }
-    comment.avg = this.calculateAvgScore(comment),
+    comment.avg = this.cmtService.calculateAvgScore(comment),
 
     this.cmtService.addnewComment(comment)
     // this.addnewComment(comment)
@@ -94,16 +94,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     // this.newCommentSource.next();
   }
 
-  calculateAvgScore(comment: IComment): number{
-    let index = 0;
-    Object.values(comment.rating).forEach(element => {
-      if(element != 0) {
-        comment.avg += element;
-        index+=1;
-      }
-    });
-    return (comment.avg / index);
-  }
+
 
   onLocationInputClick(){
   //   console.log("on loc input", this.currentMarker);

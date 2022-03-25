@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MapTestComponent } from './map-test.component';
+import { CommFormComponent } from './comm-form.component';
 
-describe('MapTestComponent', () => {
-  let component: MapTestComponent;
-  let fixture: ComponentFixture<MapTestComponent>;
+describe('CommFormComponent', () => {
+  let component: CommFormComponent;
+  let fixture: ComponentFixture<CommFormComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ MapTestComponent ]
+      declarations: [ CommFormComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MapTestComponent);
+    fixture = TestBed.createComponent(CommFormComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -41,20 +41,20 @@
 </mat-card>
 <br> -->
 
-<div class="card">
+<div class="card" (mouseenter)="highlightMarker()">
     <div class="content">
         <div class="rating">
             <div class="number">
-                {{comment.avg | number: '1.1-1'}}
+                {{rating | number: '1.1-1'}}
             </div>
             <div class="stars">
                 <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
             </div>
         </div>
         <div class="cmt-text">
-            <div *ngIf="comment.content == undefined; else elseBlock">
+            <!-- <div *ngIf="comment.content != undefined; else elseBlock"> -->
                 {{comment.content}}
-            </div>
+            <!-- </div> -->
             <ng-template #elseBlock>
                 Brak komentarza.
             </ng-template>

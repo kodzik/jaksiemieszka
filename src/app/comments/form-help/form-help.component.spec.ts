@@ -1,20 +1,20 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LeafletTestComponent } from './leaflet-test.component';
+import { FormHelpComponent } from './form-help.component';
 
-describe('LeafletTestComponent', () => {
-  let component: LeafletTestComponent;
-  let fixture: ComponentFixture<LeafletTestComponent>;
+describe('FormHelpComponent', () => {
+  let component: FormHelpComponent;
+  let fixture: ComponentFixture<FormHelpComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ LeafletTestComponent ]
+      declarations: [ FormHelpComponent ]
     })
     .compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LeafletTestComponent);
+    fixture = TestBed.createComponent(FormHelpComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

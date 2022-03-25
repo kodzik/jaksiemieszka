@@ -30,6 +30,17 @@ export class CommentService {
     this.commentSource.next(comment)
   }
 
+  calculateAvgScore(comment: IComment): number{
+    let index = 0;
+    Object.values(comment.rating).forEach(element => {
+      if(element != 0) {
+        comment.avg += element;
+        index+=1;
+      }
+    });
+    return (comment.avg / index);
+  }
+
 }
 
 

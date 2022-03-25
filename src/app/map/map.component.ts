@@ -1,9 +1,25 @@
 import { Component, OnInit } from '@angular/core';
 import { MarkerService } from "../_services/marker.service";
 import * as L from 'leaflet';
+import { icon, Marker } from 'leaflet';
 import { CommentService } from '../_services/comment.service';
 import { IComment } from '../_models/comment';
 import { ShapeService } from '../_services/shape.service';
+
+const iconRetinaUrl = 'assets/marker-icon-2x.png';
+const iconUrl = 'assets/marker-icon.png';
+const shadowUrl = 'assets/marker-shadow.png';
+const iconDefault = icon({
+  iconRetinaUrl,
+  iconUrl,
+  shadowUrl,
+  iconSize: [25, 41],
+  iconAnchor: [12, 41],
+  popupAnchor: [1, -34],
+  tooltipAnchor: [16, -28],
+  shadowSize: [41, 41]
+});
+Marker.prototype.options.icon = iconDefault;
 
 @Component({
   selector: 'app-map',
@@ -34,7 +50,8 @@ export class MapComponent implements OnInit {
 
     tiles.addTo(this.map);
 
-    // L.marker([52.261348417047, 21.025018929958]).addTo(this.map)
+    //test marker
+    L.marker([52.261348417047, 21.025018929958]).addTo(this.map)
     // .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
     // .openPopup();
   }
@@ -66,19 +83,19 @@ export class MapComponent implements OnInit {
       this.markerService.addMarkerFromComment(this.map, this.testMessage)
     });
 
-    // this.shapeService.getStateShapes().subscribe(states => {
-    //   this.districts = states;
-    //   this.initDistrictLayer();
-    // });
+    this.shapeService.getStateShapes().subscribe(states => {
+      this.districts = states;
+      this.initDistrictLayer();
+    });
   }
 
   private initDistrictLayer() {
     const stateLayer = L.geoJSON(this.districts, {
       style: (feature) => ({
         weight: 3,
-        opacity: 0.5,
+        opacity: 0.3,
         color: '#008f68',
-        fillOpacity: 0.8,
+        fillOpacity: 0.3,
         fillColor: '#6DB65B'
       }),
 
@@ -100,9 +117,9 @@ export class MapComponent implements OnInit {
 
     layer.setStyle({
       weight: 10,
-      opacity: 1.0,
+      opacity: 0.5,
       color: '#DFA612',
-      fillOpacity: 1.0,
+      fillOpacity: 0.5,
       fillColor: '#FAE042'
     });
   }
@@ -112,9 +129,9 @@ export class MapComponent implements OnInit {
 
     layer.setStyle({
       weight: 3,
-      opacity: 0.5,
+      opacity: 0.3,
       color: '#008f68',
-      fillOpacity: 0.8,
+      fillOpacity: 0.3,
       fillColor: '#6DB65B'
     });
   }

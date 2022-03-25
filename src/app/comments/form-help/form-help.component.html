@@ -1,0 +1,11 @@
+<div class="main">
+    <h1>{{topic}}</h1>
+
+    <div class="stars">
+        <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="false"></p-rating>  
+    </div>
+
+    <!-- <textarea [(ngModel)]="textComment" [rows]="5" [cols]="30" pInputTextarea [autoResize]="false"></textarea> -->
+    <textarea [rows]="5" [cols]="30" pInputTextarea [autoResize]="autoResize"></textarea>
+</div>
+

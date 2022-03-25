@@ -31,19 +31,9 @@ export class MarkerService {
     L.marker([lng, lat], {draggable: true})
     .addTo(map)
     .on('dragend', (e) => {
-			// var coord = String(e).split(',');
 			console.log(e.target._latlng);
       this.changeCurrentMarker(e.target._latlng);
-			// var lat = coord[0].split('(');
-			// console.log(lat);
-			// var lng = coord[1].split(')');
-			// console.log(lng);
-			// myMarker.bindPopup("Moved to: " + lat[1] + ", " + lng[0] + ".");
 		});
-    // .bindPopup(content)
-    // .openPopup();
-    // const lon = c.geometry.coordinates[0];
-    // const lat = c.geometry.coordinates[1];
   }
 
   changeCurrentMarker(marker: any) {
