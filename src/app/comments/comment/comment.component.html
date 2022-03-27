@@ -14,8 +14,9 @@
     <span *ngIf="changeText">Show</span>
 </div> -->
 
-<mat-card (click)="highlightMarker()" >
-    <!-- (mouseout)="changeText=false" -->
+
+
+<!-- <mat-card (click)="highlightMarker()" >
     <mat-card-title>
         {{comment.username}}
         {{changeText}}
@@ -25,10 +26,10 @@
         Id: {{comment.id}}
         Date: {{comment.date | date: 'medium' }}
 
-        <span>
-            <h4>AVG: {{comment.avg}}</h4>
+        <div class="rating">
             <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
-        </span>
+            <h4>AVG: {{comment.avg}}</h4>
+        </div>
 
     </mat-card-subtitle>
 
@@ -38,4 +39,41 @@
     </mat-card-actions>
 
 </mat-card>
-<br>
+<br> -->
+
+<div class="card" (mouseenter)="highlightMarker()">
+    <div class="content">
+        <div class="rating">
+            <div class="number">
+                {{rating | number: '1.1-1'}}
+            </div>
+            <div class="stars">
+                <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
+            </div>
+        </div>
+        <div class="cmt-text">
+            <!-- <div *ngIf="comment.content != undefined; else elseBlock"> -->
+                {{comment.content}}
+            <!-- </div> -->
+            <ng-template #elseBlock>
+                Brak komentarza.
+            </ng-template>
+        </div>
+
+    </div>
+    <div class="subcontent">
+        <div class="user">
+            <i class="pi pi-user"></i>
+            {{comment.username}}
+        </div>
+        <div class="location">
+            <i class="pi pi-map-marker"></i>
+            Praga Północ, Burdzińskiego
+        </div>
+        <div class="rate-btn"></div>
+    </div>
+    <div class="expand-btn">
+        ...
+    </div>
+</div>
+

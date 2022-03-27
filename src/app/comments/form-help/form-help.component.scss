@@ -1,0 +1,16 @@
+@mixin border {
+    border: solid;
+    border-width: 1px;
+    border-color: #dd5252;
+    border-radius: 6px;
+}
+
+.main{
+    width: 400px;
+    @include border();
+    text-align: center;
+}
+
+:host >>> .p-rating-icon{
+    
+}

@@ -1,0 +1,83 @@
+@mixin border {
+    border: solid;
+    border-width: 1px;
+    border-color: #707070;
+    border-radius: 6px;
+}
+
+$background: #707070;
+
+
+.card{
+    display: flex;
+    flex-direction: column;
+    
+    min-height: 180px;
+    background-color: #2E2E2E;
+    border-radius: 6px;
+    margin: 1rem 0rem 1rem 0.5rem;
+}
+
+.card .content{
+    display: flex;
+    flex-direction: row;
+
+    padding: 0.5rem 0.5rem 0;
+}
+
+.card .content .rating{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    width: 15%;
+    min-height: 5rem;
+}
+
+.card .content .rating .number{
+    @include border();
+    color: #434343;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+
+    min-height: 4rem;
+    font-size: 4rem;
+    text-align: center;
+
+    background-color: #FFFFFF;
+}
+
+.card .content .rating .stars{
+    @include border();
+    text-align: center;
+}
+
+.card .content .cmt-text{
+    @include border();
+    width: 85%;
+    max-height: 100px;
+    color: #FFFFFF;
+    background-color: $background;
+    max-height: 8rem;
+    margin-left: 0.5rem;
+}
+
+.card .subcontent{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    color: #EC5434;
+    padding: 0.5rem;
+}
+
+.card .expand-btn{
+    @include border();
+    text-align: center;
+    // min-height: 0.5rem;
+    background-color: $background;
+    // padding: 0.5rem;
+    margin: 0 0.5rem 0 0.5rem;
+}

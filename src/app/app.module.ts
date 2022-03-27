@@ -7,10 +7,8 @@ import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { MapTestComponent } from './map-test/map-test.component';
 
 import { OpenmapTestComponent } from './openmap-test/openmap-test.component';
-import { LeafletTestComponent } from './leaflet-test/leaflet-test.component';
 
 import { GraphQLModule } from './graphql.module';
 import { ApolloTestComponent } from './apollo-test/apollo-test.component';
@@ -24,18 +22,18 @@ import { MapComponent } from './map/map.component';
 
 import { SharedModule } from "./_shared/shared/shared.module";
 import { CommentsModule } from './comments/comments.module';
+import { NavbarComponent } from './navbar/navbar.component';
 
 @NgModule({
   declarations: [
     AppComponent,
 
-    MapTestComponent,
     OpenmapTestComponent,
-    LeafletTestComponent,
     ApolloTestComponent,
 
     HomeComponent,
     MapComponent,
+    NavbarComponent,
 
   ],
   imports: [

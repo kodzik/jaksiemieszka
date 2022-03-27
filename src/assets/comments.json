@@ -1,0 +1,41 @@
+{
+    "Comments":[        
+        { 
+            "id": "1", 
+            "username":"Superman", 
+            "date": 1648147149, 
+            "location": {"lat": 52.223142679517, "lng": 20.911263299484}, 
+            "rating":
+                {        
+                    "location": 1,
+                    "air": 1,
+                    "noise": 1,
+                    "education": 1,
+                    "sport": 1,
+                    "culture": 1,
+                    "traffic": 4
+                },
+            "avg": 0,
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+        },
+        { 
+            "id": "2", 
+            "username":"Batman", 
+            "date": 1648147314, 
+            "location": {"lat": 52.223142679517, "lng": 20.910263290484}, 
+            "rating":
+                {        
+                    "location": 4,
+                    "air": 3,
+                    "noise": 1,
+                    "education": 4,
+                    "sport": 1,
+                    "culture": 2,
+                    "traffic": 4
+                },
+            "avg": 0,
+            "content": "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum"
+        }
+    ]
+
+}

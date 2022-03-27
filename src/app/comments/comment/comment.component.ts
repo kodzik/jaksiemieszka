@@ -21,7 +21,7 @@ export class CommentComponent implements OnInit {
     ) { }
 
   ngOnInit(): void {
-     this.rating = this.comment.avg;
+     this.rating = this.commentService.calculateAvgScore(this.comment);
   }
 
   highlightMarker() {

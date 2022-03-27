@@ -1,7 +1,27 @@
-.example-spacer {
-    flex: 1 1 auto;
-  }
-
 .main {
-  background-color: #ffedb9;
+  background-color: #858585;
+}
+
+.main .navbar{
+
+}
+
+.main .content{
+  display: flex;
+  flex-direction: row;
+}
+
+.main .content .comments_section{
+  width: 50%;
+  margin: 0.25rem;
+
+}
+
+.main .content .map_section{
+  width: 50%;
+  margin: 0.25rem;
+}
+
+.main .content .map_section .map{
+
 }

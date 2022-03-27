@@ -1,6 +1,6 @@
 
 <div class="main">
-  <p>
+  <!-- <p>
     <mat-toolbar color="primary">
       <button mat-icon-button class="example-icon" aria-label="Example icon-button with menu icon">
         <mat-icon>menu</mat-icon>
@@ -14,14 +14,14 @@
         <mat-icon>share</mat-icon>
       </button>
     </mat-toolbar>
-  </p>
+  </p> -->
 
-  <div class="grid d-flex">
-      <div #comments_section class="col-4">
+  <div class="navbar">
+    <app-navbar></app-navbar>
+  </div>
 
-        <div>
-          <p-button class="navButton" (onClick)=switchWindow() icon="pi pi-plus-circle" ></p-button>
-        </div>
+  <div class="content">
+      <div class="comments_section">
 
         <div [ngSwitch]='windowIndex'>
 
@@ -31,14 +31,22 @@
 
           <div *ngSwitchCase="1">
             <app-add-comment></app-add-comment>
+            <!-- <app-comm-form></app-comm-form> -->
           </div>
 
         </div>
-
+        <div>
+          <p-button class="navButton" (onClick)=switchWindow() icon="pi pi-plus-circle" ></p-button>
+        </div>
       </div>
 
-      <div #map_section class="col-8">
+
+
+      <div class="map_section">
+        <div class="map">
           <app-map></app-map>
+        </div>
+        
       </div>
   </div>
 

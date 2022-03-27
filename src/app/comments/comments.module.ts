@@ -5,9 +5,11 @@ import { CommentsRoutingModule } from './comments-routing.module';
 import { CommentComponent } from './comment/comment.component';
 import { CommentsComponent } from '././comments/comments.component';
 import { AddCommentComponent } from './add-comment/add-comment.component';
+import { CommFormComponent } from './comm-form/comm-form.component';
 
 import { SharedModule } from '../_shared/shared/shared.module';
 import { LayoutComponent } from './layout/layout.component';
+import { FormHelpComponent } from './form-help/form-help.component';
 
 
 @NgModule({
@@ -16,6 +18,8 @@ import { LayoutComponent } from './layout/layout.component';
     CommentsComponent,
     AddCommentComponent,
     LayoutComponent,
+    CommFormComponent,
+    FormHelpComponent,
   ],
   imports: [
     CommonModule,
@@ -25,7 +29,9 @@ import { LayoutComponent } from './layout/layout.component';
   ],
   exports:[
     CommentsComponent,
-    AddCommentComponent
+    AddCommentComponent,
+    CommFormComponent,
+    FormHelpComponent
     // SharedModule
   ]
 })

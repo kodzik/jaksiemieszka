@@ -3,3 +3,18 @@
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+@font-face {
+    font-family: "Poppins";
+    src: local("Poppins-thin"), 
+    url(./assets/fonts/Poppins/Poppins-Thin.ttf) 
+    format("truetype");
+    font-weight: 100;
+}
+
+@font-face {
+    font-family: "Poppins";
+    src: local("Poppins-bold"), url(./assets/fonts/Poppins/Poppins-Bold.ttf) 
+    format("truetype");
+    font-weight: 700;
+}
