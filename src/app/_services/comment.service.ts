@@ -1,6 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { BehaviorSubject, Subject } from 'rxjs';
-import { CComment, IComment } from '../_models/comment';
+import { environment } from 'src/environments/environment';
+import { IComment } from '../_models/comment';
 
 @Injectable({
   providedIn: 'root'
@@ -15,43 +17,36 @@ export class CommentService {
   private newCommentSource = new Subject<IComment>();
   newComment = this.newCommentSource.asObservable();
   
-  // constructor() { }
+  constructor(private http: HttpClient ) {}
 
   comments: IComment[] = [];
 
-  addnewComment(comment: IComment){
-    console.log("Comment service, new comment:", comment);
-    this.newCommentSource.next(comment);
-    this.comments.push(comment)
-    // this.newCommentSource.next();
+  getComments(): void{
+    this.http.get<IComment>(environment.apiUrl + '/api/comments/').subscribe((comments: any) => {
+      comments.data.forEach((element: IComment) => {
+        this.newCommentSource.next(element)
+      });
+    })
   }
 
-  highlightMarker(comment: IComment) {
-    this.commentSource.next(comment)
+  addnewComment(comment: IComment){
+    this.http.post<IComment>(environment.apiUrl + '/api/comments/', comment).subscribe((response: any) => {
+      console.log("Response:", response);
+    })
   }
+
+  // highlightMarker(comment: IComment) {
+  //   this.commentSource.next(comment)
+  // }
 
   calculateAvgScore(comment: IComment): number{
     let index = 0;
+    let avg = 0;
+
     Object.values(comment.rating).forEach(element => {
-      if(element != 0) {
-        comment.avg += element;
-        index+=1;
-      }
-    });
-    return (comment.avg / index);
+      avg += element;
+      index+=1;
+    })
+    return (avg / index);
   }
-
 }
-
-
-  // addComment(location: { lng: number; lat: number; }){
-  //   const comment: IComment = <IComment>{
-  //     id = '124'
-  //     date = new Date();
-  //     username = 'Marjan'
-  //     comment.location = {lat: location.lat, lng: location.lng};
-  //   }
-
-  //   this.newCommentSource.next(comment)
-  //   // console.log("New comment", comment);
-  // }

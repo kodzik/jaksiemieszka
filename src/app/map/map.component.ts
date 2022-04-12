@@ -6,6 +6,10 @@ import { CommentService } from '../_services/comment.service';
 import { IComment } from '../_models/comment';
 import { ShapeService } from '../_services/shape.service';
 
+// import * as leafletBounce from 'leaflet.smooth_marker_bouncing';
+import 'leaflet.smooth_marker_bouncing'
+
+// --- Leaflet marker bugfix --- //
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
 const iconUrl = 'assets/marker-icon.png';
 const shadowUrl = 'assets/marker-shadow.png';
@@ -19,7 +23,9 @@ const iconDefault = icon({
   tooltipAnchor: [16, -28],
   shadowSize: [41, 41]
 });
+
 Marker.prototype.options.icon = iconDefault;
+// --- Leaflet marker bugfix --- //
 
 @Component({
   selector: 'app-map',
@@ -30,8 +36,6 @@ export class MapComponent implements OnInit {
 
   public map: any;
   districts: any;
-  testMessage: IComment;
-
   currentMarker: any;
 
   public initMap(): void {
@@ -50,17 +54,15 @@ export class MapComponent implements OnInit {
 
     tiles.addTo(this.map);
 
-    //test marker
-    L.marker([52.261348417047, 21.025018929958]).addTo(this.map)
+    //test marker  
+    // L.marker([52.261348417047, 21.025018929958]).addTo(this.map)
     // .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
     // .openPopup();
   }
 
-  constructor(
-    private markerService: MarkerService,
-    private commentService: CommentService,
-    private shapeService: ShapeService) {
-    }
+  constructor(  private markerService: MarkerService,
+                private commentService: CommentService,
+                private shapeService: ShapeService) {}
 
   ngOnInit(): void {
   }
@@ -71,22 +73,26 @@ export class MapComponent implements OnInit {
     this.map.on("click", (e: { latlng: { lng: number; lat: number; }; }) => {
       // L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map); // add the marker onclick
       if(this.markerService.enableMarkers){
-        this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '')
+        this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '', this.markerService.enableMarkers)
         this.markerService.changeCurrentMarker(e)
         this.markerService.enableMarkers = false;
       }
     });
-
-    this.commentService.highlightedComment.subscribe(comment => {
-      this.testMessage = comment
-      console.log(this.testMessage);
-      this.markerService.addMarkerFromComment(this.map, this.testMessage)
+    
+    this.commentService.newComment.subscribe(comment => {
+      this.markerService.addMarker2(this.map, comment.location.lat, comment.location.lng, comment)
     });
 
-    this.shapeService.getStateShapes().subscribe(states => {
-      this.districts = states;
-      this.initDistrictLayer();
-    });
+    // this.commentService.highlightedComment.subscribe(comment => {
+    //   this.testMessage = comment
+    //   console.log(this.testMessage);
+    //   this.markerService.addMarkerFromComment(this.map, this.testMessage)
+    // });
+
+    // this.shapeService.getStateShapes().subscribe(states => {
+    //   this.districts = states;
+    //   this.initDistrictLayer();
+    // });
   }
 
   private initDistrictLayer() {

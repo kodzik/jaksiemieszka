@@ -1,7 +1,7 @@
 import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { Subject } from 'rxjs';
-import { CComment, IComment } from 'src/app/_models/comment';
+import { CComment, CCommentAddress, IComment, ICommentAddress } from 'src/app/_models/comment';
 import { CommentService } from 'src/app/_services/comment.service';
 import { MarkerService } from 'src/app/_services/marker.service';
 import * as L from 'leaflet';
@@ -13,13 +13,14 @@ import * as L from 'leaflet';
 })
 export class AddCommentComponent implements OnInit, OnDestroy {
 
-  // @Output() commentSubmited = new EventEmitter<string>();
   commentForm: FormGroup;
   comment: IComment;
-  currentLoc: any;
 
-  private newCommentSource = new Subject<IComment>();
-  newComment = this.newCommentSource.asObservable();
+  currentMarker: any;
+  markerData: any;
+
+  // private newCommentSource = new Subject<IComment>();
+  // newComment = this.newCommentSource.asObservable();
 
   constructor(
     private fb: FormBuilder,
@@ -32,6 +33,21 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.createForm();
     this.markerService.enableMarkers = true;
+
+    this.markerService.currentMarkerChange.subscribe(location => {
+      if( location.latlng){
+        this.currentMarker = location.latlng;
+      } else{
+        this.currentMarker = location._latlng
+      }
+      this.markerService.getAddressFromMarker(this.currentMarker)
+    })
+
+    this.markerService.markerData.subscribe(markerData =>{
+      this.markerData = markerData;
+    })
+
+    // this.parseMarkerAddress(this.markerData)
   }
 
   createForm() {
@@ -41,19 +57,18 @@ export class AddCommentComponent implements OnInit, OnDestroy {
       locationScore: [''],
       noiseScore: [''],
       airScore: [''],
-      cultureScore: [''],
-      eduScore: [''],
-      sportScore: [''],
       trafficScore: [''],
 
-      freeComment: [''],
+      // cultureScore: [''],
+      // eduScore: [''],
+      // sportScore: [''],
+      address: [''],
+      text_content: [null],
     });
   }
 
-  get currentMarker(): any{return this.markerService.currentMarker}
-
-  get location(){ return this.commentForm.get('location')?.value}
-  // get location(){ return this.currentMarker}
+  // get location(){ return this.commentForm.get('location')?.value}
+  get location(){ return this.currentMarker}
   get locationScore(){ return this.commentForm.get('locationScore')?.value}
   get noiseScore(){ return this.commentForm.get('noiseScore')?.value}
   get airScore(){ return this.commentForm.get('airScore')?.value}
@@ -61,7 +76,8 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   get eduScore(){ return this.commentForm.get('eduScore')?.value}
   get sportScore(){ return this.commentForm.get('sportScore')?.value}
   get trafficScore(){ return this.commentForm.get('trafficScore')?.value}
-  get freeComment(){ return this.commentForm.get('freeComment')?.value;}
+  // get address(){ return this.commentForm.get('address')?.value;}
+  get text_content(){ return this.commentForm.get('text_content')?.value;}
 
   addLocation(){
     console.log("On input click");
@@ -71,39 +87,32 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   onSubmit(){
     let comment = new CComment;
 
-    comment.id = String(Math.floor(Math.random() * 100))  //TODO Generate id
-    comment.date = new Date();
-    comment.location = {lat: Number(this.location), lng: Number(this.location)} //TODO get appropriate numbers from location
+    comment.location = {lat: Number(this.location.lat), lng: Number(this.location.lng)}
     comment.rating = {
       air: Number(this.airScore),
       location: Number(this.locationScore),
       noise: Number(this.noiseScore),
-      culture: Number(this.cultureScore),
-      education: Number(this.eduScore),
-      sport: Number(this.sportScore),
       traffic: Number(this.trafficScore),
+      // culture: Number(this.cultureScore),
+      // education: Number(this.eduScore),
+      // sport: Number(this.sportScore),
       }
-    comment.avg = this.cmtService.calculateAvgScore(comment),
-
+    comment.avg = this.cmtService.calculateAvgScore(comment)
+    comment.address = this.parseMarkerAddress(this.markerData)
+    comment.text_content = this.text_content
     this.cmtService.addnewComment(comment)
     // this.addnewComment(comment)
   }
 
-  addnewComment(comment: IComment){
-    console.log("Comment service, new comment:", comment);
-    this.newCommentSource.next(comment);
-    // this.newCommentSource.next();
-  }
-
-
-
-  onLocationInputClick(){
-  //   console.log("on loc input", this.currentMarker);
-  //   this.markerService.enableMarkers = true;
-  }
-
-  onLocationInputBlur(){
-    console.warn(this.currentMarker);
+  parseMarkerAddress(data: any): any {
+    const address: CCommentAddress = { 
+      road: (data.address?.road !== undefined) ? data.address.road : null,
+      house_number: (data.address?.house_number !== undefined) ? data.address.house_number : null,
+      suburb: (data.address?.suburb !== undefined) ? data.address.suburb : null,
+      neighbourhood: (data.address?.neighbourhood !== undefined) ? data.address.neighbourhood : null,
+      quarter: (data.address?.quarter !== undefined) ? data.address.quarter : null,
+    };
+    return address;
   }
 
   ngOnDestroy(): void {

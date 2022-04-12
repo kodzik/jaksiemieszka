@@ -1,47 +1,4 @@
-<!-- <p-card>
-    <ng-template pTemplate="header">
-        {{comment.username}}
-    </ng-template>
-        {{comment.id}}
-        {{comment.date}}
-    <ng-template pTemplate="footer">
-        Footer content here
-    </ng-template>
-</p-card> -->
-
-<!-- <div >
-    <span *ngIf="!changeText">Hide</span>
-    <span *ngIf="changeText">Show</span>
-</div> -->
-
-
-
-<!-- <mat-card (click)="highlightMarker()" >
-    <mat-card-title>
-        {{comment.username}}
-        {{changeText}}
-    </mat-card-title>
-
-    <mat-card-subtitle>
-        Id: {{comment.id}}
-        Date: {{comment.date | date: 'medium' }}
-
-        <div class="rating">
-            <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
-            <h4>AVG: {{comment.avg}}</h4>
-        </div>
-
-    </mat-card-subtitle>
-
-    <mat-card-actions>
-      <button mat-button>LIKE</button>
-      <button mat-button>SHARE</button>
-    </mat-card-actions>
-
-</mat-card>
-<br> -->
-
-<div class="card" (mouseenter)="highlightMarker()">
+<div [@openClose]="isOpen ? 'open' : 'closed'" class="card" (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
     <div class="content">
         <div class="rating">
             <div class="number">
@@ -52,11 +9,11 @@
             </div>
         </div>
         <div class="cmt-text">
-            <!-- <div *ngIf="comment.content != undefined; else elseBlock"> -->
-                {{comment.content}}
-            <!-- </div> -->
-            <ng-template #elseBlock>
+            <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
                 Brak komentarza.
+            </div>
+            <ng-template #elseBlock>
+                {{comment.text_content}}
             </ng-template>
         </div>
 
@@ -66,14 +23,22 @@
             <i class="pi pi-user"></i>
             {{comment.username}}
         </div>
+        <div class="user">
+            <i class="pi pi-calendar"></i>
+            {{comment.when_added | date: 'medium' }}
+        </div>
         <div class="location">
-            <i class="pi pi-map-marker"></i>
-            Praga Północ, Burdzińskiego
+            <div *ngIf="comment.address !== undefined && comment.address !== null">
+                <i class="pi pi-map-marker"></i>
+                <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span> 
+                <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span> 
+                <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span> 
+            </div>
         </div>
         <div class="rate-btn"></div>
     </div>
-    <div class="expand-btn">
+    <!-- <div class="expand-btn" >
         ...
-    </div>
+    </div> -->
 </div>
 

@@ -22,7 +22,7 @@
             "id": "2", 
             "username":"Batman", 
             "date": 1648147314, 
-            "location": {"lat": 52.223142679517, "lng": 20.910263290484}, 
+            "location": {"lat": 52.243142679517, "lng": 20.980263290484}, 
             "rating":
                 {        
                     "location": 4,

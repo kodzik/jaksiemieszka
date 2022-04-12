@@ -9,18 +9,19 @@ const accountModule = () => import('./account/account.module').then(x => x.Accou
 const commentsModule = () => import('./comments/comments.module').then(x => x.CommentsModule);
 
 const routes: Routes = [
-
+  
+  { path: '', redirectTo: 'home', pathMatch: 'full' },//
   { path: 'home', component: HomeComponent, canActivate: [AuthGuard],
     children: [
-      { path: 'apollo', component: ApolloTestComponent },
       { path: 'account', loadChildren: accountModule },
       { path: 'comments', loadChildren: commentsModule },
     ]
   },
-  { path: 'openmap', component: OpenmapTestComponent },
+  // { path: 'openmap', component: OpenmapTestComponent },
+  // { path: 'apollo', component: ApolloTestComponent },
 
   // otherwise redirect to home
-  { path: '**', redirectTo: 'home', pathMatch: 'full' }
+  { path: '**', redirectTo: 'home' }//, pathMatch: 'full'
 ];
 
 @NgModule({

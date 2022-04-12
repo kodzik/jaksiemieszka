@@ -41,7 +41,6 @@ import { NavbarComponent } from './navbar/navbar.component';
     CommentsModule,
 
     BrowserModule,
-    BrowserAnimationsModule,
     AppRoutingModule,
     ScrollingModule,
 

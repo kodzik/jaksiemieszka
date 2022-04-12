@@ -1,49 +1,34 @@
-import { HttpClient } from '@angular/common/http';
-import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit } from '@angular/core';
 import { IComment } from 'src/app/_models/comment';
-import { environment } from 'src/environments/environment';
 import { CommentService } from '../../_services/comment.service';
 
 @Component({
   selector: 'app-comments',
   templateUrl: './comments.component.html',
   styleUrls: ['./comments.component.scss'],
-  // changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class CommentsComponent implements OnInit {
 
   comments: IComment[] = [];
 
-  constructor(
-    private commentService: CommentService,
-    // private http: HttpClient
-    ) {
-  }
+  constructor(private cmtService: CommentService) {}
 
   ngOnInit(): void {
+    this.cmtService.getComments();
 
-    // this.commentService.newComment.subscribe(comment => {
-    //   console.warn("nowe komcie:", comment);
+    this.cmtService.newComment.subscribe(comment => {
+      this.comments.push(comment)
+      console.log(comment);
       
-    //   this.comments.push(comment);
-    // });
-
-    // this.comments = this.commentService.comments //<========= TO MA WRÓCIĆ
-
-    // this.comments.push({ id: '1', username:'Superman', date: new Date(), location: {lat: 52.223142679517, lng: 20.910263299484} });
-    // this.getComments()
+    });
   }
 
-  // getComments(): void{
-  //   this.http.get(environment.appUrl + '/assets/comments.json').subscribe(comments => {
-  //     this.addComments(comments)
-  //   })
-  // }
-
-  addComments(comments: any): void{
-    console.log(comments);
-    this.comments = comments.Comments
+  scrollTo(e:any){
+    const comment = document.getElementById('6da394f8-c4c8-4b6b-b567-e7691383621a')
+    if(comment !== null){
+      comment.scrollIntoView({behavior: 'smooth', inline: "center"});
+    }
   }
+
 }
 

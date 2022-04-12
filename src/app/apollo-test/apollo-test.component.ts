@@ -32,9 +32,9 @@ export class ApolloTestComponent implements OnInit {
       .valueChanges.subscribe((result: any) => {
         console.log(result);
         
-        // this.rates = result?.data?.rates;
-        // this.loading = result.loading;
-        // this.error = result.error;
+        this.rates = result?.data?.rates;
+        this.loading = result.loading;
+        this.error = result.error;
       });
   }
 }

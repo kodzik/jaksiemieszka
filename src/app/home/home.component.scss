@@ -1,5 +1,7 @@
 .main {
-  background-color: #858585;
+  // background-color: #858585;
+  background-color: var(--color-dark--1);
+  height: 100%;
 }
 
 .main .navbar{
@@ -9,16 +11,18 @@
 .main .content{
   display: flex;
   flex-direction: row;
+  // height: 90vh;
+  // overflow: hidden;
 }
 
 .main .content .comments_section{
-  width: 50%;
+  width: 40%;
   margin: 0.25rem;
-
+  height: 90vh;
 }
 
 .main .content .map_section{
-  width: 50%;
+  width: 60%;
   margin: 0.25rem;
 }
 
