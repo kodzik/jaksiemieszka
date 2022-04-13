@@ -12,12 +12,13 @@ export class MarkerService {
 
   markers: any[] = []
   markersWithId: any[] = []
-
+  currentMarker: any;
+  
   enableMarkers: boolean = false;
-
+  
+  clickedMarker: Subject<any> = new Subject<any>();
   currentMarkerChange: Subject<any> = new Subject<any>();
   markerData: Subject<any> = new Subject<any>();
-  currentMarker: any;
 
   capitals: string = '/assets/data/usa-capitals.geojson';
 
@@ -45,11 +46,7 @@ export class MarkerService {
       this.changeCurrentMarker(e.target);
 		})
     .on('click', (e) => {
-      // TODO scroll to comment
-
-      // const result = this.markersWithId.find(obj => obj.group.getLayerId(marker) === group.getLayerId(marker));
-      // const mark = group.getLayerId(marker)
-      // console.log(`marker on click ${mark}, ${result}`);
+      this.clickedMarker.next(this.markersWithId.find(obj => group.getLayerId(obj.group.getLayers()[0]) === group.getLayerId(marker)));
     })
     .bindPopup(`<div>${comment.avg}</div>`)
     group.addLayer(marker);

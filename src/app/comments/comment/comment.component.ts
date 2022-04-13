@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { IComment } from '../../_models/comment';
 import { CommentService } from '../../_services/comment.service';
 import { MarkerService } from '../../_services/marker.service';
-
 import {
   trigger,
   state,
@@ -58,11 +57,15 @@ export class CommentComponent implements OnInit {
     this.isOpen = !this.isOpen;
   }
 
-  highlightMarker() {
+  //TODO move to markerservice
+  highlightMarker() { 
     // this.commentService.highlightMarker( this.comment )
     const marker = this.markerService.markersWithId.find(e => e.id === this.comment.id);
     marker.group.getLayers(marker)[0]
-    .bindPopup(`<div>${this.rating}</div>`)
+    .bindPopup(`
+    <h4 style="position: absolute; color: #EC5434; font-size: 15px; bottom: 35%">${this.comment.username}</h4>
+    <div>Rate: ${this.rating}</div>`)
     .openPopup();
   }
+
 }

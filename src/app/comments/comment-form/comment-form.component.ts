@@ -13,15 +13,7 @@ export class CommentFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.getKeys()
   }
 
-  getKeys(){
-    let keys = Object.keys(this.comment)
-  }
-
-  load(): void{
-    
-  }
 
 }

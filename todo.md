@@ -1,5 +1,11 @@
-## Todo
+# Todo
 
+## Urgent
+- [ ] Add comment form
+- [ ] Add as guest / login
+    - user authentication
+- [ ] UNSUBSCRIBE ALL!!!
+#
 ### Comments module
 - [ ] Add comment form
     - [ ] Adding comment location constraint
@@ -10,7 +16,6 @@
 - [ ] Show only comments from particular districts - shapeService
 
 ### Markers
-- [ ] Scroll to comment on marker onClick
 - [ ] Zoom on marker on comment click/hover
 
 ### Account module
@@ -23,8 +28,11 @@
 
 ### In Progress
 - [ ] Navbar RWD
+- [ ] Scroll and expand comment on marker onClick
+    - [x] Bind to top
 - [ ] Expand comment on click and show details
     - [ ] Center expanded comment
+    - [ ] Detailed view
 
 ### Possible features:
 - [ ] On comment click - center the marker on the map, show favorite routes (school, work, gym, shop)
@@ -41,3 +49,5 @@
 ### Bugs
 - [ ] Comments section overflow
 - [ ] Popup content undefined until comment hover (comment.rating)
+- [ ] markerService/addMarker override
+- [ ] the one before last comment expand on marker click

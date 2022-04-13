@@ -11,7 +11,8 @@ import { MessageModule } from 'primeng/message';
 import { RatingModule } from 'primeng/rating';
 import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
-import {InputTextareaModule} from 'primeng/inputtextarea';
+import { InputTextareaModule } from 'primeng/inputtextarea';
+import { SpeedDialModule } from 'primeng/speeddial';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     RatingModule,
     ButtonModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+    SpeedDialModule
   ],
   exports:[
     CommonModule,
@@ -42,7 +44,8 @@ import {InputTextareaModule} from 'primeng/inputtextarea';
     RatingModule,
     ButtonModule,
     InputTextModule,
-    InputTextareaModule
+    InputTextareaModule,
+    SpeedDialModule
   ]
 })
 export class PrimesharedModule { }
