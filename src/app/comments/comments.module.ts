@@ -9,7 +9,7 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
 
 import { SharedModule } from '../_shared/shared/shared.module';
 import { LayoutComponent } from './layout/layout.component';
-import { FormHelpComponent } from './form-help/form-help.component';
+import { FormHelpComponent } from './comment-form/form-help/form-help.component';
 
 
 @NgModule({

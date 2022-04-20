@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-form-help',
@@ -7,14 +7,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class FormHelpComponent implements OnInit {
 
+  @Input() item:any;
+
   autoResize: boolean = false;
   textComment: string;
   rating: number;
 
   //-----------------
-  topic: string = "lokalizacja";
+  // topic: string;
   //-----------------
-
+  
+  public get topic() : string {
+    return this.item.label
+  }
+  
   constructor() { }
 
   ngOnInit(): void {

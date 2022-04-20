@@ -22,6 +22,9 @@
         <h4>Jakość powietrza</h4>
         <p-rating formControlName="airScore" [cancel]="false" required></p-rating>
 
+        <h4>Korki</h4>
+        <p-rating formControlName="trafficScore" [cancel]="false" required></p-rating>
+        
         <!-- <h4>Dostęp do kultury</h4>
         <p-rating formControlName="cultureScore" [cancel]="false" required></p-rating>
 
@@ -31,23 +34,21 @@
         <h4>Dostęp do sportu</h4>
         <p-rating formControlName="sportScore" [cancel]="false" required></p-rating> -->
 
-        <h4>Korki</h4>
-        <p-rating formControlName="trafficScore" [cancel]="false" required></p-rating>
-
         <div *ngIf="currentMarker !== undefined; else elseBlock">
           {{currentMarker}}
         </div>
         <ng-template #elseBlock>Click on map to add the location. Drag the marker if needed.</ng-template>
-
+        
         <div *ngIf="markerData !== undefined">
           <div> {{markerData.address.road}} {{markerData.address.house_number}}, {{markerData.address.suburb}} </div>
         </div>
-
+        
         <textarea pInputTextarea formControlName="text_content"></textarea>
 
         <mat-card-actions>
           <button mat-button type="submit">Opublikuj</button>
         </mat-card-actions>
+        
       </form>
 
   </mat-card-content>

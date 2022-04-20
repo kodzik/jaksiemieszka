@@ -30,13 +30,14 @@
 
 }
 
+.speeddial-tooltip-demo{
+  position: absolute;
+}
+
 .speedDial{
   position: absolute;
-  // bottom: 5%;
-  // right: 5%;
-  // position: relative;
   right: 6%;
-  bottom: 40%;
+  bottom: 50%;
   // height: 350px; 
   z-index: 1000;
 }

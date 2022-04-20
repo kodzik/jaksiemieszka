@@ -10,8 +10,13 @@
         <p-button label="Dalej" (onClick)="load()"></p-button>
     </div> -->
 
-    <div class="">
+    <!-- <div class="">
         <app-form-help></app-form-help>
-    </div>
+    </div> -->
 
+    <p-steps [model]="items" [readonly]="false" [activeIndex]="activeIndex"></p-steps>
+    <!-- <router-outlet></router-outlet> -->
+    <app-form-help [item]="item"></app-form-help>
+    <p-button label="Dalej" (onClick)="load()"></p-button>
+    
 </div>

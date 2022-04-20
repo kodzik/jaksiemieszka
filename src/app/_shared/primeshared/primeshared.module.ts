@@ -13,7 +13,7 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SpeedDialModule } from 'primeng/speeddial';
-
+import {StepsModule} from 'primeng/steps';
 
 @NgModule({
   declarations: [],
@@ -30,7 +30,8 @@ import { SpeedDialModule } from 'primeng/speeddial';
     ButtonModule,
     InputTextModule,
     InputTextareaModule,
-    SpeedDialModule
+    SpeedDialModule,
+    StepsModule
   ],
   exports:[
     CommonModule,
@@ -45,7 +46,8 @@ import { SpeedDialModule } from 'primeng/speeddial';
     ButtonModule,
     InputTextModule,
     InputTextareaModule,
-    SpeedDialModule
+    SpeedDialModule,
+    StepsModule
   ]
 })
 export class PrimesharedModule { }
