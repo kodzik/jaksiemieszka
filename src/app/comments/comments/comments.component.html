@@ -2,8 +2,6 @@
 <p-button label="Click" (onClick)="scrollTo2($event)"></p-button>
 <p-button label="Click" (onClick)="scrollTo3($event)"></p-button> -->
 
-<!--  -->
-
 <div *ngIf="comments.length != 0; else elseBlock">
     <p-scrollPanel [style]="{width: '100%', height: '90vh' }">
         <div *ngFor="let comment of comments">

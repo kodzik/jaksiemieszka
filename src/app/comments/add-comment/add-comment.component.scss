@@ -1,0 +1,60 @@
+:host {
+    ::ng-deep .p-rating {
+        // background-color: #26A3D1;
+        // background-image:none;
+        // border:none;
+        display: flex;
+        justify-content: center;
+        
+        .p-rating-icon {
+            font-size: 3rem;
+            color: var(--color-brand--1);
+        }
+    }    
+}
+
+.main{
+    background-color: var(--color-dark--2);
+    border-radius: 6px;
+    margin: 1rem 0rem 1rem 0.5rem;
+    border-left: 5px solid var(--color-brand--1);
+    font-family: "Poppins";
+    color: var(--color-light--2);
+    height: 85vh;
+}
+
+.main h1{
+    margin: 0;
+    padding: 1rem 1rem 0;
+}
+
+.main .location{
+    padding: 0 1rem 0;
+}
+
+.main .location .marker-data{
+    color: var(--color-brand--1);
+    font-size: 1rem;
+}
+
+.main .form{
+    padding: 1rem 1rem 0;
+}
+
+.main .form h4{
+    margin: 0;
+    padding: 1rem 1rem 0.5rem;
+}
+
+.main .form .textarea-container{
+    padding: 1rem 0 1rem;
+}
+
+.main .form .textarea-container .textarea{
+    display: flex;
+    width: 100%;
+}
+
+.submit{
+    display: flex;
+}

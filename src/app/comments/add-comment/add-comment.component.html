@@ -1,56 +1,57 @@
+<div class="main">
+  <h1>Dodaj opinię</h1>
 
-<mat-card>
-  <!-- (mouseout)="changeText=false" -->
-  <mat-card-title>
-    <h1>Dodaj opinię:</h1>
-  </mat-card-title>
+  <div class="location">
+    <h2>Twoja lokalizacja: 
+    <div class="marker-data"  *ngIf="markerData !== undefined"> 
+      {{markerData.address.road}} 
+      {{markerData.address.house_number}}, 
+      {{markerData.address.suburb}} 
+    </div>
+  </h2>
+    <div *ngIf="currentMarker !== undefined; else elseBlock">
+      <!-- Współrzędne: Lat: {{currentMarker.lat}} Lng: {{currentMarker.lng}} -->
+    </div>
+    <ng-template #elseBlock>Kliknij na mapę aby dodać swoją lokalizację. </ng-template>
+    
+    <div>
+      <small class="p-error" *ngIf="(currentMarker == undefined && submitted)">
+        Dodanie lokalizacji jest kluczowym elementem opinii. 
+      </small>
+    </div>
 
-  <mat-card-subtitle>
-  </mat-card-subtitle>
+  </div>
 
-  <mat-card-content>
-      <form [formGroup]="commentForm" class="p-fluid form-group" (ngSubmit)="onSubmit()">
-        <!-- <input class="input form-control ng-invalid ng-dirty" id="loca" formControlName="username"  type="text" pInputText  required  />  -->
-        <!-- CHOOSE LOCATION -->
+  <form class="form" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
 
-        <h4>Lokalizacja</h4>
-        <p-rating formControlName="locationScore" [cancel]="false" required>Lokalizacja</p-rating>
+    <h4>Lokalizacja</h4>
+    <p-rating styleClass="rating-override" formControlName="locationScore" [cancel]="false" required>Lokalizacja</p-rating>
 
-        <h4>Hałas</h4>
-        <p-rating formControlName="noiseScore" [cancel]="false" required></p-rating>
+    <h4>Hałas</h4>
+    <p-rating formControlName="noiseScore" [cancel]="false" required></p-rating>
 
-        <h4>Jakość powietrza</h4>
-        <p-rating formControlName="airScore" [cancel]="false" required></p-rating>
+    <h4>Jakość powietrza</h4>
+    <p-rating formControlName="airScore" [cancel]="false" required></p-rating>
 
-        <h4>Korki</h4>
-        <p-rating formControlName="trafficScore" [cancel]="false" required></p-rating>
-        
-        <!-- <h4>Dostęp do kultury</h4>
-        <p-rating formControlName="cultureScore" [cancel]="false" required></p-rating>
+    <h4>Korki</h4>
+    <p-rating formControlName="trafficScore" [cancel]="false" required></p-rating>
+    
+    <!-- <h4>Dostęp do kultury</h4>
+    <p-rating formControlName="cultureScore" [cancel]="false" required></p-rating>
 
-        <h4>Dostęp do edukacji</h4>
-        <p-rating formControlName="eduScore" [cancel]="false" required></p-rating>
+    <h4>Dostęp do edukacji</h4>
+    <p-rating formControlName="eduScore" [cancel]="false" required></p-rating>
 
-        <h4>Dostęp do sportu</h4>
-        <p-rating formControlName="sportScore" [cancel]="false" required></p-rating> -->
+    <h4>Dostęp do sportu</h4>
+    <p-rating formControlName="sportScore" [cancel]="false" required></p-rating> -->
 
-        <div *ngIf="currentMarker !== undefined; else elseBlock">
-          {{currentMarker}}
-        </div>
-        <ng-template #elseBlock>Click on map to add the location. Drag the marker if needed.</ng-template>
-        
-        <div *ngIf="markerData !== undefined">
-          <div> {{markerData.address.road}} {{markerData.address.house_number}}, {{markerData.address.suburb}} </div>
-        </div>
-        
-        <textarea pInputTextarea formControlName="text_content"></textarea>
+    <div class="textarea-container">
+      <div>Podsumowanie:</div>
+      <textarea id="textarea" [rows]="5" class="textarea" pInputTextarea formControlName="text_content" [autoResize]="true" placeholder="Dodaj parę słów od siebie!"></textarea>
+    </div>
 
-        <mat-card-actions>
-          <button mat-button type="submit">Opublikuj</button>
-        </mat-card-actions>
-        
-      </form>
-
-  </mat-card-content>
-
-</mat-card>
+    <p-button class="submit" type="submit">Opublikuj</p-button>
+    
+  </form>
+  
+</div>

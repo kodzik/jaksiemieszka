@@ -2,6 +2,9 @@
 
 ## Urgent
 - [ ] Add comment form
+- [ ] Expand comment on click and show details
+    - [ ] Center expanded comment
+    - [ ] Detailed view
 - [ ] Add as guest / login
     - user authentication
 - [ ] UNSUBSCRIBE ALL!!!
@@ -17,6 +20,7 @@
 
 ### Markers
 - [ ] Zoom on marker on comment click/hover
+- [ ] Clean markers on Add new comment.
 
 ### Account module
 - [ ] Login page / form
@@ -30,9 +34,6 @@
 - [ ] Navbar RWD
 - [ ] Scroll and expand comment on marker onClick
     - [x] Bind to top
-- [ ] Expand comment on click and show details
-    - [ ] Center expanded comment
-    - [ ] Detailed view
 
 ### Possible features:
 - [ ] On comment click - center the marker on the map, show favorite routes (school, work, gym, shop)

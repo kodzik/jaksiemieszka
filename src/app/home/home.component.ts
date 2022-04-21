@@ -13,7 +13,7 @@ export class HomeComponent implements OnInit {
   template: TemplateRef<any>;
 
   tooltipItems: MenuItem[];
-  windowIndex: number = 0;
+  windowIndex: number = 1;
 
   constructor(private cmtService: CommentService) { }
 
@@ -33,37 +33,37 @@ export class HomeComponent implements OnInit {
               // this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
           }
       },
-      {
-          tooltipOptions: {
-              tooltipLabel: "Update"
-          },
-          icon: 'pi pi-refresh',
-          command: () => {
-              // this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-          }
-      },
-      {
-          tooltipOptions: {
-              tooltipLabel: "Delete"
-          },
-          icon: 'pi pi-trash',
-          command: () => {
-              // this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
-          }
-      },
-      {
-          tooltipOptions: {
-              tooltipLabel: "Upload"
-          },
-          icon: 'pi pi-upload',
-      },
-      {
-          tooltipOptions: {
-              tooltipLabel: "Angular Website"
-          },
-          icon: 'pi pi-external-link',
-          url: 'http://angular.io'
-      }
+    //   {
+    //       tooltipOptions: {
+    //           tooltipLabel: "Update"
+    //       },
+    //       icon: 'pi pi-refresh',
+    //       command: () => {
+    //           // this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
+    //       }
+    //   },
+    //   {
+    //       tooltipOptions: {
+    //           tooltipLabel: "Delete"
+    //       },
+    //       icon: 'pi pi-trash',
+    //       command: () => {
+    //           // this.messageService.add({ severity: 'error', summary: 'Delete', detail: 'Data Deleted' });
+    //       }
+    //   },
+    //   {
+    //       tooltipOptions: {
+    //           tooltipLabel: "Upload"
+    //       },
+    //       icon: 'pi pi-upload',
+    //   },
+    //   {
+    //       tooltipOptions: {
+    //           tooltipLabel: "Angular Website"
+    //       },
+    //       icon: 'pi pi-external-link',
+    //       url: 'http://angular.io'
+    //   }
   ];
 
   }

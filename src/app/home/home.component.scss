@@ -1,11 +1,6 @@
 .main {
-  // background-color: #858585;
   background-color: var(--color-dark--1);
   height: 100%;
-}
-
-.main .navbar{
-
 }
 
 .main .content{
@@ -31,13 +26,13 @@
 }
 
 .speeddial-tooltip-demo{
-  position: absolute;
+  // position: absolute;
 }
 
 .speedDial{
-  position: absolute;
+  position: fixed;
   right: 6%;
-  bottom: 50%;
+  bottom: 18%;
   // height: 350px; 
   z-index: 1000;
 }

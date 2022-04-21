@@ -1,10 +1,10 @@
 
 <div class="main">
 
-  <div class="navbar">
+  <div>
     <app-navbar></app-navbar>
   </div>
-
+  
   <div class="content">
     <div class="comments_section">
       <!-- <div>
@@ -12,29 +12,30 @@
       </div> -->
       
       <div [ngSwitch]='windowIndex'>
-
-          <div *ngSwitchCase="0">
-            <app-comments></app-comments>
-          </div>
-
-          <div *ngSwitchCase="1">
-            <!-- <app-add-comment></app-add-comment> -->
-            <app-comment-form></app-comment-form>
-          </div>
-
+        
+        <div style="height: 100%;" *ngSwitchCase="0">
+          <app-comments></app-comments>
         </div>
-      </div>
-
-      <div class="map_section">
-        <div class="map">
-          <app-map></app-map>
+        
+        <div *ngSwitchCase="1">
+          <app-add-comment></app-add-comment>
+          <!-- <app-comment-form></app-comment-form> -->
         </div>
         
       </div>
+    </div>
+    
+    <div class="map_section">
+      <div class="map">
+        <app-map></app-map>
+      </div>
+
+      <div class="speedDial">
+        <p-speedDial [model]="tooltipItems" buttonClassName="p-button-warning" className="speeddial-tooltip-demo" direction="up"></p-speedDial>
+      </div>
+      
+    </div>
   </div>
-
+  
 </div>
 
-<div class="speedDial">
-  <p-speedDial [model]="tooltipItems" buttonClassName="p-button-warning" className="speeddial-tooltip-demo" direction="up"></p-speedDial>
-</div>

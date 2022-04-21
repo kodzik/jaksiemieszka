@@ -14,6 +14,7 @@ import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SpeedDialModule } from 'primeng/speeddial';
 import {StepsModule} from 'primeng/steps';
+import {CardModule} from 'primeng/card';
 
 @NgModule({
   declarations: [],
@@ -31,7 +32,8 @@ import {StepsModule} from 'primeng/steps';
     InputTextModule,
     InputTextareaModule,
     SpeedDialModule,
-    StepsModule
+    StepsModule,
+    CardModule
   ],
   exports:[
     CommonModule,
@@ -47,7 +49,8 @@ import {StepsModule} from 'primeng/steps';
     InputTextModule,
     InputTextareaModule,
     SpeedDialModule,
-    StepsModule
+    StepsModule,
+    CardModule
   ]
 })
 export class PrimesharedModule { }

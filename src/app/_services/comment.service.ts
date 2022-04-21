@@ -9,13 +9,13 @@ import { IComment } from '../_models/comment';
 })
 export class CommentService {
 
-  // comment: Comment
+  addComment: IComment
 
-  private commentSource = new Subject<IComment>();
-  highlightedComment = this.commentSource.asObservable();
+  // private commentSource = new Subject<IComment>();
+  // highlightedComment = this.commentSource.asObservable();
 
   private newCommentSource = new Subject<IComment>();
-  newComment = this.newCommentSource.asObservable();
+  newComment = this.newCommentSource.asObservable();//comments got from db
   
   constructor(private http: HttpClient ) {}
 
@@ -29,7 +29,7 @@ export class CommentService {
     })
   }
 
-  addnewComment(comment: IComment){
+  addNewComment(comment: IComment){
     this.http.post<IComment>(environment.apiUrl + '/api/comments/', comment).subscribe((response: any) => {
       console.log("Response:", response);
     })
