@@ -17,6 +17,7 @@ import { ApolloTestComponent } from './apollo-test/apollo-test.component';
 import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
 import { NavbarComponent } from './navbar/navbar.component';
+import { FabComponent } from './fab/fab.component';
 
 @NgModule({
   declarations: [
@@ -25,6 +26,7 @@ import { NavbarComponent } from './navbar/navbar.component';
     HomeComponent,
     MapComponent,
     NavbarComponent,
+    FabComponent,
   ],
   imports: [
     SharedModule,

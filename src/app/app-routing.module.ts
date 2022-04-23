@@ -9,20 +9,16 @@ const commentsModule = () => import('./comments/comments.module').then(x => x.Co
 
 const routes: Routes = [
   
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard],
-    children: [
-      // { path: 'account', loadChildren: accountModule },
-      { path: 'comments', loadChildren: commentsModule },
-    ]
-  },
-  // { path: 'apollo', component: ApolloTestComponent },
+  { path: 'home', component: HomeComponent, canActivate: [AuthGuard],},
+  { path: 'account', loadChildren: accountModule },
+// { path: 'apollo', component: ApolloTestComponent },
 
   // otherwise redirect to home
   { path: '**', redirectTo: 'home' }//, pathMatch: 'full'
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes, { enableTracing: true })],
+  imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

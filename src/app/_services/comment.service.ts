@@ -11,9 +11,6 @@ export class CommentService {
 
   addComment: IComment
 
-  // private commentSource = new Subject<IComment>();
-  // highlightedComment = this.commentSource.asObservable();
-
   private newCommentSource = new Subject<IComment>();
   newComment = this.newCommentSource.asObservable();//comments got from db
   
@@ -34,10 +31,6 @@ export class CommentService {
       console.log("Response:", response);
     })
   }
-
-  // highlightMarker(comment: IComment) {
-  //   this.commentSource.next(comment)
-  // }
 
   calculateAvgScore(comment: IComment): number{
     let index = 0;

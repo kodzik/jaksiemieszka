@@ -1,8 +1,9 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { CComment, CCommentAddress, IComment } from 'src/app/_models/comment';
 import { CommentService } from 'src/app/_services/comment.service';
 import { MarkerService } from 'src/app/_services/marker.service';
+import { commentsView } from '../commentsView';
 
 @Component({
   selector: 'app-add-comment',
@@ -11,7 +12,9 @@ import { MarkerService } from 'src/app/_services/marker.service';
 })
 export class AddCommentComponent implements OnInit, OnDestroy {
 
-  autoResize: boolean = true;
+  @Output() changeViewEvent = new EventEmitter<commentsView>();
+
+  autoResize: boolean = true; //textArea
 
   commentForm: FormGroup;
   comment: IComment;
@@ -81,9 +84,13 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   // get eduScore(){ return this.commentForm.get('eduScore')?.value}
   // get sportScore(){ return this.commentForm.get('sportScore')?.value}
 
-  addLocation(){
-    console.log("On input click");
-    this.markerService.enableMarkers = true;
+  // addLocation(){
+  //   console.log("On input click");
+  //   this.markerService.enableMarkers = true;
+  // }
+
+  cancelAdding(){
+    this.changeViewEvent.emit(commentsView.View)
   }
 
   onSubmit(){

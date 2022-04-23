@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CommentsRoutingModule } from './comments-routing.module';
 
 import { CommentComponent } from './comment/comment.component';
 import { CommentsComponent } from '././comments/comments.component';
@@ -8,7 +7,7 @@ import { AddCommentComponent } from './add-comment/add-comment.component';
 import { CommentFormComponent } from './comment-form/comment-form.component';
 
 import { SharedModule } from '../_shared/shared/shared.module';
-import { LayoutComponent } from './layout/layout.component';
+import { CommentsLayoutComponent } from './comments-layout/comments-layout.component';
 import { FormHelpComponent } from './comment-form/form-help/form-help.component';
 
 
@@ -17,22 +16,20 @@ import { FormHelpComponent } from './comment-form/form-help/form-help.component'
     CommentComponent,
     CommentsComponent,
     AddCommentComponent,
-    LayoutComponent,
+    CommentsLayoutComponent,
     CommentFormComponent,
     FormHelpComponent,
   ],
   imports: [
     CommonModule,
     SharedModule,
-
-    CommentsRoutingModule,
   ],
   exports:[
     CommentsComponent,
     AddCommentComponent,
     CommentFormComponent,
-    FormHelpComponent
-    // SharedModule
+    FormHelpComponent,
+    CommentsLayoutComponent
   ]
 })
 export class CommentsModule { }
