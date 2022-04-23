@@ -14,7 +14,7 @@ export class CommentsLayoutComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.changeView = commentsView.Add;    
+    this.changeView = commentsView.View;    
   }
 
   changeViewCallback(ev: commentsView){

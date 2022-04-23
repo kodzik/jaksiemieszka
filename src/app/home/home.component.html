@@ -12,11 +12,15 @@
     
     <div class="map_section">
       <div class="map">
-        <app-map></app-map>
+        <app-map [showDistricts]="showDistricts"></app-map>
       </div>
 
       <div class="speedDial">
-        <app-fab (changeViewEvent)="changeViewEvent($event)"></app-fab>
+        <app-fab 
+          (changeCommentsView)="changeViewEvent($event)"
+          (toggleDistrictLayer)="toggleDistrictLayer($event)"
+          >
+        </app-fab>
       </div>
       
     </div>

@@ -9,9 +9,11 @@ import { commentsView } from '../comments/commentsView';
 })
 export class FabComponent implements OnInit {
 
-  @Output() changeViewEvent = new EventEmitter<commentsView>();
+  @Output() changeCommentsView = new EventEmitter<commentsView>();
+  @Output() toggleDistrictLayer = new EventEmitter<boolean>();
 
   tooltipItems: MenuItem[];
+  toggleDistricts: boolean = false;
 
   constructor() { }
 
@@ -23,20 +25,20 @@ export class FabComponent implements OnInit {
           },
           icon: 'pi pi-pencil',
           command: () => {
-            this.changeViewEvent.emit(commentsView.Add)
-            // this.switchWindow()
-              // this.messageService.add({ severity: 'info', summary: 'Add', detail: 'Data Added' });
+            this.changeCommentsView.emit(commentsView.Add)
           }
       },
-    //   {
-    //       tooltipOptions: {
-    //           tooltipLabel: "Update"
-    //       },
-    //       icon: 'pi pi-refresh',
-    //       command: () => {
-    //           // this.messageService.add({ severity: 'success', summary: 'Update', detail: 'Data Updated' });
-    //       }
-    //   },
+      {
+          tooltipOptions: {
+              tooltipLabel: "Pokaż dzielnice"
+          },
+          icon: 'pi pi-refresh',
+          command: () => {
+            this.toggleDistrictLayer.emit(!this.toggleDistricts)
+            this.toggleDistricts = !this.toggleDistricts
+            console.log(this.toggleDistricts);
+          }
+      },
   ];
   }
 

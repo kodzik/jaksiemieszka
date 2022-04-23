@@ -9,6 +9,7 @@ import { commentsView } from '../comments/commentsView';
 export class HomeComponent implements OnInit {
 
   commentsView: commentsView;
+  showDistricts: boolean;
 
   constructor() { }
 
@@ -17,6 +18,10 @@ export class HomeComponent implements OnInit {
 
   changeViewEvent($event: commentsView) {
     this.commentsView = $event
+  }
+
+  toggleDistrictLayer($event: boolean){
+    this.showDistricts = $event;
   }
 
 }

@@ -1,9 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { MarkerService } from "../_services/marker.service";
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
 import { CommentService } from '../_services/comment.service';
-import { IComment } from '../_models/comment';
 import { ShapeService } from '../_services/shape.service';
 
 // import * as leafletBounce from 'leaflet.smooth_marker_bouncing';
@@ -32,11 +31,13 @@ Marker.prototype.options.icon = iconDefault;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit {
+export class MapComponent implements OnInit, OnChanges {
 
-  public map: any;
+  public map: L.Map;
+  districtLayer: L.GeoJSON;
   districts: any;
-  currentMarker: any;
+  @Input() showDistricts: boolean;
+  // currentMarker: any;
 
   public initMap(): void {
     this.map = L.map('map', {
@@ -51,13 +52,7 @@ export class MapComponent implements OnInit {
       minZoom: 3,
       attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
     });
-
     tiles.addTo(this.map);
-
-    //test marker  
-    // L.marker([52.261348417047, 21.025018929958]).addTo(this.map)
-    // .bindPopup('A pretty CSS3 popup.<br> Easily customizable.')
-    // .openPopup();
   }
 
   constructor(  private markerService: MarkerService,
@@ -71,7 +66,6 @@ export class MapComponent implements OnInit {
     this.initMap();
 
     this.map.on("click", (e: { latlng: { lng: number; lat: number; }; }) => {
-      // L.marker([e.latlng.lat, e.latlng.lng], this.markerIcon).addTo(this.map); // add the marker onclick
       if(this.markerService.enableMarkers){
         this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '', this.markerService.enableMarkers)
         this.markerService.changeCurrentMarker(e)
@@ -83,20 +77,26 @@ export class MapComponent implements OnInit {
       this.markerService.addMarker2(this.map, comment.location.lat, comment.location.lng, comment)
     });
 
-    // this.commentService.highlightedComment.subscribe(comment => {
-    //   this.testMessage = comment
-    //   console.log(this.testMessage);
-    //   this.markerService.addMarkerFromComment(this.map, this.testMessage)
-    // });
-
-    // this.shapeService.getStateShapes().subscribe(states => {
-    //   this.districts = states;
-    //   this.initDistrictLayer();
-    // });
+    this.shapeService.getStateShapes().subscribe(states => {
+      this.districts = states;
+      this.initDistrictLayer();
+    });
   }
 
-  private initDistrictLayer() {
-    const stateLayer = L.geoJSON(this.districts, {
+  ngOnChanges(changes: SimpleChanges) {
+    console.log(changes.showDistricts.currentValue);
+    if(changes.showDistricts.currentValue === true){
+      this.map.addLayer(this.districtLayer);
+      this.districtLayer.bringToBack();
+    } else{
+      if(this.map){
+        this.map.removeLayer(this.districtLayer)
+      }
+    }
+  }
+
+  initDistrictLayer() {
+    this.districtLayer = L.geoJSON(this.districts, {
       style: (feature) => ({
         weight: 3,
         opacity: 0.3,
@@ -114,8 +114,6 @@ export class MapComponent implements OnInit {
       )
     });
 
-    this.map.addLayer(stateLayer);
-    stateLayer.bringToBack();
   }
 
   private highlightFeature(e: any) {
