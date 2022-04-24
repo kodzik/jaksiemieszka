@@ -16,7 +16,7 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changeViewEvent($event: commentsView) {
+  changeViewCallback($event: commentsView) {
     this.commentsView = $event
   }
 

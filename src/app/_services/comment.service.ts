@@ -16,7 +16,7 @@ export class CommentService {
   
   constructor(private http: HttpClient ) {}
 
-  comments: IComment[] = [];
+  // comments: IComment[] = [];
 
   getComments(): void{
     this.http.get<IComment>(environment.apiUrl + '/api/comments/').subscribe((comments: any) => {
@@ -32,14 +32,5 @@ export class CommentService {
     })
   }
 
-  calculateAvgScore(comment: IComment): number{
-    let index = 0;
-    let avg = 0;
 
-    Object.values(comment.rating).forEach(element => {
-      avg += element;
-      index+=1;
-    })
-    return (avg / index);
-  }
 }

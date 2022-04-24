@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
 import { commentsView } from '../commentsView';
 
 @Component({
@@ -17,8 +17,16 @@ export class CommentsLayoutComponent implements OnInit {
     this.changeView = commentsView.View;    
   }
 
+  // ngOnChanges(changes: SimpleChanges) {
+  //   this.changeView = changes.changeView.currentValue
+  // }
+
   changeViewCallback(ev: commentsView){
     this.changeView = ev;
+  }
+
+  onChangeButton(){
+    this.changeView = (this.changeView + 1)%2;
   }
 
 }

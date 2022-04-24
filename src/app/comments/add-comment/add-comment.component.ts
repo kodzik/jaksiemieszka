@@ -36,7 +36,8 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    this.createForm();
+    // this.createForm();
+    this.markerService.deleteMarkers()
     this.markerService.enableMarkers = true;
 
     this.markerService.currentMarkerChange.subscribe(location => {
@@ -58,10 +59,10 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     this.commentForm = this.fb.group({
       location: [''],
 
-      locationScore: [3],
-      noiseScore: [3],
-      airScore: [3],
-      trafficScore: [3],
+      locationScore: [],
+      noiseScore: [],
+      airScore: [],
+      trafficScore: [],
       address: [''],
       text_content: [null],
 
@@ -89,13 +90,10 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   //   this.markerService.enableMarkers = true;
   // }
 
-  cancelAdding(){
-    this.changeViewEvent.emit(commentsView.View)
-  }
-
+  
   onSubmit(){
     let comment = new CComment;
-
+    
     try {
       comment.location = {lat: Number(this.location.lat), lng: Number(this.location.lng)}
       comment.rating = {
@@ -106,7 +104,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
         // culture: Number(this.cultureScore),
         // education: Number(this.eduScore),
         // sport: Number(this.sportScore),
-        }
+      }
       // comment.avg = this.cmtService.calculateAvgScore(comment)
       comment.address = this.parseMarkerAddress(this.markerData)
       comment.text_content = this.text_content
@@ -116,10 +114,11 @@ export class AddCommentComponent implements OnInit, OnDestroy {
       
     } finally {
       this.submitted = true;
+      this.close()
     }
-
+    
   }
-
+  
   parseMarkerAddress(data: any): any {
     const address: CCommentAddress = { 
       road: (data.address?.road !== undefined) ? data.address.road : null,
@@ -130,7 +129,12 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     };
     return address;
   }
-
+  
+  close(){
+    this.markerService.deleteMarkers()
+    this.changeViewEvent.emit(commentsView.View)
+  }
+  
   ngOnDestroy(): void {
     this.markerService.enableMarkers = false;
   }

@@ -10,7 +10,7 @@ import { Subject } from 'rxjs';
 })
 export class MarkerService {
 
-  markers: any[] = []
+  // markers: any[] = []
   markersWithId: any[] = []
   currentMarker: any;
   
@@ -30,7 +30,7 @@ export class MarkerService {
     return 20 * (val / maxVal);
   }
 
-  addMarker(map: L.Map, lng: number, lat: number, content: string, draggable?: boolean, comment?: any) {
+  addMarker(map: L.Map, lng: number, lat: number, draggable?: boolean) {
     L.marker([lng, lat], {draggable: draggable})
     .addTo(map)
     .on('dragend', (e) => {
@@ -48,10 +48,19 @@ export class MarkerService {
     .on('click', (e) => {
       this.clickedMarker.next(this.markersWithId.find(obj => group.getLayerId(obj.group.getLayers()[0]) === group.getLayerId(marker)));
     })
-    .bindPopup(`<div>${comment.avg}</div>`)
+    .bindPopup(`
+    <h4 style="position: absolute; color: #EC5434; font-size: 15px; bottom: 35%">${comment.username}</h4>
+    <div>Ocena: ${this.calculateAvgScore(comment)}</div>`)
     group.addLayer(marker);
     this.markersWithId.push({id: comment.id, group: group})
     group.addTo(map);
+  }
+
+  deleteMarkers(){
+    this.markersWithId.forEach(element => {
+      element.group.removeLayer(element.group.getLayerId(element.group.getLayers()[0]))
+    });
+    this.markersWithId.length = 0;
   }
 
   getAddressFromMarker(latlng: any){
@@ -59,6 +68,17 @@ export class MarkerService {
     this.http.get(apiAddr).subscribe(response => {
       this.markerData.next(response)
     })
+  }
+
+  calculateAvgScore(comment: IComment): number{
+    let index = 0;
+    let avg = 0;
+
+    Object.values(comment.rating).forEach(element => {
+      avg += element;
+      index+=1;
+    })
+    return (avg / index);
   }
 
   getAddressFromMarker__2(latlng: any){
@@ -70,23 +90,24 @@ export class MarkerService {
     this.currentMarkerChange.next(marker);
   }
 
-  addMarkerFromComment(comment: any){
-    this.markers.push({id: comment.id, location: comment.location})
-    // this.markers.push(comment.location)
-  }
+  // addMarkerFromComment(comment: any){
+  //   this.markers.push({id: comment.id, location: comment.location})
+  //   // this.markers.push(comment.location)
+  // }
 
-  makeCapitalMarkers(map: L.Map): void {
-    this.http.get(this.capitals).subscribe((res: any) => {
-      for (const c of res.features) {
-        const lon = c.geometry.coordinates[0];
-        const lat = c.geometry.coordinates[1];
-        const circle = L.circleMarker([lat, lon], { radius: 20 });
+  // makeCapitalMarkers(map: L.Map): void {
+  //   this.http.get(this.capitals).subscribe((res: any) => {
+  //     for (const c of res.features) {
+  //       const lon = c.geometry.coordinates[0];
+  //       const lat = c.geometry.coordinates[1];
+  //       const circle = L.circleMarker([lat, lon], { radius: 20 });
 
-        circle.addTo(map);
-      }
-    });
-  }
+  //       circle.addTo(map);
+  //     }
+  //   });
+  // }
 
+  // TODO MAKE USE OF IT!
   makeCapitalCircleMarkers(map: L.Map): void {
     this.http.get(this.capitals).subscribe((res: any) => {
 

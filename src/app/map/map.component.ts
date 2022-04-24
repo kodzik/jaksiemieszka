@@ -37,7 +37,6 @@ export class MapComponent implements OnInit, OnChanges {
   districtLayer: L.GeoJSON;
   districts: any;
   @Input() showDistricts: boolean;
-  // currentMarker: any;
 
   public initMap(): void {
     this.map = L.map('map', {
@@ -66,8 +65,9 @@ export class MapComponent implements OnInit, OnChanges {
     this.initMap();
 
     this.map.on("click", (e: { latlng: { lng: number; lat: number; }; }) => {
+      // map on click is enabled when addNewComment view is opened.
       if(this.markerService.enableMarkers){
-        this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, '', this.markerService.enableMarkers)
+        this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, this.markerService.enableMarkers)
         this.markerService.changeCurrentMarker(e)
         this.markerService.enableMarkers = false;
       }
@@ -84,7 +84,6 @@ export class MapComponent implements OnInit, OnChanges {
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log(changes.showDistricts.currentValue);
     if(changes.showDistricts.currentValue === true){
       this.map.addLayer(this.districtLayer);
       this.districtLayer.bringToBack();

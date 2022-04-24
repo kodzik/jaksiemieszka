@@ -1,18 +1,22 @@
 # Todo
 
 ## Urgent
-- [ ] Add comment form
-- [ ] Expand comment on click and show details
-    - [ ] Center expanded comment
-    - [ ] Detailed view
-- [ ] Add as guest / login
-    - user authentication
-- [ ] UNSUBSCRIBE ALL!!!
-#
-### Comments module
+
+- [ ] Cannot reopen addComment
 - [ ] Add comment form
     - [ ] Adding comment location constraint
     - [ ] Adding comment rating constraint
+
+- [ ] Expand comment on click and show details
+    - [ ] Center expanded comment
+    - [ ] Detailed view
+
+- [ ] Add as guest / login
+    - user authentication
+
+- [ ] UNSUBSCRIBE ALL!!!
+#
+### Comments module
 - [ ] Add comment as guest
 
 - [ ] Sort comments: suburb / avg rate / 
@@ -20,7 +24,6 @@
 
 ### Markers
 - [ ] Zoom on marker on comment click/hover
-- [ ] Clean markers on Add new comment.
 
 ### Account module
 - [ ] Login page / form
@@ -29,6 +32,7 @@
 - [ ] Main page RWD
 - [ ] Angular upgrade
 - [ ] Publish on Heroku
+- [ ] Leaflet upgrade
 
 ### In Progress
 - [ ] Navbar RWD
@@ -46,9 +50,11 @@
 - [x] Add comment id to marker when added
 - [x] Bind marker with comment
 - [x] Marker Popup on comment hover
+- [x] Close addCommment window on submit
+- [x] Clean markers on Add new comment.
 
 ### Bugs
 - [ ] Comments section overflow
-- [ ] Popup content undefined until comment hover (comment.rating)
 - [ ] markerService/addMarker override
 - [ ] the one before last comment expand on marker click
+- [x] Popup content undefined until comment hover (comment.rating)

@@ -1,6 +1,7 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { commentsView } from '../comments/commentsView';
+import { MarkerService } from '../_services/marker.service';
 
 @Component({
   selector: 'app-fab',
@@ -15,7 +16,7 @@ export class FabComponent implements OnInit {
   tooltipItems: MenuItem[];
   toggleDistricts: boolean = false;
 
-  constructor() { }
+  constructor(private markerService: MarkerService) { }
 
   ngOnInit(): void {
     this.tooltipItems = [
@@ -36,9 +37,17 @@ export class FabComponent implements OnInit {
           command: () => {
             this.toggleDistrictLayer.emit(!this.toggleDistricts)
             this.toggleDistricts = !this.toggleDistricts
-            console.log(this.toggleDistricts);
           }
       },
+      {
+        tooltipOptions: {
+            tooltipLabel: "Del markers"
+        },
+        icon: 'pi pi-check',
+        command: () => {
+          this.markerService.deleteMarkers()
+        }
+    },
   ];
   }
 

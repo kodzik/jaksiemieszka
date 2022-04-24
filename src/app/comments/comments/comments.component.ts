@@ -44,7 +44,7 @@ export class CommentsComponent implements OnInit {
 
   scrollTo(e:any){
     const comment = document.getElementById(e.id)
-    console.log(this.isInViewport(comment))
+    console.log("Is in viewport?", this.isInViewport(comment))
 
     if(comment !== null){
       // comment.scrollIntoView({behavior: 'smooth'} );
