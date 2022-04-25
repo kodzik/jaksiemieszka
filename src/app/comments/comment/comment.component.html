@@ -1,6 +1,6 @@
-<div [@openClose]="isOpen ? 'open' : 'closed'" class="card" (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
+<div [@openClose]="isOpen ? 'open' : 'closed'"  (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
     
-    <div *ngIf="isOpen===false; else elseBlock">
+    <div class="card" *ngIf="isOpen===false; else elseBlock">
         <div class="content">
             <div class="rating">
                 <div class="number">
@@ -12,7 +12,9 @@
             </div>
             <div class="cmt-text">
                 <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
-                    Brak komentarza.
+                    <meta charset="UTF-8">
+                    Niestety, ktoś się nie popisał! 
+                    <p>&#128512;</p>
                 </div>
                 <ng-template #elseBlock>
                     {{comment.text_content}}
@@ -41,36 +43,52 @@
         </div>
     </div>
 
-    <ng-template #elseBlock>
+    <ng-template  #elseBlock>
 
-        <div class="main_expanded">
+        <div class="card">
 
-            <div class="content">
-                <div class="rating">
-                    <div class="number">
-                        {{rating | number: '1.1-1'}}
+            <!-- <div class="expanded-divider">
+                <div></div>
+            </div> -->
+
+            <div class="content content-expanded">
+
+                <div>
+                    <div class="rating">
+                        <div class="number">
+                            {{rating | number: '1.1-1'}}
+                        </div>
+        
+                        <div class="stars">
+                            <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
+                        </div>
                     </div>
-    
-                    <div class="stars">
-                        <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
+
+                    <div>
+                        <div class="rating-block" *ngFor="let item of comment.rating | keyvalue">
+                            <div class="stars">
+                                <p-rating [ngModel]="item.value" [cancel]="false" [readonly]="true"></p-rating>  
+                            </div>
+                            <div class="stars-description">
+                                {{item.key}}
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="cmt-text">
+
+
+                <div class="cmt-text cmt-text-expanded">
                     <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
                         Brak komentarza.
                     </div>
                     <ng-template #elseBlock>
                         {{comment.text_content}}
                     </ng-template>
-                </div>            
+                </div>    
+
             </div>
     
-            <div>
-                <div class="rating_block" *ngFor="let item of comment.rating | keyvalue">
-                    {{item.key}}
-                    <p-rating [ngModel]="item.value" [cancel]="false" [readonly]="true"></p-rating>  
-                </div>
-            </div>
+
             
             <div class="subcontent">
                 <div class="user">
@@ -89,6 +107,7 @@
                         <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span> 
                     </div>
                 </div>
+
                 <div class="rate-btn"></div>
             </div>
 
