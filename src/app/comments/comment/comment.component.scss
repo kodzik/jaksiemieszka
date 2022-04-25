@@ -18,11 +18,16 @@
 .card .content{
     display: flex;
     flex-direction: row;
-
     padding: 0.5rem 0.5rem 0;
 }
 
-.card .content .rating{
+.card .main_expanded{
+    display: flex;
+    flex-direction: column;
+
+}
+
+.card .rating{
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -31,7 +36,7 @@
     min-height: 5rem;
 }
 
-.card .content .rating .number{
+.card .number{
     @include border();
     color: #434343;
     display: flex;
@@ -47,12 +52,12 @@
     background-color: #FFFFFF;
 }
 
-.card .content .rating .stars{
+.card .stars{
     @include border();
     text-align: center;
 }
 
-.card .content .cmt-text{
+.card .cmt-text{
     @include border();
     width: 85%;
     max-height: 100px;
@@ -71,11 +76,11 @@
     padding: 0.5rem;
 }
 
-.card .expand-btn{
-    @include border();
-    text-align: center;
-    // min-height: 0.5rem;
-    background-color: var(color-light--1);
-    // padding: 0.5rem;
-    margin: 0 0.5rem 0.25rem 0.5rem;
-}
+// .card .expand-btn{
+//     @include border();
+//     text-align: center;
+//     // min-height: 0.5rem;
+//     background-color: var(color-light--1);
+//     // padding: 0.5rem;
+//     margin: 0 0.5rem 0.25rem 0.5rem;
+// }

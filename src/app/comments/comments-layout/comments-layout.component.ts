@@ -18,7 +18,7 @@ export class CommentsLayoutComponent implements OnInit {
   }
 
   // ngOnChanges(changes: SimpleChanges) {
-  //   this.changeView = changes.changeView.currentValue
+  //   console.log(changes.changeView.currentValue);
   // }
 
   changeViewCallback(ev: commentsView){
