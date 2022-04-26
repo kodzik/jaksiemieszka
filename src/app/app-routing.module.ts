@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApolloTestComponent } from './apollo-test/apollo-test.component';
+import { AddCommentComponent } from './comments/add-comment/add-comment.component';
 import { HomeComponent } from './home/home.component';
 import { AuthGuard } from './_helpers/auth.guard';
 
@@ -9,9 +10,22 @@ const commentsModule = () => import('./comments/comments.module').then(x => x.Co
 
 const routes: Routes = [
   
-  { path: 'home', component: HomeComponent, canActivate: [AuthGuard],},
+  { 
+    path: 'home', 
+    component: HomeComponent, 
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+    // loadChildren: commentsModule,
+  },
   { path: 'account', loadChildren: accountModule },
 // { path: 'apollo', component: ApolloTestComponent },
+
+  { 
+    path: 'comments', 
+    loadChildren: commentsModule,
+    canActivate: [AuthGuard],
+    canActivateChild: [AuthGuard],
+  },
 
   // otherwise redirect to home
   { path: '**', redirectTo: 'home' }//, pathMatch: 'full'
