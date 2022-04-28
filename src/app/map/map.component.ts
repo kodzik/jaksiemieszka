@@ -1,12 +1,13 @@
-import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
 import { MarkerService } from "../_services/marker.service";
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
 import { CommentService } from '../_services/comment.service';
 import { ShapeService } from '../_services/shape.service';
+import { FabService } from '../fab/fab.service';
 
 // import * as leafletBounce from 'leaflet.smooth_marker_bouncing';
-import 'leaflet.smooth_marker_bouncing'
+// import 'leaflet.smooth_marker_bouncing'
 
 // --- Leaflet marker bugfix --- //
 const iconRetinaUrl = 'assets/marker-icon-2x.png';
@@ -31,12 +32,14 @@ Marker.prototype.options.icon = iconDefault;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, OnChanges {
+export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
   public map: L.Map;
   districtLayer: L.GeoJSON;
   districts: any;
-  @Input() showDistricts: boolean;
+
+  showDistricts: boolean = false;
+  subShowDistricts: any;
 
   public initMap(): void {
     this.map = L.map('map', {
@@ -56,10 +59,10 @@ export class MapComponent implements OnInit, OnChanges {
 
   constructor(  private markerService: MarkerService,
                 private commentService: CommentService,
-                private shapeService: ShapeService) {}
+                private shapeService: ShapeService,
+                private fabService: FabService) {}
 
-  ngOnInit(): void {
-  }
+  ngOnInit() {}
 
   ngAfterViewInit(){
     this.initMap();
@@ -72,7 +75,7 @@ export class MapComponent implements OnInit, OnChanges {
         this.markerService.enableMarkers = false;
       }
     });
-    
+
     this.commentService.newComment.subscribe(comment => {
       this.markerService.addMarker2(this.map, comment.location.lat, comment.location.lng, comment)
     });
@@ -81,17 +84,22 @@ export class MapComponent implements OnInit, OnChanges {
       this.districts = states;
       this.initDistrictLayer();
     });
-  }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if(changes.showDistricts.currentValue === true){
-      this.map.addLayer(this.districtLayer);
-      this.districtLayer.bringToBack();
-    } else{
-      if(this.map){
-        this.map.removeLayer(this.districtLayer)
+    this.subShowDistricts = this.fabService.toggleDistricts.subscribe(toggle => {
+      if(toggle === true){
+        this.map.addLayer(this.districtLayer);
+        this.districtLayer.bringToBack();
+      } else {
+        if(this.map && this.districtLayer){
+          this.map.removeLayer(this.districtLayer)
+        }
       }
-    }
+      this.showDistricts = toggle;
+    })
+
+    this.markerService.tempMarkerToDelete.subscribe(marker => {
+      this.map.removeLayer(marker)
+    })
   }
 
   initDistrictLayer() {
@@ -112,7 +120,6 @@ export class MapComponent implements OnInit, OnChanges {
         })
       )
     });
-
   }
 
   private highlightFeature(e: any) {
@@ -139,4 +146,9 @@ export class MapComponent implements OnInit, OnChanges {
     });
   }
 
+  ngOnDestroy(): void {
+    this.map.off();
+    this.map.remove();
+    this.subShowDistricts.unsubscribe()
+  }
 }

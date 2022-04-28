@@ -1,5 +1,6 @@
-import { Component, EventEmitter, OnDestroy, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { FabService } from 'src/app/fab/fab.service';
 import { CComment, CCommentAddress, IComment } from 'src/app/_models/comment';
 import { CommentService } from 'src/app/_services/comment.service';
 import { MarkerService } from 'src/app/_services/marker.service';
@@ -12,8 +13,6 @@ import { commentsView } from '../commentsView';
 })
 export class AddCommentComponent implements OnInit, OnDestroy {
 
-  @Output() changeViewEvent = new EventEmitter<commentsView>();
-
   autoResize: boolean = true; //textArea
 
   commentForm: FormGroup;
@@ -24,23 +23,21 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   submitted: boolean = false;
 
-  // private newCommentSource = new Subject<IComment>();
-  // newComment = this.newCommentSource.asObservable();
-
   constructor(
     private fb: FormBuilder,
     private cmtService: CommentService,
     private markerService: MarkerService,
+    private fabService: FabService
     ) {
     this.createForm();
   }
 
   ngOnInit(): void {
-    // this.createForm();
-    this.markerService.deleteMarkers()
+    this.markerService.deleteAllMarkers()
     this.markerService.enableMarkers = true;
 
     this.markerService.currentMarkerChange.subscribe(location => {
+
       if( location.latlng){
         this.currentMarker = location.latlng;
       } else{
@@ -58,11 +55,10 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   createForm() {
     this.commentForm = this.fb.group({
       location: [''],
-
-      locationScore: [],
-      noiseScore: [],
-      airScore: [],
-      trafficScore: [],
+      locationScore: new FormControl(null, Validators.required),
+      noiseScore: new FormControl(null, Validators.required),
+      airScore: new FormControl(null, Validators.required),
+      trafficScore: new FormControl(null, Validators.required),
       address: [''],
       text_content: [null],
 
@@ -79,7 +75,6 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   get trafficScore(){ return this.commentForm.get('trafficScore')?.value}
   get text_content(){ return this.commentForm.get('text_content')?.value;}
 
-  // get location(){ return this.commentForm.get('location')?.value}
   // get address(){ return this.commentForm.get('address')?.value;}
   // get cultureScore(){ return this.commentForm.get('cultureScore')?.value}
   // get eduScore(){ return this.commentForm.get('eduScore')?.value}
@@ -90,10 +85,11 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   //   this.markerService.enableMarkers = true;
   // }
 
-  
+
   onSubmit(){
     let comment = new CComment;
-    
+    console.log(this.commentForm.status);
+
     try {
       comment.location = {lat: Number(this.location.lat), lng: Number(this.location.lng)}
       comment.rating = {
@@ -111,16 +107,15 @@ export class AddCommentComponent implements OnInit, OnDestroy {
       this.cmtService.addNewComment(comment)
       // this.addnewComment(comment)
     } catch (error) {
-      
+
     } finally {
       this.submitted = true;
-      this.close()
+      // this.close()
     }
-    
   }
-  
+
   parseMarkerAddress(data: any): any {
-    const address: CCommentAddress = { 
+    const address: CCommentAddress = {
       road: (data.address?.road !== undefined) ? data.address.road : null,
       house_number: (data.address?.house_number !== undefined) ? data.address.house_number : null,
       suburb: (data.address?.suburb !== undefined) ? data.address.suburb : null,
@@ -129,13 +124,13 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     };
     return address;
   }
-  
+
   close(){
-    this.markerService.deleteMarkers()
-    this.changeViewEvent.emit(commentsView.View)
+    this.fabService.changeCommentsView(commentsView.View)
   }
-  
+
   ngOnDestroy(): void {
     this.markerService.enableMarkers = false;
+    this.markerService.deleteMarker()
   }
 }

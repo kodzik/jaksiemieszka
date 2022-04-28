@@ -2,9 +2,9 @@
 
 ## Urgent
 
-- [ ] Cannot reopen addComment
+- [x] Cannot reopen addComment
 - [ ] Add comment form
-    - [ ] Adding comment location constraint
+    - [x] Adding comment location constraint
     - [ ] Adding comment rating constraint
 
 - [ ] Expand comment on click and show details
@@ -12,7 +12,7 @@
     - [ ] Detailed view
 
 - [ ] Add as guest / login
-    - user authentication
+    - [x] user authentication
 
 - [ ] UNSUBSCRIBE ALL!!!
 #
@@ -55,6 +55,6 @@
 
 ### Bugs
 - [ ] Comments section overflow
-- [ ] markerService/addMarker override
+- [ ] markerService/addMarker/addMarker2 override
 - [ ] the one before last comment expand on marker click
 - [x] Popup content undefined until comment hover (comment.rating)

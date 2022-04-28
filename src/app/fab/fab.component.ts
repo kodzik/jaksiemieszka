@@ -4,6 +4,7 @@ import { ConfirmationService, MenuItem } from 'primeng/api';
 import { commentsView } from '../comments/commentsView';
 import { AuthService } from '../_services/auth.service';
 import { MarkerService } from '../_services/marker.service';
+import { FabService } from './fab.service';
 
 @Component({
   selector: 'app-fab',
@@ -12,16 +13,14 @@ import { MarkerService } from '../_services/marker.service';
 })
 export class FabComponent implements OnInit {
 
-  @Output() changeCommentsView = new EventEmitter<commentsView>();
-  @Output() toggleDistrictLayer = new EventEmitter<boolean>();
-
   tooltipItems: MenuItem[];
-  toggleDistricts: boolean = false;
+  toggleDistricts: boolean = true;
 
   constructor(private markerService: MarkerService,
     private authService: AuthService,
     private confirmationService: ConfirmationService,
     private router: Router,
+    private fabService: FabService
     ) { }
 
   ngOnInit(): void {
@@ -33,7 +32,7 @@ export class FabComponent implements OnInit {
           icon: 'pi pi-pencil',
           command: () => {
             if(this.authService.isAuthenticated()){
-              this.changeCommentsView.emit(commentsView.Add)
+              this.fabService.changeCommentsView(commentsView.Add)
             } else {
               this.confirm()
             }
@@ -45,19 +44,19 @@ export class FabComponent implements OnInit {
           },
           icon: 'pi pi-refresh',
           command: () => {
-            this.toggleDistrictLayer.emit(!this.toggleDistricts)
+            this.fabService.toggleDistrictsLayer(this.toggleDistricts)
             this.toggleDistricts = !this.toggleDistricts
           }
       },
-      {
-        tooltipOptions: {
-            tooltipLabel: "Del markers"
-        },
-        icon: 'pi pi-check',
-        command: () => {
-          this.markerService.deleteMarkers()
-        }
-    },
+      // {
+      //   tooltipOptions: {
+      //       tooltipLabel: "Del markers"
+      //   },
+      //   icon: 'pi pi-check',
+      //   command: () => {
+      //     this.markerService.deleteAllMarkers()
+      //   }
+      // },
   ];
   }
 

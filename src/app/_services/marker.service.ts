@@ -13,9 +13,12 @@ export class MarkerService {
   // markers: any[] = []
   markersWithId: any[] = []
   currentMarker: any;
-  
+
+  tempLayer: L.LayerGroup;
+  tempMarkerToDelete: Subject<any> = new Subject<any>();
+
   enableMarkers: boolean = false;
-  
+
   clickedMarker: Subject<any> = new Subject<any>();
   currentMarkerChange: Subject<any> = new Subject<any>();
   markerData: Subject<any> = new Subject<any>();
@@ -23,7 +26,7 @@ export class MarkerService {
   capitals: string = '/assets/data/usa-capitals.geojson';
 
   constructor(
-    private http: HttpClient, 
+    private http: HttpClient,
     private popupService: PopupService ) {}
 
   static scaledRadius(val: number, maxVal: number): number {
@@ -31,11 +34,13 @@ export class MarkerService {
   }
 
   addMarker(map: L.Map, lng: number, lat: number, draggable?: boolean) {
-    L.marker([lng, lat], {draggable: draggable})
-    .addTo(map)
+    let marker = L.marker([lng, lat], {draggable: draggable})
     .on('dragend', (e) => {
       this.changeCurrentMarker(e.target);
 		})
+    this.tempLayer = L.layerGroup()
+    this.tempLayer.addLayer(marker)
+    this.tempLayer.addTo(map)
   }
 
   addMarker2(map: L.Map, lng: number, lat: number, comment: IComment) {
@@ -56,15 +61,19 @@ export class MarkerService {
     group.addTo(map);
   }
 
-  deleteMarkers(){
+  deleteAllMarkers(){
     this.markersWithId.forEach(element => {
       element.group.removeLayer(element.group.getLayerId(element.group.getLayers()[0]))
     });
     this.markersWithId.length = 0;
   }
 
+  deleteMarker(){
+    this.tempMarkerToDelete.next(this.tempLayer)
+  }
+
   getAddressFromMarker(latlng: any){
-    const apiAddr = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`    
+    const apiAddr = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`
     this.http.get(apiAddr).subscribe(response => {
       this.markerData.next(response)
     })
@@ -81,10 +90,10 @@ export class MarkerService {
     return (avg / index);
   }
 
-  getAddressFromMarker__2(latlng: any){
-    const apiAddr = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`    
-    return this.http.get(apiAddr)
-  }
+  // getAddressFromMarker__2(latlng: any){
+  //   const apiAddr = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`
+  //   return this.http.get(apiAddr)
+  // }
 
   changeCurrentMarker(marker: any) {
     this.currentMarkerChange.next(marker);

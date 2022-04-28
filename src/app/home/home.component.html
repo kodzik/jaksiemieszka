@@ -4,27 +4,23 @@
   <div>
     <app-navbar></app-navbar>
   </div>
-  
+
   <div class="content">
     <div class="comments_section">
-      <app-comments-layout [changeView]="commentsView"></app-comments-layout>      
+      <app-comments-layout></app-comments-layout>
     </div>
-    
+
     <div class="map_section">
       <div class="map">
-        <app-map [showDistricts]="showDistricts"></app-map>
+        <app-map></app-map>
       </div>
 
       <div class="speedDial">
-        <app-fab 
-          (changeCommentsView)="changeViewCallback($event)"
-          (toggleDistrictLayer)="toggleDistrictLayer($event)"
-          >
-        </app-fab>
+        <app-fab></app-fab>
       </div>
-      
+
     </div>
   </div>
-  
+
 </div>
 

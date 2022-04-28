@@ -16,12 +16,4 @@ export class HomeComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  changeViewCallback($event: commentsView) {
-    this.commentsView = $event
-  }
-
-  toggleDistrictLayer($event: boolean){
-    this.showDistricts = $event;
-  }
-
 }

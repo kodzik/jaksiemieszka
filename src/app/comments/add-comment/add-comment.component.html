@@ -1,33 +1,35 @@
 <div class="main">
 
+  {{commentForm.status}}
+
   <div class="header">
     <h1>Dodaj opinię</h1>
-    <button 
-      pButton 
-      pRipple 
-      type="button" 
-      icon="pi pi-times" 
-      class="p-button-rounded p-button-danger p-button-outlined" 
+    <button
+      pButton
+      pRipple
+      type="button"
+      icon="pi pi-times"
+      class="p-button-rounded p-button-danger p-button-outlined"
       (click)="close()">
     </button>
   </div>
 
   <div class="location">
-    <h2>Twoja lokalizacja: 
-      <div class="marker-data"  *ngIf="markerData !== undefined"> 
-        {{markerData.address.road}} 
-        {{markerData.address.house_number}}, 
-        {{markerData.address.suburb}} 
+    <h2>Twoja lokalizacja:
+      <div class="marker-data"  *ngIf="markerData !== undefined">
+        {{markerData.address.road}}
+        {{markerData.address.house_number}},
+        {{markerData.address.suburb}}
       </div>
     </h2>
     <div *ngIf="currentMarker !== undefined; else elseBlock">
       <!-- Współrzędne: Lat: {{currentMarker.lat}} Lng: {{currentMarker.lng}} -->
     </div>
     <ng-template #elseBlock>Kliknij na mapę aby dodać swoją lokalizację. </ng-template>
-    
+
     <div>
       <small class="p-error" *ngIf="(currentMarker == undefined && submitted)">
-        Dodanie lokalizacji jest kluczowym elementem opinii. 
+        Dodanie lokalizacji jest kluczowym elementem opinii.
       </small>
     </div>
 
@@ -36,7 +38,13 @@
   <form class="form" [formGroup]="commentForm" (ngSubmit)="onSubmit()">
 
     <h4>Lokalizacja</h4>
-    <p-rating styleClass="rating-override" formControlName="locationScore" [cancel]="false" required>Lokalizacja</p-rating>
+    <p-rating
+    formControlName="locationScore"
+    [cancel]="false"
+    required
+
+    ></p-rating>
+    <!-- [ngClass]="{'ng-dirty': (locationScore.invalid && submitted)}" -->
 
     <h4>Hałas</h4>
     <p-rating formControlName="noiseScore" [cancel]="false" required></p-rating>
@@ -46,7 +54,7 @@
 
     <h4>Korki</h4>
     <p-rating formControlName="trafficScore" [cancel]="false" required></p-rating>
-    
+
     <!-- <h4>Dostęp do kultury</h4>
     <p-rating formControlName="cultureScore" [cancel]="false" required></p-rating>
 
@@ -62,7 +70,7 @@
     </div>
 
     <p-button class="submit" type="submit">Opublikuj</p-button>
-    
+
   </form>
-  
+
 </div>
