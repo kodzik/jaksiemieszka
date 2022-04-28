@@ -9,23 +9,37 @@ const accountModule = () => import('./account/account.module').then(x => x.Accou
 const commentsModule = () => import('./comments/comments.module').then(x => x.CommentsModule);
 
 const routes: Routes = [
-  
-  { 
-    path: 'home', 
-    component: HomeComponent, 
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
-    // loadChildren: commentsModule,
-  },
-  { path: 'account', loadChildren: accountModule },
-// { path: 'apollo', component: ApolloTestComponent },
 
-  { 
-    path: 'comments', 
-    loadChildren: commentsModule,
-    canActivate: [AuthGuard],
-    canActivateChild: [AuthGuard],
+  {
+    path: 'home',
+    component: HomeComponent,
+    // canActivate: [AuthGuard],
+    // canActivateChild: [AuthGuard],
+    // loadChildren: commentsModule,
+    // children: [
+    //   {
+    //     path: 'add',
+    //     component: AddCommentComponent,
+    //     canActivate: [AuthGuard]
+    //   }
+    // ]
   },
+  // { path: 'apollo', component: ApolloTestComponent },
+
+  // {
+  //   path: 'comments',
+  //   // loadChildren: commentsModule,
+  //   children: [
+  //     {
+  //       path: 'add',
+  //       component: AddCommentComponent,
+  //       canActivate: [AuthGuard]
+  //     }
+  //   ],
+  //   canActivate: [AuthGuard],
+  //   canActivateChild: [AuthGuard],
+  // },
+  { path: 'account', loadChildren: accountModule },
 
   // otherwise redirect to home
   { path: '**', redirectTo: 'home' }//, pathMatch: 'full'

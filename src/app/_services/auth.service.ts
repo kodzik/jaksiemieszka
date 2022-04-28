@@ -79,7 +79,7 @@ export class AuthService {
     if(access !== null && refresh !== null){
 
       if (!this.jwt.isTokenExpired(access)) {
-        console.log("token valid");
+        // console.log("token valid");
 
         return new BehaviorSubject(access);
       } else if (!this.jwt.isTokenExpired(refresh)) {
@@ -92,7 +92,7 @@ export class AuthService {
         return this.http.post<RefreshResponse>(`${environment.apiUrl}/api/token/refresh/`, { refresh: refresh }, { withCredentials: true }).pipe(
           map(response => {
             localStorage.setItem('access', response.access);
-            console.log('authentication refresh successful');
+            // console.log('authentication refresh successful');
             return response.access;
           })
         );

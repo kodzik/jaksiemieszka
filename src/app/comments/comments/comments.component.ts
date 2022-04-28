@@ -24,11 +24,11 @@ export class CommentsComponent implements OnInit {
     this.cmtService.getComments();
 
     this.cmtService.newComment.subscribe(comment => {
-      this.comments.push(comment)      
+      this.comments.push(comment)
     });
 
     this.markerService.clickedMarker.subscribe(comment => {
-      this.scrollTo(comment)      
+      this.scrollTo(comment)
     });
   }
 
@@ -44,7 +44,7 @@ export class CommentsComponent implements OnInit {
 
   scrollTo(e:any){
     const comment = document.getElementById(e.id)
-    console.log("Is in viewport?", this.isInViewport(comment))
+    // console.log("Is in viewport?", this.isInViewport(comment))
 
     if(comment !== null){
       // comment.scrollIntoView({behavior: 'smooth'} );

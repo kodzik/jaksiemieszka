@@ -1,6 +1,8 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { MenuItem } from 'primeng/api';
+import { Router } from '@angular/router';
+import { ConfirmationService, MenuItem } from 'primeng/api';
 import { commentsView } from '../comments/commentsView';
+import { AuthService } from '../_services/auth.service';
 import { MarkerService } from '../_services/marker.service';
 
 @Component({
@@ -16,7 +18,11 @@ export class FabComponent implements OnInit {
   tooltipItems: MenuItem[];
   toggleDistricts: boolean = false;
 
-  constructor(private markerService: MarkerService) { }
+  constructor(private markerService: MarkerService,
+    private authService: AuthService,
+    private confirmationService: ConfirmationService,
+    private router: Router,
+    ) { }
 
   ngOnInit(): void {
     this.tooltipItems = [
@@ -26,7 +32,11 @@ export class FabComponent implements OnInit {
           },
           icon: 'pi pi-pencil',
           command: () => {
-            this.changeCommentsView.emit(commentsView.Add)
+            if(this.authService.isAuthenticated()){
+              this.changeCommentsView.emit(commentsView.Add)
+            } else {
+              this.confirm()
+            }
           }
       },
       {
@@ -50,5 +60,15 @@ export class FabComponent implements OnInit {
     },
   ];
   }
+
+  confirm() {
+    this.confirmationService.confirm({
+        message: 'Zaloguj się, aby dodać swój komentarz!',
+        accept: () => {
+          this.router.navigate(['/account/login']);
+          // this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
+        }
+    });
+}
 
 }

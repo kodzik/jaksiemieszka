@@ -31,22 +31,23 @@ export class JwtInterceptor implements HttpInterceptor {
     // }
 
     // return next.handle(request);
-
+    if( request.url === `${environment.apiUrl}/api/comments/` ){
+      return next.handle(request);
+    } else {
       if(!/.*\/api\/token\/.*/.test(request.url) ) {
         return this.authService.getAccessToken().pipe(
           mergeMap((accessToken: string) => {
             const reqAuth = request.clone({ setHeaders: { Authorization: `Bearer ${accessToken}` } });
             return next.handle(reqAuth);
           }),
-          catchError((err) => {
-            // console.error(err);
-            // this.router.navigate(['/login']);
-            this.router.navigate(['/account/login']);
+          catchError ((err) => {
+            // this.router.navigate(['/account/login']);
             return throwError(err);
           })
         );
       } else {
         return next.handle(request);
       }
+    }
   }
 }
