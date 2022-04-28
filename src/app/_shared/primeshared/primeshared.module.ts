@@ -15,6 +15,8 @@ import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SpeedDialModule } from 'primeng/speeddial';
 import {StepsModule} from 'primeng/steps';
 import {CardModule} from 'primeng/card';
+import {ConfirmDialogModule} from 'primeng/confirmdialog';
+import {ConfirmationService} from 'primeng/api';
 
 @NgModule({
   declarations: [],
@@ -33,7 +35,8 @@ import {CardModule} from 'primeng/card';
     InputTextareaModule,
     SpeedDialModule,
     StepsModule,
-    CardModule
+    CardModule,
+    ConfirmDialogModule
   ],
   exports:[
     CommonModule,
@@ -50,7 +53,11 @@ import {CardModule} from 'primeng/card';
     InputTextareaModule,
     SpeedDialModule,
     StepsModule,
-    CardModule
+    CardModule,
+    ConfirmDialogModule
+  ],
+  providers:[
+    ConfirmationService
   ]
 })
 export class PrimesharedModule { }
