@@ -23,8 +23,8 @@ export class LoginComponent implements OnInit {
     private router: Router,
     private authService: AuthService,
   ) {
-      if (this.authService.userValue) { 
-        // this.router.navigate(['/']);
+      if (this.authService.userValue) {
+        this.router.navigate(['/']);
       }
   }
 
@@ -41,7 +41,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     console.log("onsubmit");
-    
+
     this.submitted = true;
 
     // reset alerts on submit
@@ -53,17 +53,17 @@ export class LoginComponent implements OnInit {
     }
 
     this.loading = true;
-    this.authService.login(this.f.username.value, this.f.password.value)
+    this.authService.authenticate(this.f.username.value, this.f.password.value)
     .pipe(first())
     .subscribe({
         next: (elo) => {
           console.log("elo", elo);
-          
+
             this.router.navigate([this.returnUrl]);
         },
         error: error => {
           console.log("error" ,error);
-          
+
             this.error = error;
             this.loading = false;
         }

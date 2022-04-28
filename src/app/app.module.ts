@@ -42,10 +42,10 @@ import { AuthService } from './_services/auth.service';
   ],
   exports:[],
   providers: [
-    { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },
+    // { provide: APP_INITIALIZER, useFactory: appInitializer, multi: true, deps: [AuthService] },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
-    MarkerService, 
-    PopupService, 
+    MarkerService,
+    PopupService,
     ShapeService
   ],
   bootstrap: [AppComponent]
