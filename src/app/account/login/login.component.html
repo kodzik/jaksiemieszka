@@ -8,7 +8,10 @@
         </div>
     </div>
 
-    <h4 class="card-header">Logowanie</h4>
+    <h4 *ngIf="!registration; else REGISTER" class="card-header">Logowanie</h4>
+    <ng-template #REGISTER>
+        <h4 class="card-header">Rejestracja</h4>
+    </ng-template>
 
     <div class="card">
 
@@ -16,39 +19,62 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="form-group">
 
+                    <!-- {{f.username.errors?.['required'] && submitted}}
+                    {{f.username.errors?.['required'] && registration}} -->
                     <div class="main-input">
                         <label class="label" for="username">Nazwa użytkownika</label>
-                        <input class="input" type="text" formControlName="username" pInputText [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.username.errors }" />
-                        <small class="p-error" *ngIf="(f.username.errors && submitted)">
-                            Podaj nazwę użytkownika.
+                        <input class="input" type="text" formControlName="username" pInputText required [ngClass]="{ 'ng-invalid ng-dirty': (submitted && f.username.errors) || (registration && f.username.errors) }" />
+                        <small class="p-error" *ngIf="(f.username.errors?.['required'] && submitted || f.username.errors?.['required'] && registration)">
+                            Podaj nazwę użytkownika
+                        </small>
+                        <small class="p-error" *ngIf="f.username.errors?.['minlength'] || f.username.errors?.['maxlength']">
+                            Nazwa powinna zawierać od 5 do 15 znaków.
                         </small>
                     </div>
 
                     <div class="main-input">
                         <label class="label" for="password">Hasło</label>
-                        <input class="input" type="text" formControlName="password" pInputText [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.password.errors }" />
+                        <input class="input" type="text" formControlName="password" pInputText type="password" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.password.errors }" />
                         <small class="p-error" *ngIf="(f.password.errors && submitted)">
-                            Podaj hasło.
+                            Podaj hasło
+                        </small>
+                    </div>
+
+                    <div *ngIf="registration;" class="main-input">
+                        <label class="label" for="password">Powtórz hasło.</label>
+                        <input class="input" type="text" formControlName="confirmedPassword" pInputText type="password" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.confirmedPassword.errors }" />
+                        <small class="p-error" *ngIf="(f.confirmedPassword.errors?.required && submitted)">
+                            Podaj hasło
+                        </small>
+                        <small class="p-error" *ngIf="(f.confirmedPassword.errors && submitted)">
+                            Hasła niezgodne
                         </small>
                     </div>
 
                 </div>
-    
-                <div class="submit-btn">
-                    <button pButton class="submit" type="submit">Login</button>
+
+                <div class="error">
+                    <small class="p-error">
+                        {{error}}                
+                    </small>
                 </div>
     
-                {{error}}
+                <div *ngIf="!registration; else button_register" class="submit-btn">
+                    <p-button label="Zaloguj" [loading]="loading" class="submit" type="submit" iconPos="right"></p-button>
+                    <!-- <button pButton class="submit" type="submit">Login</button> -->
+                </div>
+                <ng-template #button_register>
+                    <p-button label="Zarejestruj" [loading]="loading" class="submit" type="submit" iconPos="right"></p-button>
+                </ng-template>
+    
             </form>
         </div>
     </div>
 
-    <div class="card sub-card">
-        <span>
-            Nie masz jeszcze konta?
-            <a class="register" href="\account\register">Zarejestruj</a>
-        </span>
+    <div *ngIf="!registration;" class="card sub-card">
+        Nie masz jeszcze konta?
+        <button pButton pRipple type="button" label="Zarejestruj" class="p-button-text" (click)="register()"></button>
     </div>
-    
+
 </div>
 
