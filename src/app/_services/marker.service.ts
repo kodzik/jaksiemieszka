@@ -69,7 +69,9 @@ export class MarkerService {
   }
 
   deleteMarker(){
-    this.tempMarkerToDelete.next(this.tempLayer)
+    if(this.tempLayer){
+      this.tempMarkerToDelete.next(this.tempLayer)
+    }
   }
 
   getAddressFromMarker(latlng: any){

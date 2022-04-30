@@ -10,18 +10,20 @@ import { IComment } from '../_models/comment';
 export class CommentService {
 
   addComment: IComment
+  loadingComments: boolean = false;
 
   private newCommentSource = new Subject<IComment>();
   newComment = this.newCommentSource.asObservable();//comments got from db
   
   constructor(private http: HttpClient ) {}
 
-  // comments: IComment[] = [];
+  getComments(): any{
+    this.loadingComments = true;
 
-  getComments(): void{
-    this.http.get<IComment>(environment.apiUrl + '/api/comments/').subscribe((comments: any) => {
+    return this.http.get<IComment>(environment.apiUrl + '/api/comments/').subscribe((comments: any) => {
       comments.data.forEach((element: IComment) => {
         this.newCommentSource.next(element)
+        this.loadingComments = false;
       });
     })
   }

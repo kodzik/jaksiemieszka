@@ -14,15 +14,17 @@ export class CommentsComponent implements OnInit {
   @ViewChildren(CommentComponent) childComment: QueryList<CommentComponent>;
 
   comments: IComment[] = [];
-
+  
   constructor(
     private cmtService: CommentService,
     private markerService: MarkerService
     ) {}
+    
+  get loading(){return this.cmtService.loadingComments}
 
   ngOnInit(): void {
     this.cmtService.getComments();
-
+    
     this.cmtService.newComment.subscribe(comment => {
       this.comments.push(comment)
     });

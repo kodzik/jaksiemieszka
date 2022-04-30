@@ -75,6 +75,14 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   get trafficScore(){ return this.commentForm.get('trafficScore')?.value}
   get text_content(){ return this.commentForm.get('text_content')?.value;}
 
+  get ratingScoreStatus(){ 
+    return (
+      this.commentForm.get('locationScore')?.status &&
+      this.commentForm.get('noiseScore')?.status &&
+      this.commentForm.get('airScore')?.status &&
+      this.commentForm.get('trafficScore')?.status) === 'VALID'
+  }
+
   // get address(){ return this.commentForm.get('address')?.value;}
   // get cultureScore(){ return this.commentForm.get('cultureScore')?.value}
   // get eduScore(){ return this.commentForm.get('eduScore')?.value}
@@ -88,30 +96,34 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   onSubmit(){
     let comment = new CComment;
-    console.log(this.commentForm.status);
 
-    try {
-      comment.location = {lat: Number(this.location.lat), lng: Number(this.location.lng)}
-      comment.rating = {
-        air: Number(this.airScore),
-        location: Number(this.locationScore),
-        noise: Number(this.noiseScore),
-        traffic: Number(this.trafficScore),
-        // culture: Number(this.cultureScore),
-        // education: Number(this.eduScore),
-        // sport: Number(this.sportScore),
+    if(this.commentForm.status === "VALID"){
+      try {
+        comment.location = {lat: Number(this.location.lat), lng: Number(this.location.lng)}
+        comment.rating = {
+          air: Number(this.airScore),
+          location: Number(this.locationScore),
+          noise: Number(this.noiseScore),
+          traffic: Number(this.trafficScore),
+          // culture: Number(this.cultureScore),
+          // education: Number(this.eduScore),
+          // sport: Number(this.sportScore),
+        }
+        // comment.avg = this.cmtService.calculateAvgScore(comment)
+        comment.address = this.parseMarkerAddress(this.markerData)
+        comment.text_content = this.text_content
+        this.cmtService.addNewComment(comment)
+        // this.addnewComment(comment)
+      } catch (error) {
+  
+      } finally {
+        this.close()
       }
-      // comment.avg = this.cmtService.calculateAvgScore(comment)
-      comment.address = this.parseMarkerAddress(this.markerData)
-      comment.text_content = this.text_content
-      this.cmtService.addNewComment(comment)
-      // this.addnewComment(comment)
-    } catch (error) {
-
-    } finally {
+    } else {
       this.submitted = true;
-      // this.close()
+      console.log("Form invalid");
     }
+
   }
 
   parseMarkerAddress(data: any): any {

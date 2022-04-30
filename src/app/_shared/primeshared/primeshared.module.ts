@@ -17,6 +17,7 @@ import {StepsModule} from 'primeng/steps';
 import {CardModule} from 'primeng/card';
 import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {ConfirmationService} from 'primeng/api';
+import {ProgressSpinnerModule} from 'primeng/progressspinner';
 
 @NgModule({
   declarations: [],
@@ -36,7 +37,8 @@ import {ConfirmationService} from 'primeng/api';
     SpeedDialModule,
     StepsModule,
     CardModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ProgressSpinnerModule
   ],
   exports:[
     CommonModule,
@@ -54,7 +56,8 @@ import {ConfirmationService} from 'primeng/api';
     SpeedDialModule,
     StepsModule,
     CardModule,
-    ConfirmDialogModule
+    ConfirmDialogModule,
+    ProgressSpinnerModule
   ],
   providers:[
     ConfirmationService
