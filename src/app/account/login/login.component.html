@@ -1,25 +1,54 @@
-<div class="card">
-    <h4 class="card-header">Login</h4>
+<div class="main">
 
-    <div class="card-body">
-        <form [formGroup]="form" (ngSubmit)="onSubmit()">
-            <div class="form-group">
-                <label for="username">Username</label>
-                <input type="text" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.username.errors }" />
-                <div *ngIf="submitted && f.username.errors" class="invalid-feedback">
-                    <div *ngIf="f.username.errors.required">Username is required</div>
-                </div>
-
-                <label for="password">Password</label>
-                <input type="text" formControlName="password" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.password.errors }" />
-                <div *ngIf="submitted && f.password.errors" class="invalid-feedback">
-                    <div *ngIf="f.password.errors.required">Password is required</div>
-                </div>
+    <div class="header">
+        <div class="logo">
+            <div class="content">
+            jak<span style="color: #D62E2E">sie</span>mieszka
             </div>
-
-            <button pButton class="submit" type="submit">Login</button>
-
-            {{error}}
-        </form>
+        </div>
     </div>
+
+    <h4 class="card-header">Logowanie</h4>
+
+    <div class="card">
+
+        <div class="card-body">
+            <form [formGroup]="form" (ngSubmit)="onSubmit()">
+                <div class="form-group">
+
+                    <div class="main-input">
+                        <label class="label" for="username">Nazwa użytkownika</label>
+                        <input class="input" type="text" formControlName="username" pInputText [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.username.errors }" />
+                        <small class="p-error" *ngIf="(f.username.errors && submitted)">
+                            Podaj nazwę użytkownika.
+                        </small>
+                    </div>
+
+                    <div class="main-input">
+                        <label class="label" for="password">Hasło</label>
+                        <input class="input" type="text" formControlName="password" pInputText [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.password.errors }" />
+                        <small class="p-error" *ngIf="(f.password.errors && submitted)">
+                            Podaj hasło.
+                        </small>
+                    </div>
+
+                </div>
+    
+                <div class="submit-btn">
+                    <button pButton class="submit" type="submit">Login</button>
+                </div>
+    
+                {{error}}
+            </form>
+        </div>
+    </div>
+
+    <div class="card sub-card">
+        <span>
+            Nie masz jeszcze konta?
+            <a class="register" href="\account\register">Zarejestruj</a>
+        </span>
+    </div>
+    
 </div>
+

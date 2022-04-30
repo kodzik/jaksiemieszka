@@ -10,39 +10,11 @@ const commentsModule = () => import('./comments/comments.module').then(x => x.Co
 
 const routes: Routes = [
 
-  {
-    path: 'home',
-    component: HomeComponent,
-    // canActivate: [AuthGuard],
-    // canActivateChild: [AuthGuard],
-    // loadChildren: commentsModule,
-    // children: [
-    //   {
-    //     path: 'add',
-    //     component: AddCommentComponent,
-    //     canActivate: [AuthGuard]
-    //   }
-    // ]
-  },
-  // { path: 'apollo', component: ApolloTestComponent },
-
-  // {
-  //   path: 'comments',
-  //   // loadChildren: commentsModule,
-  //   children: [
-  //     {
-  //       path: 'add',
-  //       component: AddCommentComponent,
-  //       canActivate: [AuthGuard]
-  //     }
-  //   ],
-  //   canActivate: [AuthGuard],
-  //   canActivateChild: [AuthGuard],
-  // },
+  { path: 'home', component: HomeComponent},
   { path: 'account', loadChildren: accountModule },
-
   // otherwise redirect to home
   { path: '**', redirectTo: 'home' }//, pathMatch: 'full'
+  // { path: 'apollo', component: ApolloTestComponent },
 ];
 
 @NgModule({

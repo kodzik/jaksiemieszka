@@ -7,6 +7,7 @@ import { LoginComponent } from './login/login.component';
 import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
+import { PrimesharedModule } from '../_shared/primeshared/primeshared.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { SharedModule } from 'primeng/api';
     CommonModule,
     ReactiveFormsModule,
     AccountRoutingModule,
-    SharedModule
-  ]
+    PrimesharedModule
+    // SharedModule
+    ]
 })
 export class AccountModule { }

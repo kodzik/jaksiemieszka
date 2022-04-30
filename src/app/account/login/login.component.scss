@@ -1,0 +1,122 @@
+.main{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-left: auto;
+    margin-right: auto;
+    width: 60%;
+}
+
+.header{
+    display: flex;
+    padding: 2rem;
+    width: 50%;
+    justify-content: center;
+}
+
+.card{
+    // display: flex;
+    // flex-direction: column;
+    // align-items: center;
+    background-color: var(--color-dark--2);
+    // width: 20%;
+    // margin: auto;
+    padding: 2rem 2rem 2rem;
+    border-radius: 10px;
+}
+
+.card-header{
+    font-family: "Poppins ExtraLight";
+    font-size: 2rem;
+    color: var(--color-light--3);
+    margin: 1rem;
+}
+
+
+.card .form-group .main-input{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 0.5rem 0 1rem;
+}
+
+.card .label{
+    font-family: "Poppins ExtraLight";
+    color: var(--color-light--3);
+    font-size: 1rem;
+    // margin-bottom: 0.5rem;
+}
+
+.card .form-group .input{
+    // margin: 0.5rem 0 1rem;
+}
+
+.card .form-group{
+    display: flex;
+    flex-direction: column;
+}
+
+.card .submit-btn{
+    margin: 1rem 0 0;
+}
+
+.logo{
+    height: 2.5rem;
+    background-color: #FFFFFF;
+    border-radius: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    // padding: 1rem;
+  }
+  
+.logo .content{
+    color: #434343;
+    font-family: "Poppins ExtraLight";
+    font-size: 2rem;
+}
+  
+.sub-card{
+    // display: flex;
+    // align-items: center;
+
+    font-family: "Poppins ExtraLight";
+
+    margin-top: 1rem;
+    background-color: inherit;
+    border-style: solid;
+    border-width: 2px;
+    border-color: var(--color-dark--2);
+}
+
+.sub-card .register{
+    font-family: "Poppins ExtraLight";
+    color: var(--color-light--3);
+}
+
+@media screen and (max-width: 1280px) {
+    // .card{
+    //     width: 30%;
+    // }
+    // .container{
+    //   width: 936px;
+    // }
+  }
+  
+  @media screen and (max-width: 990px) {
+    // .card{
+    //     width: 40%;
+    // }
+  }
+  
+  @media screen and (max-width: 769px) {
+    // .card{
+    //     width: 50%;
+    // }
+  }
+  
+  @media screen and (min-width: 1440px) {
+    // .container{
+    //   width: 1224px;
+    // }
+  }
