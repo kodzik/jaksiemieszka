@@ -27,7 +27,7 @@ export class LoginComponent implements OnInit {
     private authService: AuthService,
   ) {}
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.form = this.formBuilder.group({
       username: ['', [Validators.required]],
       password: ['', Validators.required],
@@ -37,7 +37,7 @@ export class LoginComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
-  get status() { return this.form.status; }
+  // get status() { return this.form.status; }
 
   register(){
     this.registration = !this.registration
@@ -45,9 +45,9 @@ export class LoginComponent implements OnInit {
     if(this.registration){
       this.form.controls['password'].patchValue('')
 
-      this.form.addControl('confirmedPassword', 
+      this.form.addControl('confirmedPassword',
       new FormControl('', [Validators.required, this.validateAreEqual.bind(this)]))
-  
+
       this.form.controls['username'].addValidators([Validators.minLength(5), Validators.maxLength(15)])
       this.form.controls['username'].updateValueAndValidity()
     }
@@ -59,26 +59,41 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    
+
     // stop here if form is invalid
     if (this.form.invalid) {
-        return;
+      return;
     }
-
     this.loading = true;
-    this.authService.authenticate(this.f.username.value, this.f.password.value)
-    .pipe(first())
-    .subscribe({
+
+    if(this.registration){
+      this.authService.register(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe({
         next: () => {
-          this.router.navigate([this.returnUrl]);
+          console.log("LOGIN, zarejestrowano");
+          this.loading = false;
         },
         error: error => {
           this.error = error;
           this.loading = false;
         }
-    });
+      });
+    } else{
+      this.authService.authenticate(this.f.username.value, this.f.password.value)
+      .pipe(first())
+      .subscribe({
+          next: () => {
+            this.loading = false;
+            this.router.navigate([this.returnUrl]);
+          },
+          error: error => {
+            this.error = error;
+            this.loading = false;
+          }
+      });
+    }
 
-    
   }
 
 }

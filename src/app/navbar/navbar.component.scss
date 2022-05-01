@@ -71,7 +71,7 @@ nav{
 
   font-size: 1.5rem;
   // font-family: 'Open Sans', sans-serif;
-  font-family: "Poppins";
+  font-family: "Poppins Bold";
   font-weight: 700;
   // font-weight: 100;
 
@@ -138,9 +138,12 @@ nav{
   font-weight: 400;
   color: #f7f7f7;
   align-items: center;
-  display: none;
+  display: flex;
 }
 
+.burger .bars{
+  font-size: 2rem;
+}
 
 @media screen and (max-width: 1280px) {
   .container{

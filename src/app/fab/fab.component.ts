@@ -1,9 +1,8 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { ConfirmationService, MenuItem } from 'primeng/api';
 import { commentsView } from '../comments/commentsView';
 import { AuthService } from '../_services/auth.service';
-import { MarkerService } from '../_services/marker.service';
 import { FabService } from './fab.service';
 
 @Component({
@@ -16,7 +15,7 @@ export class FabComponent implements OnInit {
   tooltipItems: MenuItem[];
   toggleDistricts: boolean = true;
 
-  constructor(private markerService: MarkerService,
+  constructor(
     private authService: AuthService,
     private confirmationService: ConfirmationService,
     private router: Router,
@@ -27,7 +26,7 @@ export class FabComponent implements OnInit {
     this.tooltipItems = [
       {
           tooltipOptions: {
-              tooltipLabel: "Dodaj"
+              tooltipLabel: "Dodaj komentarz"
           },
           icon: 'pi pi-pencil',
           command: () => {
@@ -48,15 +47,6 @@ export class FabComponent implements OnInit {
             this.toggleDistricts = !this.toggleDistricts
           }
       },
-      // {
-      //   tooltipOptions: {
-      //       tooltipLabel: "Del markers"
-      //   },
-      //   icon: 'pi pi-check',
-      //   command: () => {
-      //     this.markerService.deleteAllMarkers()
-      //   }
-      // },
   ];
   }
 
@@ -65,9 +55,8 @@ export class FabComponent implements OnInit {
         message: 'Zaloguj się, aby dodać swój komentarz!',
         accept: () => {
           this.router.navigate(['/account/login']);
-          // this.router.navigate(['/account/login'], { queryParams: { returnUrl: state.url } });
         }
     });
-}
+  }
 
 }

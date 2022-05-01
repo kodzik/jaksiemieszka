@@ -19,8 +19,6 @@
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="form-group">
 
-                    <!-- {{f.username.errors?.['required'] && submitted}}
-                    {{f.username.errors?.['required'] && registration}} -->
                     <div class="main-input">
                         <label class="label" for="username">Nazwa użytkownika</label>
                         <input class="input" type="text" formControlName="username" pInputText required [ngClass]="{ 'ng-invalid ng-dirty': (submitted && f.username.errors) || (registration && f.username.errors) }" />
@@ -55,10 +53,10 @@
 
                 <div class="error">
                     <small class="p-error">
-                        {{error}}                
+                        {{error}}
                     </small>
                 </div>
-    
+
                 <div *ngIf="!registration; else button_register" class="submit-btn">
                     <p-button label="Zaloguj" [loading]="loading" class="submit" type="submit" iconPos="right"></p-button>
                     <!-- <button pButton class="submit" type="submit">Login</button> -->
@@ -66,14 +64,14 @@
                 <ng-template #button_register>
                     <p-button label="Zarejestruj" [loading]="loading" class="submit" type="submit" iconPos="right"></p-button>
                 </ng-template>
-    
+
             </form>
         </div>
     </div>
 
     <div *ngIf="!registration;" class="card sub-card">
         Nie masz jeszcze konta?
-        <button pButton pRipple type="button" label="Zarejestruj" class="p-button-text" (click)="register()"></button>
+        <button pButton pRipple type="button" label="Zarejestruj się!" class="p-button-text" (click)="register()"></button>
     </div>
 
 </div>

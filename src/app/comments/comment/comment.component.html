@@ -1,5 +1,5 @@
 <div [@openClose]="isOpen ? 'open' : 'closed'"  (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
-    
+
     <div class="card" *ngIf="isOpen===false; else elseBlock">
         <div class="content">
             <div class="rating">
@@ -7,20 +7,20 @@
                     {{rating | number: '1.1-1'}}
                 </div>
                 <div class="stars">
-                    <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
+                    <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>
                 </div>
             </div>
             <div class="cmt-text">
                 <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
                     <meta charset="UTF-8">
-                    Niestety, ktoś się nie popisał! 
+                    Niestety, ktoś się nie popisał!
                     <p>&#128512;</p>
                 </div>
                 <ng-template #elseBlock>
                     {{comment.text_content}}
                 </ng-template>
             </div>
-    
+
         </div>
         <div class="subcontent">
             <div class="user">
@@ -34,9 +34,9 @@
             <div class="location">
                 <div *ngIf="comment.address !== undefined && comment.address !== null">
                     <i class="pi pi-map-marker"></i>
-                    <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span> 
-                    <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span> 
-                    <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span> 
+                    <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span>
+                    <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span>
+                    <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span>
                 </div>
             </div>
             <div class="rate-btn"></div>
@@ -58,16 +58,16 @@
                         <div class="number">
                             {{rating | number: '1.1-1'}}
                         </div>
-        
+
                         <div class="stars">
-                            <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>  
+                            <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>
                         </div>
                     </div>
 
                     <div>
                         <div class="rating-block" *ngFor="let item of comment.rating | keyvalue">
                             <div class="stars">
-                                <p-rating [ngModel]="item.value" [cancel]="false" [readonly]="true"></p-rating>  
+                                <p-rating [ngModel]="item.value" [cancel]="false" [readonly]="true"></p-rating>
                             </div>
                             <div class="stars-description">
                                 {{item.key}}
@@ -84,12 +84,12 @@
                     <ng-template #elseBlock>
                         {{comment.text_content}}
                     </ng-template>
-                </div>    
+                </div>
 
             </div>
-    
 
-            
+
+
             <div class="subcontent">
                 <div class="user">
                     <i class="pi pi-user"></i>
@@ -102,9 +102,9 @@
                 <div class="location">
                     <div *ngIf="comment.address !== undefined && comment.address !== null">
                         <i class="pi pi-map-marker"></i>
-                        <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span> 
-                        <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span> 
-                        <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span> 
+                        <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span>
+                        <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span>
+                        <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span>
                     </div>
                 </div>
 

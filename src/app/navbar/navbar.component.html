@@ -1,38 +1,41 @@
 <nav>
-    <div class="container">
-      <div class="logo">
-        <div class="content">
-          jak<span style="color: #D62E2E">sie</span>mieszka
-        </div>
-        <!-- <img src="assets/img/URLogo.svg"> -->
+  <div class="container">
+    <div class="logo">
+      <div class="content">
+        jak<span style="color: #D62E2E">sie</span>mieszka
       </div>
+      <!-- <img src="assets/img/URLogo.svg"> -->
+    </div>
 
-      <ul class="nav-links">
-        <!-- <li>
-          <div class="dropdown">
-            <button class="dropbtn">Company
-            </button>
-            <div class="dropdown-content">
-              <a href="#">Link 1</a>
-              <a href="#">Link 2</a>
-              <a href="#">Link 3</a>
-            </div>
-          </div>
-        </li> -->
+    <ul class="nav-links">
+      <li *ngIf="!authenticated; else Authenticated">
+        <div class="dropdown">
+          <button class="dropbtn" (click)="login()">Login
+          </button>
+        </div>
+      </li>
 
+      <ng-template #Authenticated>
+        Hej, {{username}}!
         <li>
           <div class="dropdown">
-            <button class="dropbtn" (click)="login()">Login
-            </button>
+            <button class="dropbtn">
+          </button>
+          <div class="dropdown-content">
+            <a href="#">Link 1</a>
+            <a href="#">Link 2</a>
+            <a href="#">Link 3</a>
           </div>
-        </li>
+        </div>
+      </li>
+      </ng-template>
 
-      </ul>
+    </ul>
 
-      <div class="burger">
-        MENU <i class="pi pi-bars"></i>
-      </div>
-
+    <div class="burger">
+      <i class="pi pi-bars bars"></i>
     </div>
+
+  </div>
 
 </nav>

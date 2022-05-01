@@ -40,14 +40,14 @@ export class AuthService {
     const refresh = localStorage.getItem('refresh')
     if(refresh !== null){
       return localStorage.getItem('username') !== null && !this.jwt.isTokenExpired(refresh);
-    }else{
+    } else{
       return false;
     }
   }
 
   // Log user in and get refresh/access tokens
   authenticate(username: string, password: string) {
-    return this.http.post<LoginResponse>(`${environment.apiUrl}/api/token/`, { username, password })
+    return this.http.post<LoginResponse>(`${environment.apiUrl}/api/token/`, { username: username, password: password })
       .pipe(
         mergeMap(response => {
           // store JWTs
@@ -62,7 +62,6 @@ export class AuthService {
           return this.http.get<any>(`${environment.apiUrl}/api/user/`, opts).pipe(
             map(userInfo => {
               localStorage.setItem('username', userInfo.user.username);
-              // this.authStatus.next(true);
               this.userSubject.next(userInfo);
             })
           );
@@ -79,8 +78,6 @@ export class AuthService {
     if(access !== null && refresh !== null){
 
       if (!this.jwt.isTokenExpired(access)) {
-        // console.log("token valid");
-
         return new BehaviorSubject(access);
       } else if (!this.jwt.isTokenExpired(refresh)) {
         console.log('refreshing access token');
@@ -92,7 +89,6 @@ export class AuthService {
         return this.http.post<RefreshResponse>(`${environment.apiUrl}/api/token/refresh/`, { refresh: refresh }, { withCredentials: true }).pipe(
           map(response => {
             localStorage.setItem('access', response.access);
-            // console.log('authentication refresh successful');
             return response.access;
           })
         );
@@ -104,41 +100,6 @@ export class AuthService {
     }
   }
 
-  refreshToken() {
-    const access = localStorage.getItem('access');
-
-    const opts = {
-      headers: new HttpHeaders({
-        Authorization: 'Bearer ' + access
-      })
-    };
-    const headers = { 'Authorization': 'Bearer '};
-    return this.http.post<any>(`${environment.apiUrl}/api/token/refresh/`, { refresh: localStorage.getItem('access') },  { withCredentials: true })
-        .pipe(map((user) => {
-            this.userSubject.next(user);
-            this.startRefreshTokenTimer();
-            return user;
-        }));
-  }
-
-  private refreshTokenTimeout: any;
-
-  private startRefreshTokenTimer() {
-      let jwtToken = localStorage.getItem('access');
-      // parse json object from base64 encoded jwt token
-      if( this.userValue !== null && jwtToken !== null){
-        jwtToken = JSON.parse(atob(jwtToken.split('.')[1]));
-        // const expires = new Date(jwtToken.exp * 1000);
-        // set a timeout to refresh the token a minute before it expires
-        // const timeout = expires.getTime() - Date.now() - (60 * 1000);
-        // this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
-      }
-  }
-
-  // private stopRefreshTokenTimer() {
-  //     clearTimeout(this.refreshTokenTimeout);
-  // }
-
   // Handle authentication errors
   private errorHandler(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
@@ -148,9 +109,56 @@ export class AuthService {
     }
     return throwError('Nieprawidłowe hasło lub nazwa użytkownika.');
   }
+
+  register(username: string, password: string){
+    return this.http.post(`${environment.apiUrl}/api/users/`, { username: username, password: password })
+    .pipe(
+      map(userInfo => {
+        return userInfo
+      }),
+      catchError(this.errorHandler)
+    )
+    // .subscribe(response => {
+    //   console.log("login response: ", response);
+    // })
+  }
+
 }
 
+  // refreshToken() {
+  //   const access = localStorage.getItem('access');
 
+  //   const opts = {
+  //     headers: new HttpHeaders({
+  //       Authorization: 'Bearer ' + access
+  //     })
+  //   };
+  //   const headers = { 'Authorization': 'Bearer '};
+  //   return this.http.post<any>(`${environment.apiUrl}/api/token/refresh/`, { refresh: localStorage.getItem('access') },  { withCredentials: true })
+  //       .pipe(map((user) => {
+  //           this.userSubject.next(user);
+  //           this.startRefreshTokenTimer();
+  //           return user;
+  //       }));
+  // }
+
+
+  // private refreshTokenTimeout: any;
+
+  // private startRefreshTokenTimer() {
+  //     let jwtToken = localStorage.getItem('access');
+  //     // parse json object from base64 encoded jwt token
+  //     if( this.userValue !== null && jwtToken !== null){
+  //       jwtToken = JSON.parse(atob(jwtToken.split('.')[1]));
+  //       // const expires = new Date(jwtToken.exp * 1000);
+  //       // set a timeout to refresh the token a minute before it expires
+  //       // const timeout = expires.getTime() - Date.now() - (60 * 1000);
+  //       // this.refreshTokenTimeout = setTimeout(() => this.refreshToken().subscribe(), timeout);
+  //     }
+  // }
+  // private stopRefreshTokenTimer() {
+  //     clearTimeout(this.refreshTokenTimeout);
+  // }
 
     // User is logged in
     // isAuthenticated(): boolean {

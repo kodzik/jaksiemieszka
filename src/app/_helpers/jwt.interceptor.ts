@@ -31,6 +31,9 @@ export class JwtInterceptor implements HttpInterceptor {
     // }
 
     // return next.handle(request);
+    if( request.url === `${environment.apiUrl}/api/users/` ){
+      return next.handle(request);
+    }
     if( request.url === `${environment.apiUrl}/api/comments/` ){
       return next.handle(request);
     } else {
