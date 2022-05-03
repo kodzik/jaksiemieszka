@@ -76,51 +76,43 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   get text_content(){ return this.commentForm.get('text_content')?.value;}
 
   get ratingScoreStatus(){ 
-    return (
-      this.commentForm.get('locationScore')?.status &&
-      this.commentForm.get('noiseScore')?.status &&
-      this.commentForm.get('airScore')?.status &&
-      this.commentForm.get('trafficScore')?.status) === 'VALID'
+    return ( 
+      this.commentForm.controls.locationScore.status === 'VALID' && 
+      this.commentForm.controls.noiseScore.status === 'VALID' &&
+      this.commentForm.controls.airScore.status === 'VALID' &&
+      this.commentForm.controls.trafficScore.status === 'VALID')
   }
 
-  // get address(){ return this.commentForm.get('address')?.value;}
-  // get cultureScore(){ return this.commentForm.get('cultureScore')?.value}
-  // get eduScore(){ return this.commentForm.get('eduScore')?.value}
-  // get sportScore(){ return this.commentForm.get('sportScore')?.value}
-
-  // addLocation(){
-  //   console.log("On input click");
-  //   this.markerService.enableMarkers = true;
-  // }
-
+  get f() { return this.commentForm.controls; }
 
   onSubmit(){
-    let comment = new CComment;
+    this.submitted = true;
+
+    if (this.commentForm.invalid) {
+      return;
+    }
 
     if(this.commentForm.status === "VALID"){
       try {
+        let comment = new CComment;
+
         comment.location = {lat: Number(this.location.lat), lng: Number(this.location.lng)}
         comment.rating = {
           air: Number(this.airScore),
           location: Number(this.locationScore),
           noise: Number(this.noiseScore),
           traffic: Number(this.trafficScore),
-          // culture: Number(this.cultureScore),
-          // education: Number(this.eduScore),
-          // sport: Number(this.sportScore),
         }
         // comment.avg = this.cmtService.calculateAvgScore(comment)
         comment.address = this.parseMarkerAddress(this.markerData)
         comment.text_content = this.text_content
         this.cmtService.addNewComment(comment)
-        // this.addnewComment(comment)
       } catch (error) {
   
       } finally {
         this.close()
       }
     } else {
-      this.submitted = true;
       console.log("Form invalid");
     }
 

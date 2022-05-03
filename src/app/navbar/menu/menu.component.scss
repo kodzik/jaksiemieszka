@@ -1,7 +1,3 @@
-.bars{
-    font-size: 1.5rem;
-}
-
 :host {
     ::ng-deep .p-button {
         // display: flex;
@@ -22,4 +18,18 @@
         color: var(--color-light--3);
         border-color: var(--color-light--3)
     }
+}
+
+.bars{
+    font-size: 1.5rem;
+}
+
+.burger{
+    display: flex;
+    flex-direction: row;
+}
+
+.username{
+    font-family: "Poppins Bold";
+    margin-right: 1rem;
 }

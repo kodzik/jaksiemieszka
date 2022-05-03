@@ -22,8 +22,6 @@
         <div class="card-body">
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-                    <!-- || (registration && f.username.errors || f.username.touched && f.username.errors) -->
-                    <!-- || ( registration || f.username.touched && f.username.errors?.['required']) -->
                     <div class="main-input">
                         <label class="label" for="username">Nazwa użytkownika</label>
                         <input class="input" type="text" formControlName="username" pInputText required [ngClass]="{ 'ng-invalid ng-dirty': (submitted && f.username.errors || f.username.touched && f.username.errors)  }" />
