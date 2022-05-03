@@ -47,7 +47,7 @@ export class AuthService {
 
   // Log user in and get refresh/access tokens
   authenticate(username: string, password: string) {
-    return this.http.post<LoginResponse>(`${environment.apiUrl}/api/token/`, { username: username, password: password })
+    return this.http.post<LoginResponse>(`${environment.apiUrl}/account/token/`, { username, password })
       .pipe(
         mergeMap(response => {
           // store JWTs
@@ -59,7 +59,7 @@ export class AuthService {
               'Authorization': 'Bearer ' + localStorage.getItem('access')  // tslint:disable-line:object-literal-key-quotes
             })
           };
-          return this.http.get<any>(`${environment.apiUrl}/api/user/`, opts).pipe(
+          return this.http.get<any>(`${environment.apiUrl}/account/user/`, opts).pipe(
             map(userInfo => {
               localStorage.setItem('username', userInfo.user.username);
               this.userSubject.next(userInfo);
@@ -68,6 +68,24 @@ export class AuthService {
         }),
         catchError(this.errorHandler)
       );
+  }
+
+  deauthenticate() {
+    const opts = {
+      headers: new HttpHeaders({
+        'Authorization': 'Bearer ' + localStorage.getItem('refresh')  // tslint:disable-line:object-literal-key-quotes
+      })
+    };
+    localStorage.clear();
+    this.userSubject.next(false);
+    window.location.reload();
+
+    //TODO call backend token revocation
+    // return this.http.post(this.config.API.auth.logout, {}, opts)
+    //   .pipe(
+    //     map(response => null),
+    //     catchError(this.errorHandler)
+    //   );
   }
 
   // Get access token, automatically refresh if necessary
@@ -86,7 +104,7 @@ export class AuthService {
             Authorization: 'Bearer ' + refresh
           })
         };
-        return this.http.post<RefreshResponse>(`${environment.apiUrl}/api/token/refresh/`, { refresh: refresh }, { withCredentials: true }).pipe(
+        return this.http.post<RefreshResponse>(`${environment.apiUrl}/account/token/refresh/`, { refresh: refresh }, { withCredentials: true }).pipe(
           map(response => {
             localStorage.setItem('access', response.access);
             return response.access;
@@ -104,23 +122,24 @@ export class AuthService {
   private errorHandler(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       console.error(`authentication error: ${error.error.message}`);
-    } else {
+    } 
+    if(error.error?.username){
+      return throwError('Ta nazwa użytkownika jest już zajęta.');
+    }
+    else {
       console.error(`bad auth response: ${error.status}: ${error.statusText} ${JSON.stringify(error.error)}`);
     }
     return throwError('Nieprawidłowe hasło lub nazwa użytkownika.');
   }
 
   register(username: string, password: string){
-    return this.http.post(`${environment.apiUrl}/api/users/`, { username: username, password: password })
+    return this.http.post(`${environment.apiUrl}/account/register/`, { username: username, password: password })
     .pipe(
       map(userInfo => {
         return userInfo
       }),
       catchError(this.errorHandler)
     )
-    // .subscribe(response => {
-    //   console.log("login response: ", response);
-    // })
   }
 
 }

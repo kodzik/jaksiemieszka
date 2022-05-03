@@ -9,28 +9,15 @@ import { AuthService } from '../_services/auth.service';
 })
 export class NavbarComponent implements OnInit {
 
-  authenticated: boolean = false;
-  username: string;
-
   constructor(
     private router: Router,
     private authService: AuthService) { }
 
   ngOnInit(): void {
-    this.authenticated = this.getUser(this.authService.isAuthenticated(), localStorage.getItem('username'))
   }
 
   login(){
     this.router.navigate(['/account/login']);
-  }
-
-  getUser(isAuthenticated: boolean, username: string | null): boolean{
-    let gotUser: boolean = false;
-    if(isAuthenticated && username !== null){
-      this.username = username;
-      gotUser = true;
-    }
-    return gotUser
   }
 
 }

@@ -21,6 +21,7 @@ import { FabComponent } from './fab/fab.component';
 import { JwtInterceptor } from './_helpers/jwt.interceptor';
 import { appInitializer } from './_helpers/app.initializer';
 import { AuthService } from './_services/auth.service';
+import { MenuComponent } from './navbar/menu/menu.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { AuthService } from './_services/auth.service';
     MapComponent,
     NavbarComponent,
     FabComponent,
+    MenuComponent,
   ],
   imports: [
     SharedModule,

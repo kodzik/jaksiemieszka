@@ -7,33 +7,8 @@
       <!-- <img src="assets/img/URLogo.svg"> -->
     </div>
 
-    <ul class="nav-links">
-      <li *ngIf="!authenticated; else Authenticated">
-        <div class="dropdown">
-          <button class="dropbtn" (click)="login()">Login
-          </button>
-        </div>
-      </li>
-
-      <ng-template #Authenticated>
-        Hej, {{username}}!
-        <li>
-          <div class="dropdown">
-            <button class="dropbtn">
-          </button>
-          <div class="dropdown-content">
-            <a href="#">Link 1</a>
-            <a href="#">Link 2</a>
-            <a href="#">Link 3</a>
-          </div>
-        </div>
-      </li>
-      </ng-template>
-
-    </ul>
-
-    <div class="burger">
-      <i class="pi pi-bars bars"></i>
+    <div>
+      <app-menu></app-menu>
     </div>
 
   </div>

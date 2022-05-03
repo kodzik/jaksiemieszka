@@ -1,0 +1,16 @@
+<!-- <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)" iconPos="right" class="p-button-text p-button-text p-button-lg"></button> -->
+<!-- <p-button styleClass="px-3">
+    <ng-template pTemplate="content">
+        <img alt="logo" src="assets/showcase/images/primeng-icon-white.svg" style="width: 1.5rem"/>
+        <i class="pi pi-bars bars"></i>
+    </ng-template>
+</p-button> -->
+
+<p-button styleClass="p-button-outlined" (click)="menu.toggle($event)" >
+    <!-- <img alt="logo" src="assets/showcase/images/primeng-icon.svg" style="width: 1.5rem"/> -->
+    <span class="ml-2 font-bold">{{username}}</span>
+    <i class="pi pi-bars bars"></i>
+</p-button>
+
+
+<p-menu [model]="items" #menu [popup]="true"></p-menu>

@@ -62,10 +62,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                 private shapeService: ShapeService,
                 private fabService: FabService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.initMap();
+  }
 
   ngAfterViewInit(){
-    this.initMap();
 
     this.map.on("click", (e: { latlng: { lng: number; lat: number; }; }) => {
       // map on click is enabled when addNewComment view is opened.
@@ -82,13 +83,15 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
 
     this.shapeService.getStateShapes().subscribe(states => {
       this.districts = states;
-      this.initDistrictLayer();
+      this.districtLayer = this.initDistrictLayer();
     });
 
     this.subShowDistricts = this.fabService.toggleDistricts.subscribe(toggle => {
       if(toggle === true){
-        this.map.addLayer(this.districtLayer);
-        this.districtLayer.bringToBack();
+        if(this.map && this.districtLayer){
+          this.map.addLayer(this.districtLayer);
+          this.districtLayer.bringToBack();
+        }
       } else {
         if(this.map && this.districtLayer){
           this.map.removeLayer(this.districtLayer)
@@ -103,7 +106,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
   }
 
   initDistrictLayer() {
-    this.districtLayer = L.geoJSON(this.districts, {
+    return L.geoJSON(this.districts, {
       style: (feature) => ({
         weight: 3,
         opacity: 0.3,
@@ -120,6 +123,7 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
         })
       )
     });
+     
   }
 
   private highlightFeature(e: any) {

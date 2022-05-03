@@ -21,7 +21,7 @@ export class CommentFormComponent implements OnInit {
       {label: 'Lokalizacja'},
       {label: 'Hałas'},
       {label: 'Jakość powietrza'},
-      {label: 'Korki'}
+      {label: 'Natężenie ruchu'}
     ];
     this.item = this.items[this.activeIndex]
   }

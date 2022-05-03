@@ -13,16 +13,21 @@
         <h4 class="card-header">Rejestracja</h4>
     </ng-template>
 
+    <div *ngIf="registerSuccess;" class="card sub-card register-success">
+        Zarejestrowano pomyślnie!
+    </div>
+
     <div class="card">
 
         <div class="card-body">
             <form [formGroup]="form" (ngSubmit)="onSubmit()">
                 <div class="form-group">
-
+                    <!-- || (registration && f.username.errors || f.username.touched && f.username.errors) -->
+                    <!-- || ( registration || f.username.touched && f.username.errors?.['required']) -->
                     <div class="main-input">
                         <label class="label" for="username">Nazwa użytkownika</label>
-                        <input class="input" type="text" formControlName="username" pInputText required [ngClass]="{ 'ng-invalid ng-dirty': (submitted && f.username.errors) || (registration && f.username.errors) }" />
-                        <small class="p-error" *ngIf="(f.username.errors?.['required'] && submitted || f.username.errors?.['required'] && registration)">
+                        <input class="input" type="text" formControlName="username" pInputText required [ngClass]="{ 'ng-invalid ng-dirty': (submitted && f.username.errors || f.username.touched && f.username.errors)  }" />
+                        <small class="p-error" *ngIf="(submitted && f.username.errors?.['required'] || f.username.touched && f.username.errors?.['required'] ) ">
                             Podaj nazwę użytkownika
                         </small>
                         <small class="p-error" *ngIf="f.username.errors?.['minlength'] || f.username.errors?.['maxlength']">
@@ -32,8 +37,8 @@
 
                     <div class="main-input">
                         <label class="label" for="password">Hasło</label>
-                        <input class="input" type="text" formControlName="password" pInputText type="password" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.password.errors }" />
-                        <small class="p-error" *ngIf="(f.password.errors && submitted)">
+                        <input class="input" type="text" formControlName="password" pInputText type="password" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.password.errors || f.password.touched && f.password.errors }" />
+                        <small class="p-error" *ngIf="submitted && f.password.errors || f.password.touched  && f.password.errors">
                             Podaj hasło
                         </small>
                     </div>
@@ -69,7 +74,7 @@
         </div>
     </div>
 
-    <div *ngIf="!registration;" class="card sub-card">
+    <div *ngIf="!registration && !registerSuccess;" class="card sub-card">
         Nie masz jeszcze konta?
         <button pButton pRipple type="button" label="Zarejestruj się!" class="p-button-text" (click)="register()"></button>
     </div>

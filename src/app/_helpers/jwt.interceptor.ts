@@ -30,14 +30,21 @@ export class JwtInterceptor implements HttpInterceptor {
     //     });
     // }
 
+    
     // return next.handle(request);
-    if( request.url === `${environment.apiUrl}/api/users/` ){
+    if( request.url === `/assets/data/warszawa-dzielnice.geojson` ){
+      return next.handle(request);
+    }
+    if( request.url === `${environment.apiUrl}/account/user/` ){
+      return next.handle(request);
+    }
+    if( request.url === `${environment.apiUrl}/account/register/` ){
       return next.handle(request);
     }
     if( request.url === `${environment.apiUrl}/api/comments/` ){
       return next.handle(request);
     } else {
-      if(!/.*\/api\/token\/.*/.test(request.url) ) {
+      if(!/.*\/account\/token\/.*/.test(request.url) ) {
         return this.authService.getAccessToken().pipe(
           mergeMap((accessToken: string) => {
             const reqAuth = request.clone({ setHeaders: { Authorization: `Bearer ${accessToken}` } });

@@ -13,6 +13,7 @@ import { first } from 'rxjs/operators';
 export class LoginComponent implements OnInit {
 
   registration: boolean = false;
+  registerSuccess: boolean = false;
 
   form: FormGroup;
   submitted = false;
@@ -43,13 +44,15 @@ export class LoginComponent implements OnInit {
     this.registration = !this.registration
 
     if(this.registration){
-      this.form.controls['password'].patchValue('')
-
+      
+      // this.form.controls['password'].patchValue('')
+      this.form.reset()
+      
       this.form.addControl('confirmedPassword',
       new FormControl('', [Validators.required, this.validateAreEqual.bind(this)]))
-
+      
       this.form.controls['username'].addValidators([Validators.minLength(5), Validators.maxLength(15)])
-      this.form.controls['username'].updateValueAndValidity()
+      // this.form.controls['username'].updateValueAndValidity()
     }
   }
 
@@ -67,10 +70,15 @@ export class LoginComponent implements OnInit {
     this.loading = true;
 
     if(this.registration){
+      // 
+
       this.authService.register(this.f.username.value, this.f.password.value)
       .pipe(first())
       .subscribe({
         next: () => {
+          if(this.error){ this.error = '' };
+          this.registerSuccess = true; this.registration = false;
+          // this.form.reset()
           console.log("LOGIN, zarejestrowano");
           this.loading = false;
         },

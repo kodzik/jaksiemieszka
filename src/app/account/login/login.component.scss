@@ -90,6 +90,14 @@
     color: var(--color-light--3);
 }
 
+.register-success{
+    font-family: "Poppins ExtraLight";
+    color: var(--color-light--1);
+    border-color: green;
+    padding: 1rem 1rem 1rem;
+    margin-bottom: 1rem;
+}
+
 @media screen and (max-width: 1280px) {
     .card{
       width: auto;
