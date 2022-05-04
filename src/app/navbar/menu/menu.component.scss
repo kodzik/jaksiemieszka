@@ -1,18 +1,10 @@
 :host {
-    ::ng-deep .p-button {
-        // display: flex;
-        // justify-content: center;
-        color: honeydew;
+    ::ng-deep .p-avatar{
+        background-color: white;
     }    
-    // ::ng-deep .p-button-outlined {
-    //     // font-size: 3rem;
-    //     color: var(--color-light--3);
-    // }
-
-    // ::ng-deep .p-button.p-button-outlined:enabled:hover {
-    //     color: var(--color-light--3);
-    //     border-color: var(--color-light--3)
-    // }
+    ::ng-deep .p-avatar-text{
+        font-family: "Poppins Bold";
+    }
 
     ::ng-deep .p-button:enabled:hover {
         color: var(--color-light--3);
@@ -20,8 +12,17 @@
     }
 }
 
+.main{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
 .bars{
-    font-size: 1.5rem;
+    font-size: 2rem;
+    color: whitesmoke;
+    margin-right: 2rem;
 }
 
 .burger{
@@ -29,7 +30,7 @@
     flex-direction: row;
 }
 
-.username{
-    font-family: "Poppins Bold";
-    margin-right: 1rem;
+.avatar-label{
+    font-family: "Poppins Extralight";
+    // margin-right: 1rem;
 }

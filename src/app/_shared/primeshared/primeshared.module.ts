@@ -13,12 +13,13 @@ import { ScrollPanelModule } from 'primeng/scrollpanel';
 import { VirtualScrollerModule } from 'primeng/virtualscroller';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { SpeedDialModule } from 'primeng/speeddial';
-import {StepsModule} from 'primeng/steps';
-import {CardModule} from 'primeng/card';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {ConfirmationService} from 'primeng/api';
-import {ProgressSpinnerModule} from 'primeng/progressspinner';
-import {MenuModule} from 'primeng/menu';
+import { StepsModule} from 'primeng/steps';
+import { CardModule} from 'primeng/card';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { MenuModule } from 'primeng/menu';
+import { AvatarModule } from 'primeng/avatar';
 
 @NgModule({
   declarations: [],
@@ -40,7 +41,8 @@ import {MenuModule} from 'primeng/menu';
     CardModule,
     ConfirmDialogModule,
     ProgressSpinnerModule,
-    MenuModule
+    MenuModule,
+    AvatarModule
   ],
   exports:[
     CommonModule,
@@ -60,7 +62,8 @@ import {MenuModule} from 'primeng/menu';
     CardModule,
     ConfirmDialogModule,
     ProgressSpinnerModule,
-    MenuModule
+    MenuModule,
+    AvatarModule
   ],
   providers:[
     ConfirmationService

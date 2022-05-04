@@ -131,19 +131,27 @@ nav{
   display: block;
 }
 
-.burger{
-  text-transform: uppercase;
-  font-family: 'Open Sans', sans-serif;
-  font-style: normal;
-  font-weight: 400;
-  color: #f7f7f7;
-  align-items: center;
+// .burger{
+//   text-transform: uppercase;
+//   font-family: 'Open Sans', sans-serif;
+//   font-style: normal;
+//   font-weight: 400;
+//   color: #f7f7f7;
+//   align-items: center;
+//   display: flex;
+// }
+
+// .burger .bars{
+//   font-size: 2rem;
+// }
+
+.menu{
   display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
-.burger .bars{
-  font-size: 2rem;
-}
 
 @media screen and (max-width: 1280px) {
   .container{

@@ -27,23 +27,30 @@ export class MenuComponent implements OnInit {
     this.authenticated = this.getUser(this.authService.isAuthenticated(), localStorage.getItem('username'))
 
     if(this.authenticated){
+      
       this.items = [
         {
-          label: 'Dodaj komentarz', 
-          icon: 'pi pi-fw pi-plus',
-          command: () => {
-            if(this.authService.isAuthenticated()){
-              this.fabService.changeCommentsView(commentsView.Add)
+          label: this.username,
+          items: [
+            {
+              label: 'Dodaj komentarz', 
+              icon: 'pi pi-fw pi-plus',
+              command: () => {
+                if(this.authService.isAuthenticated()){
+                  this.fabService.changeCommentsView(commentsView.Add)
+                }
+              }
+            },
+            {
+              label: 'Wyloguj', 
+              icon: 'pi pi-fw pi-power-off',
+              command: () => {
+                this.authService.deauthenticate()
+              }
             }
-          }
+          ]
         },
-        {
-          label: 'Wyloguj', 
-          icon: 'pi pi-fw pi-power-off',
-          command: () => {
-            this.authService.deauthenticate()
-          }
-        }
+
       ];
     } else {
       this.items = [

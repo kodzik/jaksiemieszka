@@ -54,17 +54,13 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   createForm() {
     this.commentForm = this.fb.group({
-      location: [''],
+      location: [''],//new FormControl(null, Validators.required),
       locationScore: new FormControl(null, Validators.required),
       noiseScore: new FormControl(null, Validators.required),
       airScore: new FormControl(null, Validators.required),
       trafficScore: new FormControl(null, Validators.required),
       address: [''],
       text_content: [null],
-
-      // cultureScore: [''],
-      // eduScore: [''],
-      // sportScore: [''],
     });
   }
 
@@ -88,7 +84,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   onSubmit(){
     this.submitted = true;
 
-    if (this.commentForm.invalid) {
+    if (this.commentForm.invalid || this.location === undefined) {
       return;
     }
 
@@ -115,7 +111,6 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     } else {
       console.log("Form invalid");
     }
-
   }
 
   parseMarkerAddress(data: any): any {

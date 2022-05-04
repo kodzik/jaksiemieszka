@@ -5,6 +5,14 @@
     border-radius: 6px;
 }
 
+:host {
+    ::ng-deep .p-rating {
+        .p-rating-icon {
+            color: var(--color-brand--1);
+        }
+    }    
+}
+
 .card{
     display: flex;
     flex-direction: column;

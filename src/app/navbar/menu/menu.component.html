@@ -1,22 +1,13 @@
-<!-- <button type="button" pButton icon="pi pi-bars" label="Show" (click)="menu.toggle($event)" iconPos="right" class="p-button-text p-button-text p-button-lg"></button> -->
-<!-- <p-button styleClass="px-3">
-    <ng-template pTemplate="content">
-        <img alt="logo" src="assets/showcase/images/primeng-icon-white.svg" style="width: 1.5rem"/>
-        <i class="pi pi-bars bars"></i>
-    </ng-template>
-</p-button> -->
+<div class="main">
 
-<p-button styleClass="p-button-outlined" (click)="menu.toggle($event)" >
-    <!-- <img alt="logo" src="assets/showcase/images/primeng-icon.svg" style="width: 1.5rem"/> -->
-    <!-- <span ></span> -->
-    <div class="burger">
-        <div class="username">
-            {{username}}
+    <!-- TODO Bars menu -->
+    <!-- <i class="pi pi-bars bars" ></i> -->
+    
+    <p-avatar (mouseenter)="menu.show($event)" (mouseleave)="menu.hide()" size="medium" shape="circle">
+        <i *ngIf="!authenticated" class="pi pi-user"></i>
+        <div class="avatar-label">
+            {{username | titlecase | slice: 0 : 1 }}
         </div>
-        <i class="pi pi-bars bars"></i>
-    </div>
-
-</p-button>
-
-
-<p-menu [model]="items" #menu [popup]="true"></p-menu>
+        <p-menu [model]="items" #menu [popup]="true" ></p-menu>
+    </p-avatar>
+</div>
