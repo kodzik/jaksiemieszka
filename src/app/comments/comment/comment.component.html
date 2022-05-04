@@ -14,7 +14,6 @@
                 <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
                     <meta charset="UTF-8">
                     Niestety, ktoś się nie popisał!
-                    <p>&#128512;</p>
                 </div>
                 <ng-template #elseBlock>
                     {{comment.text_content}}
@@ -47,10 +46,6 @@
 
         <div class="card">
 
-            <!-- <div class="expanded-divider">
-                <div></div>
-            </div> -->
-
             <div class="content content-expanded">
 
                 <div>
@@ -76,10 +71,9 @@
                     </div>
                 </div>
 
-
                 <div class="cmt-text cmt-text-expanded">
                     <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
-                        Brak komentarza.
+                      Niestety, ktoś się nie popisał!
                     </div>
                     <ng-template #elseBlock>
                         {{comment.text_content}}
@@ -87,8 +81,6 @@
                 </div>
 
             </div>
-
-
 
             <div class="subcontent">
                 <div class="user">
