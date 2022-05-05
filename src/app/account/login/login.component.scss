@@ -23,12 +23,12 @@
 }
 
 .card-header{
-    font-family: "Poppins ExtraLight";
+    font-family: "Poppins";
+    font-weight: 300;
     font-size: 2rem;
     color: var(--color-light--3);
     margin: 1rem;
 }
-
 
 .card .form-group .main-input{
     display: flex;
@@ -38,7 +38,8 @@
 }
 
 .card .label{
-    font-family: "Poppins ExtraLight";
+    font-family: "Poppins";
+    font-weight: 300;
     color: var(--color-light--3);
     font-size: 1rem;
 }
@@ -67,7 +68,8 @@
   
 .logo .content{
     color: #434343;
-    font-family: "Poppins ExtraLight";
+    font-family: "Poppins";
+    font-weight: 200;
     font-size: 2rem;
 }
   
@@ -77,7 +79,8 @@
     justify-content: center;
     align-items: baseline;
 
-    font-family: "Poppins ExtraLight";
+    font-family: "Poppins";
+    font-weight: 300;
     margin-top: 1rem;
     background-color: inherit;
     border-style: solid;
@@ -86,12 +89,12 @@
 }
 
 .sub-card .register{
-    font-family: "Poppins ExtraLight";
+    font-family: "Poppins";
     color: var(--color-light--3);
 }
 
 .register-success{
-    font-family: "Poppins ExtraLight";
+    font-family: "Poppins";
     color: var(--color-light--1);
     border-color: green;
     padding: 1rem 1rem 1rem;

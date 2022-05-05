@@ -4,22 +4,8 @@
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
-@font-face {
-    font-family: "Poppins ExtraLight";
-    src: local("Poppins-ExtraLight"),
-    url(./assets/fonts/Poppins/Poppins-ExtraLight.ttf)
-    format("truetype");
-    font-weight: 200;
-}
 
-@font-face {
-    font-family: "Poppins Bold";
-    src: local("Poppins-bold"),
-    url(./assets/fonts/Poppins/Poppins-Bold.ttf)
-    format("truetype");
-    font-weight: 700;
-}
-
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200;300;700&display=swap');
 
 :root {
     --color-brand--1: #EC5434;
@@ -40,6 +26,7 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-radius: 5px;
     // padding-right: 0.6rem;
     border-left: 5px solid var(--color-brand--1);
-    font-family: "Poppins ExtraLight";
+    font-family: "Poppins";
+    font-weight: 200;
     font-size: 1.5rem;
 }

@@ -2,9 +2,10 @@
     ::ng-deep .p-avatar{
         background-color: white;
     }    
-    ::ng-deep .p-avatar-text{
-        font-family: "Poppins Bold";
-    }
+    // ::ng-deep .p-avatar-text{
+    //     font-family: "Poppins";
+    //     font-weight: 700;
+    // }
 
     ::ng-deep .p-button:enabled:hover {
         color: var(--color-light--3);
@@ -17,6 +18,7 @@
     flex-direction: row;
     flex-wrap: nowrap;
     align-items: center;
+    padding: 0.5rem 0 0.5rem;
 }
 
 .bars{
@@ -31,6 +33,6 @@
 }
 
 .avatar-label{
-    font-family: "Poppins Extralight";
-    // margin-right: 1rem;
+    font-family: "Poppins";
+    font-weight: 300;
 }

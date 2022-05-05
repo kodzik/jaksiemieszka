@@ -3,7 +3,7 @@
     <!-- TODO Bars menu -->
     <!-- <i class="pi pi-bars bars" ></i> -->
     
-    <p-avatar (mouseenter)="menu.show($event)" (mouseleave)="menu.hide()" size="medium" shape="circle">
+    <p-avatar (mouseenter)="menu.show($event)" (mouseleave)="menu.hide()" size="large" shape="circle">
         <i *ngIf="!authenticated" class="pi pi-user"></i>
         <div class="avatar-label">
             {{username | titlecase | slice: 0 : 1 }}

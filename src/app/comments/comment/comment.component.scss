@@ -85,6 +85,8 @@
 
 @mixin cmt-text {
     @include border();
+    font-family: "Poppins";
+    font-weight: 300;
     color: var(--color-light--3);
     background-color: var(--color-light--1);
     // max-height: 8rem;

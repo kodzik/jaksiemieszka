@@ -74,7 +74,9 @@
 
     <div *ngIf="!registration && !registerSuccess;" class="card sub-card">
         Nie masz jeszcze konta?
-        <button pButton pRipple type="button" label="Zarejestruj się!" class="p-button-text" (click)="register()"></button>
+        <button pButton pRipple type="button" class="p-button-text" (click)="register()">
+            Zarejestruj się!
+        </button>
     </div>
 
 </div>

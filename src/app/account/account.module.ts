@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { AccountRoutingModule } from './account-routing.module';
 import { LayoutComponent } from './layout/layout.component';
 import { LoginComponent } from './login/login.component';
-import { RegisterComponent } from './register/register.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from 'primeng/api';
 import { PrimesharedModule } from '../_shared/primeshared/primeshared.module';
@@ -14,7 +13,6 @@ import { PrimesharedModule } from '../_shared/primeshared/primeshared.module';
   declarations: [
     LayoutComponent,
     LoginComponent,
-    RegisterComponent
   ],
   imports: [
     CommonModule,

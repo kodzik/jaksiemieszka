@@ -12,7 +12,6 @@
             </div>
             <div class="cmt-text">
                 <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
-                    <meta charset="UTF-8">
                     Niestety, ktoś się nie popisał!
                 </div>
                 <ng-template #elseBlock>
