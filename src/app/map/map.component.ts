@@ -5,14 +5,12 @@ import { icon, Marker } from 'leaflet';
 import { CommentService } from '../_services/comment.service';
 import { ShapeService } from '../_services/shape.service';
 import { FabService } from '../fab/fab.service';
-
-// import * as leafletBounce from 'leaflet.smooth_marker_bouncing';
-// import 'leaflet.smooth_marker_bouncing'
+import { environment } from 'src/environments/environment';
 
 // --- Leaflet marker bugfix --- //
-const iconRetinaUrl = 'assets/marker-icon-2x.png';
-const iconUrl = 'assets/marker-icon.png';
-const shadowUrl = 'assets/marker-shadow.png';
+const iconRetinaUrl = `${environment.static}assets/marker-icon-2x.png`;
+const iconUrl = `${environment.static}assets/marker-icon.png`;
+const shadowUrl = `${environment.static}assets/marker-shadow.png`;
 const iconDefault = icon({
   iconRetinaUrl,
   iconUrl,

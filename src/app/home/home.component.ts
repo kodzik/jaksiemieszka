@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { commentsView } from '../comments/commentsView';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +6,6 @@ import { commentsView } from '../comments/commentsView';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent implements OnInit {
-
-  commentsView: commentsView;
-  showDistricts: boolean;
 
   constructor() { }
 

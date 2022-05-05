@@ -20,6 +20,7 @@ import { ConfirmationService } from 'primeng/api';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
 import { MenuModule } from 'primeng/menu';
 import { AvatarModule } from 'primeng/avatar';
+import {PasswordModule} from 'primeng/password';
 
 @NgModule({
   declarations: [],
@@ -42,7 +43,8 @@ import { AvatarModule } from 'primeng/avatar';
     ConfirmDialogModule,
     ProgressSpinnerModule,
     MenuModule,
-    AvatarModule
+    AvatarModule,
+    PasswordModule
   ],
   exports:[
     CommonModule,
@@ -63,7 +65,8 @@ import { AvatarModule } from 'primeng/avatar';
     ConfirmDialogModule,
     ProgressSpinnerModule,
     MenuModule,
-    AvatarModule
+    AvatarModule,
+    PasswordModule
   ],
   providers:[
     ConfirmationService
