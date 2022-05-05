@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 import { FabService } from 'src/app/fab/fab.service';
 import { CComment, CCommentAddress, IComment } from 'src/app/_models/comment';
+import { AuthService } from 'src/app/_services/auth.service';
 import { CommentService } from 'src/app/_services/comment.service';
 import { MarkerService } from 'src/app/_services/marker.service';
 import { commentsView } from '../commentsView';
@@ -91,6 +92,11 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     if(this.commentForm.status === "VALID"){
       try {
         let comment = new CComment;
+
+        const user = localStorage.getItem('username');
+        if(user !== null){
+          comment.username = user;
+        } else return;
 
         comment.location = {lat: Number(this.location.lat), lng: Number(this.location.lng)}
         comment.rating = {
