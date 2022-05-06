@@ -35,7 +35,17 @@
 
                     <div class="main-input">
                         <label class="label" for="password">Hasło</label>
-                        <input class="input" type="text" formControlName="password" pInputText type="password" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.password.errors || f.password.touched && f.password.errors }" />
+                        <input *ngIf="!registration" class="input" formControlName="password" pInputText type="password" [ngClass]="{ 'ng-invalid ng-dirty': submitted && f.password.errors || f.password.touched && f.password.errors }" />
+                        <p-password 
+                            *ngIf="registration" 
+                            class="input" 
+                            formControlName="password" 
+                            promptLabel="Podaj hasło"
+                            weakLabel="Słabe"
+                            mediumLabel="Średnie"
+                            strongLabel="Mocne">
+                        </p-password>
+
                         <small class="p-error" *ngIf="submitted && f.password.errors || f.password.touched  && f.password.errors">
                             Podaj hasło
                         </small>
@@ -77,6 +87,10 @@
         <button pButton pRipple type="button" class="p-button-text" (click)="register()">
             Zarejestruj się!
         </button>
+    </div>
+
+    <div *ngIf="registration">
+        TODO back to login
     </div>
 
 </div>

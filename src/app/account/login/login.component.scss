@@ -19,7 +19,7 @@
     background-color: var(--color-dark--2);
     padding: 2rem 2rem 2rem;
     border-radius: 10px;
-    width: 50%;
+    width: fit-content;
 }
 
 .card-header{
@@ -104,5 +104,8 @@
 @media screen and (max-width: 1280px) {
     .card{
       width: auto;
+    }
+    .main{
+        zoom: 100%;
     }
 }

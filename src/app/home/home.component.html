@@ -10,7 +10,7 @@
       <app-comments-layout></app-comments-layout>
     </div>
 
-    <div class="map_section">
+    <div *ngIf="!(mobile | async)" class="map_section">
       <div class="map">
         <app-map></app-map>
       </div>

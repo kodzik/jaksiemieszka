@@ -5,6 +5,12 @@
   box-sizing: border-box;
 }
 
+.logo-side-container{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .logo{
   height: 2.5rem;
   background-color: #FFFFFF;

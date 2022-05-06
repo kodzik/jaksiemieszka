@@ -22,16 +22,16 @@
         </div>
         <div class="subcontent">
             <div class="user">
-                <i class="pi pi-user"></i>
+                <i class="pi pi-user icon"></i>
                 {{comment.username}}
             </div>
             <div class="user">
-                <i class="pi pi-calendar"></i>
+                <i class="pi pi-calendar icon"></i>
                 {{comment.when_added | date: 'medium' }}
             </div>
             <div class="location">
                 <div *ngIf="comment.address !== undefined && comment.address !== null">
-                    <i class="pi pi-map-marker"></i>
+                    <i class="pi pi-map-marker icon"></i>
                     <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span>
                     <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span>
                     <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span>
