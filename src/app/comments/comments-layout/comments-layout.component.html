@@ -1,7 +1,7 @@
 <!-- {{changeView}}
 <p-button (onClick)="onChangeButton()">switch</p-button> -->
 
-<div [ngSwitch]='changeView'>
+<div [ngSwitch]='changeView' class="flex h-full w-full">
 
     <div style="height: 100%;" *ngSwitchCase="commentsView.View">
         <app-comments></app-comments>
@@ -11,4 +11,5 @@
         <app-add-comment></app-add-comment>
     </div>
 
+    <!-- <h1 class="bg-blue-100 h-full w-full">napis testowy</h1> -->
 </div>

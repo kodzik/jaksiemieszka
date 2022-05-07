@@ -1,23 +1,28 @@
 
-<div class="main">
+<div class="main h-screen flex flex-column">
 
-  <div>
-    <app-navbar></app-navbar>
+  <div class="flex">
+    <app-navbar class="w-full"></app-navbar>
   </div>
 
-  <div class="grid w-full p-0 m-0">
+  <div class="flex flex-column-reverse md:flex-row h-full">
 
-    <div class="col">
-      <app-comments-layout></app-comments-layout>
+    <div class="flex w-full  max-h-full md:w-6">
+      <!-- <app-comments-layout class="flex flex-row h-full w-full"></app-comments-layout> -->
+      <h1 class="bg-blue-100 w-full ">napis testowy</h1>
     </div>
 
-    <div class="col "> 
-      <app-map></app-map>
+    <!-- <div class="flex w-6 h-full">
+      <h1 class="bg-blue-100 w-full ">napis testowy</h1>
+    </div> -->
+
+    <div class="flex w-full h-full md:w-6"> 
+      <!-- <h1 class="bg-blue-100 w-full">napis testowy</h1> -->
+      <app-map class="bg-blue-100 w-full"></app-map>
     </div>
 
   </div>
 
 </div>
 
-  <!-- *ngIf="!(mobile | async)" -->
-  <!-- hidden md:inline-flex -->
+<!-- *ngIf="!(mobile | async)" -->
