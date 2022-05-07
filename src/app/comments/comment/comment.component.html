@@ -1,4 +1,4 @@
-<div [@openClose]="isOpen ? 'open' : 'closed'"  (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
+<div class="fadeinleft" [@openClose]="isOpen ? 'open' : 'closed'"  (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
 
     <div class="card" *ngIf="isOpen===false; else elseBlock">
         <div class="content">

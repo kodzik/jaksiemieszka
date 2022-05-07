@@ -61,11 +61,11 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                 private fabService: FabService) {}
 
   ngOnInit() {
-    this.initMap();
   }
-
+  
   ngAfterViewInit(){
-
+    this.initMap();
+    
     this.map.on("click", (e: { latlng: { lng: number; lat: number; }; }) => {
       // map on click is enabled when addNewComment view is opened.
       if(this.markerService.enableMarkers){
@@ -101,6 +101,10 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
     this.markerService.tempMarkerToDelete.subscribe(marker => {
       this.map.removeLayer(marker)
     })
+
+    setTimeout(() => {
+      console.log("invalidate map: ", this.map.invalidateSize());
+    }, 300);
   }
 
   initDistrictLayer() {

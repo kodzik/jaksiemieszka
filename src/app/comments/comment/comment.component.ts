@@ -24,10 +24,10 @@ import {
         opacity: 0.7,
       })),
       transition('open => closed', [
-        animate('0.1s')
+        animate('0.5s')
       ]),
       transition('closed => open', [
-        animate('0.2s')
+        animate('0.5s')
       ]),
     ]),
   ],

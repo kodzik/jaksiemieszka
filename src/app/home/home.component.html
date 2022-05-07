@@ -5,22 +5,19 @@
     <app-navbar></app-navbar>
   </div>
 
-  <div class="content">
-    <div class="comments_section">
+  <div class="grid w-full p-0 m-0">
+
+    <div class="col">
       <app-comments-layout></app-comments-layout>
     </div>
 
-    <div *ngIf="!(mobile | async)" class="map_section">
-      <div class="map">
-        <app-map></app-map>
-      </div>
-
-      <div class="speedDial">
-        <app-fab></app-fab>
-      </div>
-
+    <div class="col "> 
+      <app-map></app-map>
     </div>
+
   </div>
 
 </div>
 
+  <!-- *ngIf="!(mobile | async)" -->
+  <!-- hidden md:inline-flex -->

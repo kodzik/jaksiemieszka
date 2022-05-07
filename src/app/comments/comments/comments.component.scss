@@ -12,8 +12,25 @@
 }
 
 .no-comments p{
-  font-family: "Poppins ExtraLight";
+  font-family: "Poppins";
+  font-weight: 200;
   font-size: 1rem;
-  color: #EC5434;
+  color: var(--color-brand--1);
   margin: 0;
+}
+
+:host{
+  ::ng-deep .p-scrollpanel {
+    p {
+        padding: .5rem;
+        line-height: 1.5;
+        margin: 0;
+    }
+  
+    &.custombar1 {
+        .p-scrollpanel-bar {
+            background-color: var(--color-brand--1);
+        }
+    }
+  }
 }

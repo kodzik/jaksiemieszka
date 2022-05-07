@@ -2,35 +2,3 @@
   background-color: var(--color-dark--1);
   height: 100%;
 }
-
-.main .content{
-  display: flex;
-  flex-direction: row;
-  // height: 90vh;
-  // overflow: hidden;
-}
-
-.main .content .comments_section{
-  width: 40%;
-  margin: 0.25rem;
-  height: 90vh;
-}
-
-.main .content .map_section{
-  width: 60%;
-  margin: 0.25rem;
-}
-
-.speedDial{
-  position: fixed;
-  right: 7%;
-  bottom: 25%;
-  // height: 350px; 
-  z-index: 1000;
-}
-
-// @media screen and (max-width: 769px) {
-//   .container{
-//     width:90%;
-//   }
-// }
