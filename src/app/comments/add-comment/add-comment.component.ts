@@ -113,6 +113,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   
       } finally {
         this.close()
+        window.location.reload();
       }
     } else {
       console.log("Form invalid");

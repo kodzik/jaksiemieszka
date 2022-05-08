@@ -58,7 +58,7 @@
                         </div>
                     </div>
 
-                    <div>
+                    <div class="hidden sm:block">
                         <div class="rating-block" *ngFor="let item of comment.rating | keyvalue">
                             <div class="stars">
                                 <p-rating [ngModel]="item.value" [cancel]="false" [readonly]="true"></p-rating>
