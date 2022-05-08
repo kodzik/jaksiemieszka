@@ -75,6 +75,12 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
+    this.map.on('popupopen', (e) => {
+      var px = this.map.project(e.target._popup._latlng); // find the pixel location on the map where the popup anchor is
+      px.y -= e.target._popup._container.clientHeight/2; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
+      this.map.panTo(this.map.unproject(px),{animate: true}); // pan to new center
+    });
+    
     this.commentService.newComment.subscribe(comment => {
       this.markerService.addMarker2(this.map, comment.location.lat, comment.location.lng, comment)
     });
