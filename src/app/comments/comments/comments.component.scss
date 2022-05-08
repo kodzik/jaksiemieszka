@@ -19,8 +19,10 @@
   margin: 0;
 }
 
+
 :host{
   ::ng-deep .p-scrollpanel {
+    // height: calc(100vh - 64px);
     p {
         padding: .5rem;
         line-height: 1.5;

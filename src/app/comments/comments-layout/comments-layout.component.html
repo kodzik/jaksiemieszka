@@ -1,13 +1,13 @@
 <!-- {{changeView}}
 <p-button (onClick)="onChangeButton()">switch</p-button> -->
 
-<div [ngSwitch]='changeView' class="flex h-full w-full">
+<div [ngSwitch]='changeView' class="flex w-full h-full overflow-x-hidden">
 
-    <div style="height: 100%;" *ngSwitchCase="commentsView.View">
-        <app-comments></app-comments>
+    <div class="flex h-full w-full" *ngSwitchCase="commentsView.View">
+        <app-comments class="flex h-full w-full overflow-x-hidden"></app-comments>
     </div>
 
-    <div style="height: 100%;" *ngSwitchCase="commentsView.Add">
+    <div class="h-full w-full" *ngSwitchCase="commentsView.Add">
         <app-add-comment></app-add-comment>
     </div>
 
