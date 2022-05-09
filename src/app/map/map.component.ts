@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, ElementRef } from '@angular/core';
 import { MarkerService } from "../_services/marker.service";
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
@@ -7,6 +7,11 @@ import { CommentService } from '../_services/comment.service';
 import { ShapeService } from '../_services/shape.service';
 import { FabService } from '../fab/fab.service';
 import { environment } from 'src/environments/environment';
+import { commentsView } from '../comments/commentsView';
+import { PopupService } from '../_services/popup.service';
+import { ConfirmationService } from 'primeng/api';
+import { AuthService } from '../_services/auth.service';
+import { Router } from '@angular/router';
 
 // --- Leaflet marker bugfix --- //
 const iconRetinaUrl = `${environment.static}/assets/marker-icon-2x.png`;
@@ -29,8 +34,9 @@ const provider = new OpenStreetMapProvider();
 const searchControl = GeoSearchControl({
   provider: provider,   
   style: 'button',
-  position: 'topright',
+  // position: 'topright',
   searchLabel: 'Wpisz adres...',
+  keepResult: true,
   marker: {
     // optional: L.Marker    - default L.Icon.Default
     icon: iconDefault,
@@ -46,6 +52,11 @@ const searchControl = GeoSearchControl({
 export class MapComponent implements AfterViewInit, OnDestroy {
 
   public map: L.Map;
+
+  //custom popup
+  choicePopUp = L.popup();
+  container = L.DomUtil.create('div');
+  //custom popup
 
   _showDistricts: boolean = false;
   subShowDistricts: any;
@@ -68,7 +79,12 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   constructor(  private markerService: MarkerService,
                 private commentService: CommentService,
                 private shapeService: ShapeService,
-                private fabService: FabService) {}
+                private confirmationService: ConfirmationService,
+                private fabService: FabService,
+                private elementRef: ElementRef,
+                private authService: AuthService,
+                private router: Router,
+                ) {}
 
   
   ngAfterViewInit(){
@@ -90,16 +106,39 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       this.map.panTo(this.map.unproject(px),{animate: true});
     });
 
+    //on geosearch make marker and popup
     this.map.on('geosearch/showlocation', (e: any) => {
-      this.map.removeLayer(this.onAddMarker)
+      if(this.onAddMarker){
+        this.map.removeLayer(this.onAddMarker)
+      }
+      // let label = e.location.label.split(', ')
+      // console.log(label);
+      // label = ( typeof Number(label[0]) === typeof Number) ? (label[1]+label[0]) : (label[0])
+      // <h4 style="position: absolute; color: #EC5434; font-size: 15px; bottom: 35%">${label}</h4>
+      const popupInfo = `
+      <button pButton class="addComment btn">Dodaj komentarz!</button>
+      `
+      const popupOptions = {
+        className: "leaflet-popup .leaflet-popup-content-wrapper"
+      };
+      e.marker.bindPopup(popupInfo, popupOptions)
+      .on("popupopen", () => {
+        this.elementRef.nativeElement
+          .querySelector(".addComment")
+          .addEventListener("click", (e:any) => {
+            if(this.authService.isAuthenticated()){
+              this.fabService.changeCommentsView(commentsView.Add)
+            } else {
+              this.confirm()
+            }
+          })
+      }).openPopup();
       this.markerService.changeCurrentMarker(e.marker._latlng) 
-      console.log("Location picked:", e);
     });
 
     this.map.on('geosearch/marker/dragend', (e: any) => { 
       this.markerService.changeCurrentMarker(e.location) 
     });
-
 
     //add markers to map from comments
     this.commentService.newComment.subscribe(comment => {
@@ -138,6 +177,15 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       }
     }
     this._showDistricts = toggle;
+  }
+
+  confirm() {
+    this.confirmationService.confirm({
+        message: 'Zaloguj się, aby dodać swój komentarz!',
+        accept: () => {
+          this.router.navigate(['/account/login']);
+        }
+    });
   }
 
   ngOnDestroy(): void {

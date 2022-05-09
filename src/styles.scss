@@ -34,6 +34,16 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-size: 1.5rem;
 }
 
+.leaflet-popup .leaflet-popup-content-wrapper .leaflet-popup-content .btn{
+    border-radius: 12px;
+    color: var(--color-light--2);
+    background-color: var(--color-brand--1);
+    font-family: "Poppins";
+    font-weight: 700;
+}
+
+
+//overflow debugger
 // * {
 //     outline: solid 1px red;
 // }

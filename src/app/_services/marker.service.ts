@@ -94,6 +94,7 @@ export class MarkerService {
 
   changeCurrentMarker(location: any) {
     this.currentMarkerChange.next(location);
+    this.currentMarker = location;
   }
 
 

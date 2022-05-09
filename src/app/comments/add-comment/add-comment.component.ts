@@ -34,6 +34,10 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
+    if(this.markerService.currentMarker){
+      this.currentMarker = this.markerService.currentMarker;
+      this.markerService.getAddressFromMarker(this.currentMarker)
+    }
     this.markerService.deleteAllMarkers()
     this.markerService.enableMarkers = true;
 
