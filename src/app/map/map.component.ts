@@ -8,7 +8,6 @@ import { ShapeService } from '../_services/shape.service';
 import { FabService } from '../fab/fab.service';
 import { environment } from 'src/environments/environment';
 import { commentsView } from '../comments/commentsView';
-import { PopupService } from '../_services/popup.service';
 import { ConfirmationService } from 'primeng/api';
 import { AuthService } from '../_services/auth.service';
 import { Router } from '@angular/router';
@@ -38,7 +37,6 @@ const searchControl = GeoSearchControl({
   searchLabel: 'Wpisz adres...',
   keepResult: true,
   marker: {
-    // optional: L.Marker    - default L.Icon.Default
     icon: iconDefault,
     draggable: true,
   },
@@ -52,11 +50,6 @@ const searchControl = GeoSearchControl({
 export class MapComponent implements AfterViewInit, OnDestroy {
 
   public map: L.Map;
-
-  //custom popup
-  choicePopUp = L.popup();
-  container = L.DomUtil.create('div');
-  //custom popup
 
   _showDistricts: boolean = false;
   subShowDistricts: any;
