@@ -1,16 +1,23 @@
-import { AfterViewInit, Component, Input, OnChanges, OnDestroy, OnInit, SimpleChanges } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit } from '@angular/core';
 import { MarkerService } from "../_services/marker.service";
 import * as L from 'leaflet';
 import { icon, Marker } from 'leaflet';
+import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
 import { CommentService } from '../_services/comment.service';
 import { ShapeService } from '../_services/shape.service';
 import { FabService } from '../fab/fab.service';
 import { environment } from 'src/environments/environment';
 
+
+const provider = new OpenStreetMapProvider();
+const searchControl = GeoSearchControl({
+  provider: provider,   
+  style: 'button',  
+})
 // --- Leaflet marker bugfix --- //
-const iconRetinaUrl = `${environment.static}assets/marker-icon-2x.png`;
-const iconUrl = `${environment.static}assets/marker-icon.png`;
-const shadowUrl = `${environment.static}assets/marker-shadow.png`;
+const iconRetinaUrl = `${environment.static}/assets/marker-icon-2x.png`;
+const iconUrl = `${environment.static}/assets/marker-icon.png`;
+const shadowUrl = `${environment.static}/assets/marker-shadow.png`;
 const iconDefault = icon({
   iconRetinaUrl,
   iconUrl,
@@ -21,7 +28,6 @@ const iconDefault = icon({
   tooltipAnchor: [16, -28],
   shadowSize: [41, 41]
 });
-
 Marker.prototype.options.icon = iconDefault;
 // --- Leaflet marker bugfix --- //
 
@@ -30,13 +36,13 @@ Marker.prototype.options.icon = iconDefault;
   templateUrl: './map.component.html',
   styleUrls: ['./map.component.scss']
 })
-export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
+export class MapComponent implements AfterViewInit, OnDestroy {
 
   public map: L.Map;
-  districtLayer: L.GeoJSON;
+  // districtLayer: L.GeoJSON;
   districts: any;
 
-  showDistricts: boolean = false;
+  _showDistricts: boolean = false;
   subShowDistricts: any;
 
   public initMap(): void {
@@ -44,8 +50,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       center: [52.217779314315, 21.042614221109],
       zoom: 11
     });
-
-    // this.map = L.map('map').setView([52.217779314315, 21.042614221109], 11);
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
       maxZoom: 18,
@@ -60,8 +64,6 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
                 private shapeService: ShapeService,
                 private fabService: FabService) {}
 
-  ngOnInit() {
-  }
   
   ngAfterViewInit(){
     this.initMap();
@@ -75,87 +77,50 @@ export class MapComponent implements OnInit, AfterViewInit, OnDestroy {
       }
     });
 
+    //map view center
     this.map.on('popupopen', (e) => {
-      var px = this.map.project(e.target._popup._latlng); // find the pixel location on the map where the popup anchor is
-      px.y -= e.target._popup._container.clientHeight/2; // find the height of the popup container, divide by 2, subtract from the Y axis of marker location
-      this.map.panTo(this.map.unproject(px),{animate: true}); // pan to new center
+      var px = this.map.project(e.target._popup._latlng); 
+      px.y -= e.target._popup._container.clientHeight/2; 
+      this.map.panTo(this.map.unproject(px),{animate: true});
     });
     
+    //add markers to map from comments
     this.commentService.newComment.subscribe(comment => {
       this.markerService.addMarker2(this.map, comment.location.lat, comment.location.lng, comment)
     });
 
-    this.shapeService.getStateShapes().subscribe(states => {
-      this.districts = states;
-      this.districtLayer = this.initDistrictLayer();
-    });
-
+    //toggle show districts
     this.subShowDistricts = this.fabService.toggleDistricts.subscribe(toggle => {
-      if(toggle === true){
-        if(this.map && this.districtLayer){
-          this.map.addLayer(this.districtLayer);
-          this.districtLayer.bringToBack();
-        }
-      } else {
-        if(this.map && this.districtLayer){
-          this.map.removeLayer(this.districtLayer)
-        }
-      }
-      this.showDistricts = toggle;
+      this.showDistricts(toggle)
     })
 
+    //marker to be deleted on addNewComment
     this.markerService.tempMarkerToDelete.subscribe(marker => {
       this.map.removeLayer(marker)
     })
 
+    //reset map - have to be used on flexbox
     setTimeout(() => {
-      console.log("invalidate map: ", this.map.invalidateSize());
+      this.map.invalidateSize();
     }, 300);
+
+    //geosearching 
+    this.map.addControl(searchControl);
   }
 
-  initDistrictLayer() {
-    return L.geoJSON(this.districts, {
-      style: (feature) => ({
-        weight: 3,
-        opacity: 0.3,
-        color: '#008f68',
-        fillOpacity: 0.3,
-        fillColor: '#6DB65B'
-      }),
-
-      onEachFeature: (feature, layer) => (
-        layer.on({
-          mouseover:  (e) => (this.highlightFeature(e)),
-          mouseout:   (e) => (this.resetFeature(e)),
-          click:      (e) => ( console.log("District: ", feature.properties.name) )
-        })
-      )
-    });
-     
-  }
-
-  private highlightFeature(e: any) {
-    const layer = e.target;
-
-    layer.setStyle({
-      weight: 10,
-      opacity: 0.5,
-      color: '#DFA612',
-      fillOpacity: 0.5,
-      fillColor: '#FAE042'
-    });
-  }
-
-  private resetFeature(e: any) {
-    const layer = e.target;
-
-    layer.setStyle({
-      weight: 3,
-      opacity: 0.3,
-      color: '#008f68',
-      fillOpacity: 0.3,
-      fillColor: '#6DB65B'
-    });
+  showDistricts(toggle: boolean){
+    const districtLayer = this.shapeService.districtLayer
+    if(toggle === true){
+      if(this.map && districtLayer){
+        this.map.addLayer(districtLayer);
+        districtLayer.bringToBack();
+      }
+    } else {
+      if(this.map && districtLayer){
+        this.map.removeLayer(districtLayer)
+      }
+    }
+    this._showDistricts = toggle;
   }
 
   ngOnDestroy(): void {
