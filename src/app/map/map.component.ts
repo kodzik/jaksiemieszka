@@ -8,12 +8,6 @@ import { ShapeService } from '../_services/shape.service';
 import { FabService } from '../fab/fab.service';
 import { environment } from 'src/environments/environment';
 
-
-const provider = new OpenStreetMapProvider();
-const searchControl = GeoSearchControl({
-  provider: provider,   
-  style: 'button',  
-})
 // --- Leaflet marker bugfix --- //
 const iconRetinaUrl = `${environment.static}/assets/marker-icon-2x.png`;
 const iconUrl = `${environment.static}/assets/marker-icon.png`;
@@ -31,6 +25,19 @@ const iconDefault = icon({
 Marker.prototype.options.icon = iconDefault;
 // --- Leaflet marker bugfix --- //
 
+const provider = new OpenStreetMapProvider();
+const searchControl = GeoSearchControl({
+  provider: provider,   
+  style: 'button',
+  position: 'topright',
+  searchLabel: 'Wpisz adres...',
+  marker: {
+    // optional: L.Marker    - default L.Icon.Default
+    icon: iconDefault,
+    draggable: true,
+  },
+})
+
 @Component({
   selector: 'app-map',
   templateUrl: './map.component.html',
@@ -39,11 +46,10 @@ Marker.prototype.options.icon = iconDefault;
 export class MapComponent implements AfterViewInit, OnDestroy {
 
   public map: L.Map;
-  // districtLayer: L.GeoJSON;
-  districts: any;
 
   _showDistricts: boolean = false;
   subShowDistricts: any;
+  onAddMarker: L.Marker;
 
   public initMap(): void {
     this.map = L.map('map', {
@@ -71,8 +77,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.map.on("click", (e: { latlng: { lng: number; lat: number; }; }) => {
       // map on click is enabled when addNewComment view is opened.
       if(this.markerService.enableMarkers){
-        this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, this.markerService.enableMarkers)
-        this.markerService.changeCurrentMarker(e)
+        this.onAddMarker = this.markerService.addMarker(this.map, e.latlng.lat, e.latlng.lng, this.markerService.enableMarkers)
+        this.markerService.changeCurrentMarker(e.latlng)
         this.markerService.enableMarkers = false;
       }
     });
@@ -83,7 +89,18 @@ export class MapComponent implements AfterViewInit, OnDestroy {
       px.y -= e.target._popup._container.clientHeight/2; 
       this.map.panTo(this.map.unproject(px),{animate: true});
     });
-    
+
+    this.map.on('geosearch/showlocation', (e: any) => {
+      this.map.removeLayer(this.onAddMarker)
+      this.markerService.changeCurrentMarker(e.marker._latlng) 
+      console.log("Location picked:", e);
+    });
+
+    this.map.on('geosearch/marker/dragend', (e: any) => { 
+      this.markerService.changeCurrentMarker(e.location) 
+    });
+
+
     //add markers to map from comments
     this.commentService.newComment.subscribe(comment => {
       this.markerService.addMarker2(this.map, comment.location.lat, comment.location.lng, comment)
@@ -109,7 +126,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   }
 
   showDistricts(toggle: boolean){
-    const districtLayer = this.shapeService.districtLayer
+    const districtLayer: L.GeoJSON = this.shapeService.districtLayer
     if(toggle === true){
       if(this.map && districtLayer){
         this.map.addLayer(districtLayer);

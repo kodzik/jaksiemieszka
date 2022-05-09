@@ -10,7 +10,6 @@ import { Subject } from 'rxjs';
 })
 export class MarkerService {
 
-  // markers: any[] = []
   markersWithId: any[] = []
   currentMarker: any;
 
@@ -23,7 +22,7 @@ export class MarkerService {
   currentMarkerChange: Subject<any> = new Subject<any>();
   markerData: Subject<any> = new Subject<any>();
 
-  capitals: string = '/assets/data/usa-capitals.geojson';
+  // capitals: string = '/assets/data/usa-capitals.geojson';
 
   constructor(
     private http: HttpClient,
@@ -36,11 +35,12 @@ export class MarkerService {
   addMarker(map: L.Map, lng: number, lat: number, draggable?: boolean) {
     let marker = L.marker([lng, lat], {draggable: draggable})
     .on('dragend', (e) => {
-      this.changeCurrentMarker(e.target);
+      this.changeCurrentMarker(e.target._latlng);
 		})
     this.tempLayer = L.layerGroup()
     this.tempLayer.addLayer(marker)
     this.tempLayer.addTo(map)
+    return marker;
   }
 
   addMarker2(map: L.Map, lng: number, lat: number, comment: IComment) {
@@ -92,19 +92,10 @@ export class MarkerService {
     return (avg / index);
   }
 
-  // getAddressFromMarker__2(latlng: any){
-  //   const apiAddr = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`
-  //   return this.http.get(apiAddr)
-  // }
-
-  changeCurrentMarker(marker: any) {
-    this.currentMarkerChange.next(marker);
+  changeCurrentMarker(location: any) {
+    this.currentMarkerChange.next(location);
   }
 
-  // addMarkerFromComment(comment: any){
-  //   this.markers.push({id: comment.id, location: comment.location})
-  //   // this.markers.push(comment.location)
-  // }
 
   // makeCapitalMarkers(map: L.Map): void {
   //   this.http.get(this.capitals).subscribe((res: any) => {
@@ -119,22 +110,22 @@ export class MarkerService {
   // }
 
   // TODO MAKE USE OF IT!
-  makeCapitalCircleMarkers(map: L.Map): void {
-    this.http.get(this.capitals).subscribe((res: any) => {
+  // makeCapitalCircleMarkers(map: L.Map): void {
+  //   this.http.get(this.capitals).subscribe((res: any) => {
 
-      const maxPop = Math.max(...res.features.map((x:any) => x.properties.population), 0);
+  //     const maxPop = Math.max(...res.features.map((x:any) => x.properties.population), 0);
 
-      for (const c of res.features) {
-        const lon = c.geometry.coordinates[0];
-        const lat = c.geometry.coordinates[1];
-        const circle = L.circleMarker([lat, lon], {
-          radius: MarkerService.scaledRadius(c.properties.population, maxPop)
-        });
+  //     for (const c of res.features) {
+  //       const lon = c.geometry.coordinates[0];
+  //       const lat = c.geometry.coordinates[1];
+  //       const circle = L.circleMarker([lat, lon], {
+  //         radius: MarkerService.scaledRadius(c.properties.population, maxPop)
+  //       });
 
-        circle.bindPopup(this.popupService.makeCapitalPopup(c.properties));
-        circle.addTo(map);
-      }
-    });
-  }
+  //       circle.bindPopup(this.popupService.makeCapitalPopup(c.properties));
+  //       circle.addTo(map);
+  //     }
+  //   });
+  // }
 
 }

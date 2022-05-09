@@ -38,19 +38,13 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     this.markerService.enableMarkers = true;
 
     this.markerService.currentMarkerChange.subscribe(location => {
-
-      if( location.latlng){
-        this.currentMarker = location.latlng;
-      } else{
-        this.currentMarker = location._latlng
-      }
-      this.markerService.getAddressFromMarker(this.currentMarker)
+      this.currentMarker = location;
+      this.markerService.getAddressFromMarker(location)
     })
 
     this.markerService.markerData.subscribe(markerData =>{
       this.markerData = markerData;
     })
-
   }
 
   createForm() {

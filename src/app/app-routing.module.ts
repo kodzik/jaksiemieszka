@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ApolloTestComponent } from './apollo-test/apollo-test.component';
 import { HomeComponent } from './home/home.component';
-import { MapComponent } from './map/map.component';
 
 const accountModule = () => import('./account/account.module').then(x => x.AccountModule);
 // const commentsModule = () => import('./comments/comments.module').then(x => x.CommentsModule);
@@ -10,7 +9,6 @@ const accountModule = () => import('./account/account.module').then(x => x.Accou
 const routes: Routes = [
 
   { path: 'home', component: HomeComponent},
-  { path: 'map', component: MapComponent},
   { path: 'account', loadChildren: accountModule },
   // otherwise redirect to home
   { path: '**', redirectTo: 'home' }//, pathMatch: 'full'
