@@ -1,110 +1,88 @@
-<div class="pr-2 md: pr-0" [@openClose]="isOpen ? 'open' : 'closed'"  (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
+<div class="pr-2 md: pr-0" [@openClose]="isOpen ? 'open' : 'closed'" (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
 
-    <div class="card" *ngIf="isOpen===false; else elseBlock">
+    <div class="card" *ngIf="isOpen===false; else expanded">
+
         <div class="content">
-            <div class="rating">
-                <div class="number">
-                    {{rating | number: '1.1-1'}}
-                </div>
-                <div class="stars">
-                    <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>
-                </div>
-            </div>
-            <div class="cmt-text">
-                <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
-                    Niestety, ktoś się nie popisał!
-                </div>
-                <ng-template #elseBlock>
-                    {{comment.text_content}}
-                </ng-template>
-            </div>
+            <ng-template [ngTemplateOutlet]="Rating"></ng-template>
+            <ng-template [ngTemplateOutlet]="cmtText"></ng-template>
+        </div>
 
-        </div>
-        <div class="subcontent">
-            <div class="user">
-                <i class="pi pi-user icon"></i>
-                {{comment.username}}
-            </div>
-            <div class="user">
-                <i class="pi pi-calendar icon"></i>
-                {{comment.when_added | date: 'medium' }}
-            </div>
-            <div class="location">
-                <div *ngIf="comment.address !== undefined && comment.address !== null">
-                    <i class="pi pi-map-marker icon"></i>
-                    <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span>
-                    <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span>
-                    <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span>
-                </div>
-            </div>
-            <div class="rate-btn"></div>
-        </div>
+        <ng-template [ngTemplateOutlet]="subContent"></ng-template>
     </div>
 
-    <ng-template  #elseBlock>
-
+    <ng-template #expanded>
         <div class="card">
-
             <div class="content content-expanded">
 
-                <div>
-                    <div class="rating">
-                        <div class="number">
-                            {{rating | number: '1.1-1'}}
-                        </div>
+                <div class="flex flex-row">
+                    <ng-template [ngTemplateOutlet]="Rating"></ng-template>
 
-                        <div class="stars">
-                            <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>
-                        </div>
-                    </div>
-
-                    <div class="hidden sm:block">
+                    <div class="sm:block add-border ml-2">
                         <div class="rating-block" *ngFor="let item of comment.rating | keyvalue">
+                            <div class="stars-description">{{item.key}}</div>
                             <div class="stars">
                                 <p-rating [ngModel]="item.value" [cancel]="false" [readonly]="true"></p-rating>
                             </div>
-                            <div class="stars-description">
-                                {{item.key}}
-                            </div>
                         </div>
                     </div>
+
                 </div>
 
-                <div class="cmt-text cmt-text-expanded">
-                    <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
-                      Niestety, ktoś się nie popisał!
-                    </div>
-                    <ng-template #elseBlock>
-                        {{comment.text_content}}
-                    </ng-template>
-                </div>
-
+                <ng-template [ngTemplateOutlet]="cmtText"></ng-template>
             </div>
-
-            <div class="subcontent">
-                <div class="user">
-                    <i class="pi pi-user"></i>
-                    {{comment.username}}
-                </div>
-                <div class="user">
-                    <i class="pi pi-calendar"></i>
-                    {{comment.when_added | date: 'medium' }}
-                </div>
-                <div class="location">
-                    <div *ngIf="comment.address !== undefined && comment.address !== null">
-                        <i class="pi pi-map-marker"></i>
-                        <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span>
-                        <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span>
-                        <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span>
-                    </div>
-                </div>
-
-                <div class="rate-btn"></div>
-            </div>
-
+            <ng-template [ngTemplateOutlet]="subContent"></ng-template>
         </div>
-
     </ng-template>
 
 </div>
+
+<ng-template #Rating>
+    <div class="rating">
+        <div class="number">
+            {{rating | number: '1.1-1'}}
+        </div>
+        <div class="stars">
+            <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #cmtText>
+    <div [ngClass]="isOpen ? 'cmt-text-expanded' : 'cmt-text'">
+        <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
+            Niestety, ktoś się nie popisał!
+        </div>
+        <ng-template #elseBlock>
+            <div style="height: 12rem;" *ngIf="isOpen; else noScroll">
+                <p-scrollPanel [style]="{width: '100%', height: '100%'}">
+                    {{comment.text_content}}
+                </p-scrollPanel>
+            </div>
+            <ng-template #noScroll>
+                {{comment.text_content}}
+            </ng-template>
+        </ng-template>
+    </div>
+</ng-template>
+
+<ng-template #subContent >
+    <div class="subcontent">
+        <div>
+            <i class="pi pi-user"></i>
+            {{comment.username}}
+        </div>
+        <div>
+            <i class="pi pi-calendar"></i>
+            {{comment.when_added | date: 'dd.MM.yyyy' }}
+        </div>
+        <div>
+            <div *ngIf="comment.address !== undefined && comment.address !== null">
+                <i class="pi pi-map-marker"></i>
+                <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span>
+                <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span>
+                <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span>
+            </div>
+        </div>
+    </div>
+</ng-template>
 

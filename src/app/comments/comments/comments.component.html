@@ -3,6 +3,7 @@
     <p-scrollPanel class="w-full" styleClass="custombar1" [style]="{width: '100%', height: '100%'}" >
         <div *ngFor="let comment of comments">
             <div [id]=comment.id>
+                <!-- <app-test-comment [comment]=comment></app-test-comment> -->
                 <app-comment [comment]=comment></app-comment>
             </div>
         </div>

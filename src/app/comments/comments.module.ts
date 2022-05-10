@@ -9,6 +9,7 @@ import { CommentFormComponent } from './comment-form/comment-form.component';
 import { SharedModule } from '../_shared/shared/shared.module';
 import { CommentsLayoutComponent } from './comments-layout/comments-layout.component';
 import { FormHelpComponent } from './comment-form/form-help/form-help.component';
+import { TestCommentComponent } from './test-comment/test-comment.component';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { FormHelpComponent } from './comment-form/form-help/form-help.component'
     CommentsLayoutComponent,
     CommentFormComponent,
     FormHelpComponent,
+    TestCommentComponent
   ],
   imports: [
     CommonModule,
