@@ -56,12 +56,13 @@
 }
 
 .add-border{
-    @include border();
     // width: 100%;
     margin-left: 0.5rem;
     display: flex;
     flex-direction: column;
     justify-content: space-evenly;
+    margin: 0.5rem;
+
 }
 
 .card .rating-block .stars-description{
@@ -112,13 +113,14 @@
     @include cmt-text();
     margin: 0.25rem 0 0.25rem;
     min-height: 3rem;
-    max-height: 12rem;
+    max-height: 15rem;
     overflow-y: scroll;
     overflow-x: hidden;
+    width: 100%;
 }
 
 ::-webkit-scrollbar {
-    display: none;
+    // display: none;
 }
 
 .card .subcontent{
@@ -138,6 +140,10 @@
 }
 
 @media screen and (max-width: 769px) {
+    .add-border{
+        @include border();
+        width: 100%;
+    }
     .card .number{
         font-size: 3rem;
     }

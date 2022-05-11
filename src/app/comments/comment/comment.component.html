@@ -1,35 +1,30 @@
 <div class="pr-2 md: pr-0" [@openClose]="isOpen ? 'open' : 'closed'" (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
 
     <div class="card" *ngIf="isOpen===false; else expanded">
-
         <div class="content">
             <ng-template [ngTemplateOutlet]="Rating"></ng-template>
             <ng-template [ngTemplateOutlet]="cmtText"></ng-template>
         </div>
-
         <ng-template [ngTemplateOutlet]="subContent"></ng-template>
     </div>
 
     <ng-template #expanded>
-        <div class="card">
-            <div class="content content-expanded">
-
-                <div class="flex flex-row">
+        <div *ngIf="true" class="card">
+            <div class="content content-expanded md:flex md:flex-row">
+                <div class="flex flex-row md:flex-column">
                     <ng-template [ngTemplateOutlet]="Rating"></ng-template>
                     <ng-template [ngTemplateOutlet]="ratingStarsBlock"></ng-template>
                 </div>
                 <ng-template [ngTemplateOutlet]="cmtText"></ng-template>
-
             </div>
             <ng-template [ngTemplateOutlet]="subContent"></ng-template>
         </div>
     </ng-template>
-
 </div>
 
 <ng-template #ratingStarsBlock>
     <div class="sm:block add-border">
-        <div class="">
+        <div>
             <div class="rating-block" *ngFor="let item of comment.rating | keyvalue">
                 <div class="stars-description">{{item.key}}</div>
                 <div class="stars">
