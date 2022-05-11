@@ -51,15 +51,22 @@
     flex-direction: row;
     align-items: baseline;
     justify-content: space-between;
+    width: 100%
     // padding: 1rem
 }
 
 .add-border{
     @include border();
+    // width: 100%;
+    margin-left: 0.5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
 }
 
 .card .rating-block .stars-description{
     margin-left: 1rem;
+    color: var(--color-light--3);
 }
 
 .card .number{
@@ -95,6 +102,7 @@
     overflow: hidden;
 }
 
+
 .card .cmt-text{
     @include cmt-text();
     width: 100%;
@@ -103,8 +111,14 @@
 .cmt-text-expanded{
     @include cmt-text();
     margin: 0.25rem 0 0.25rem;
+    min-height: 3rem;
     max-height: 12rem;
-    // overflow: scroll;
+    overflow-y: scroll;
+    overflow-x: hidden;
+}
+
+::-webkit-scrollbar {
+    display: none;
 }
 
 .card .subcontent{
@@ -115,6 +129,59 @@
     padding: 0.5rem;
 }
 
+.card .subcontent .address{
+    overflow: hidden;
+}
+
 .icon{
     color: var(--color-brand--1);
+}
+
+@media screen and (max-width: 769px) {
+    .card .number{
+        font-size: 3rem;
+    }
+    .card .rating .number{
+        width: 100%;
+    }
+    .card .rating{
+        width: 6rem;
+        align-items: center;
+    }
+    .card .stars{
+        margin-top: 0;
+    }
+    .card .rating-block{
+        max-height: 1.25rem;
+    }
+    .card .cmt-text{
+        max-height: 5.5rem;        
+        font-size: 0.7rem;
+    }
+    .card .cmt-text-expanded{
+        font-size: 0.7rem;
+        padding: 0.25rem;
+    }
+    .card .content{
+        padding: 0.25rem 0.25rem 0;
+    }
+    .card .subcontent{
+        font-size: 0.7rem;
+        padding: 0.25rem;
+    }
+    .card .subcontent .address{
+        max-width: 12rem;
+    }
+    .icon{
+        font-size: 0.5rem;
+    }
+    :host {
+        ::ng-deep .p-rating {
+            .p-rating-icon {
+                // color: var(--color-brand--1);
+                font-size: 1rem;
+                margin: 0;
+            }
+        }    
+    }
 }

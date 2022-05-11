@@ -16,25 +16,29 @@
 
                 <div class="flex flex-row">
                     <ng-template [ngTemplateOutlet]="Rating"></ng-template>
-
-                    <div class="sm:block add-border ml-2">
-                        <div class="rating-block" *ngFor="let item of comment.rating | keyvalue">
-                            <div class="stars-description">{{item.key}}</div>
-                            <div class="stars">
-                                <p-rating [ngModel]="item.value" [cancel]="false" [readonly]="true"></p-rating>
-                            </div>
-                        </div>
-                    </div>
-
+                    <ng-template [ngTemplateOutlet]="ratingStarsBlock"></ng-template>
                 </div>
-
                 <ng-template [ngTemplateOutlet]="cmtText"></ng-template>
+
             </div>
             <ng-template [ngTemplateOutlet]="subContent"></ng-template>
         </div>
     </ng-template>
 
 </div>
+
+<ng-template #ratingStarsBlock>
+    <div class="sm:block add-border">
+        <div class="">
+            <div class="rating-block" *ngFor="let item of comment.rating | keyvalue">
+                <div class="stars-description">{{item.key}}</div>
+                <div class="stars">
+                    <p-rating [ngModel]="item.value" [cancel]="false" [readonly]="true"></p-rating>
+                </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
 
 <ng-template #Rating>
     <div class="rating">
@@ -53,14 +57,7 @@
             Niestety, ktoś się nie popisał!
         </div>
         <ng-template #elseBlock>
-            <div style="height: 12rem;" *ngIf="isOpen; else noScroll">
-                <p-scrollPanel [style]="{width: '100%', height: '100%'}">
-                    {{comment.text_content}}
-                </p-scrollPanel>
-            </div>
-            <ng-template #noScroll>
-                {{comment.text_content}}
-            </ng-template>
+            {{comment.text_content}}
         </ng-template>
     </div>
 </ng-template>
@@ -68,16 +65,16 @@
 <ng-template #subContent >
     <div class="subcontent">
         <div>
-            <i class="pi pi-user"></i>
+            <i class="pi pi-user icon"></i>
             {{comment.username}}
         </div>
         <div>
-            <i class="pi pi-calendar"></i>
+            <i class="pi pi-calendar icon"></i>
             {{comment.when_added | date: 'dd.MM.yyyy' }}
         </div>
         <div>
-            <div *ngIf="comment.address !== undefined && comment.address !== null">
-                <i class="pi pi-map-marker"></i>
+            <div *ngIf="comment.address !== undefined && comment.address !== null" class="address">
+                <i class="pi pi-map-marker icon"></i>
                 <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span>
                 <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span>
                 <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span>

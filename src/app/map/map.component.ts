@@ -32,8 +32,8 @@ Marker.prototype.options.icon = iconDefault;
 const provider = new OpenStreetMapProvider();
 const searchControl = GeoSearchControl({
   provider: provider,   
-  style: 'button',
-  // position: 'topright',
+  style: 'bar',
+  position: 'topleft',
   searchLabel: 'Wpisz adres...',
   keepResult: true,
   marker: {
@@ -58,7 +58,8 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   public initMap(): void {
     this.map = L.map('map', {
       center: [52.217779314315, 21.042614221109],
-      zoom: 11
+      zoom: 11,
+      zoomControl: false
     });
 
     const tiles = L.tileLayer('https://{s}.tile.openstreetmap.fr/hot/{z}/{x}/{y}.png', {
