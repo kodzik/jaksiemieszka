@@ -1,5 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { FabService } from 'src/app/fab/fab.service';
 import { CComment, CCommentAddress, IComment } from 'src/app/_models/comment';
 import { AuthService } from 'src/app/_services/auth.service';
@@ -16,7 +16,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
   autoResize: boolean = true; //textArea
 
-  commentForm: FormGroup;
+  commentForm: UntypedFormGroup;
   comment: IComment;
 
   currentMarker: any;
@@ -25,7 +25,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   submitted: boolean = false;
 
   constructor(
-    private fb: FormBuilder,
+    private fb: UntypedFormBuilder,
     private cmtService: CommentService,
     private markerService: MarkerService,
     private fabService: FabService
@@ -54,10 +54,10 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   createForm() {
     this.commentForm = this.fb.group({
       location: [''],//new FormControl(null, Validators.required),
-      locationScore: new FormControl(null, Validators.required),
-      noiseScore: new FormControl(null, Validators.required),
-      airScore: new FormControl(null, Validators.required),
-      trafficScore: new FormControl(null, Validators.required),
+      locationScore: new UntypedFormControl(null, Validators.required),
+      noiseScore: new UntypedFormControl(null, Validators.required),
+      airScore: new UntypedFormControl(null, Validators.required),
+      trafficScore: new UntypedFormControl(null, Validators.required),
       address: [''],
       text_content: [null],
     });

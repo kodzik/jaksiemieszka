@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { first } from 'rxjs/operators';
@@ -15,14 +15,14 @@ export class LoginComponent implements OnInit {
   registration: boolean = false;
   registerSuccess: boolean = false;
 
-  form: FormGroup;
+  form: UntypedFormGroup;
   submitted = false;
   loading: boolean = false;
   returnUrl: string;
   error: string = '';
 
   constructor(
-    private formBuilder: FormBuilder,
+    private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
     private authService: AuthService,
@@ -46,13 +46,13 @@ export class LoginComponent implements OnInit {
     if(this.registration){
       this.form.reset()
       
-      this.form.addControl('confirmedPassword', new FormControl('', [Validators.required, this.validateAreEqual.bind(this)]))
+      this.form.addControl('confirmedPassword', new UntypedFormControl('', [Validators.required, this.validateAreEqual.bind(this)]))
       this.form.controls['username'].addValidators([Validators.minLength(5), Validators.maxLength(15)])
       // this.form.controls['username'].updateValueAndValidity()
     }
   }
 
-  private validateAreEqual(fieldControl: FormControl) {
+  private validateAreEqual(fieldControl: UntypedFormControl) {
     return fieldControl.value === this.f.password.value ? null : { NotEqual: true };
   }
 
