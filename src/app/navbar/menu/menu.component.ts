@@ -36,16 +36,16 @@ export class MenuComponent implements OnInit {
               label: 'Dodaj komentarz', 
               icon: 'pi pi-fw pi-plus',
               command: () => {
-                if(this.authService.isAuthenticated()){
-                  this.fabService.changeCommentsView(commentsView.Add)
-                }
+                // if(this.authService.isAuthenticated()){
+                //   this.fabService.changeCommentsView(commentsView.Add)
+                // }
               }
             },
             {
               label: 'Wyloguj', 
               icon: 'pi pi-fw pi-power-off',
               command: () => {
-                this.authService.deauthenticate()
+                // this.authService.deauthenticate()
               }
             }
           ]

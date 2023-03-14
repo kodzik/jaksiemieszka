@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() { return this.form.controls; }
-  // get status() { return this.form.status; }
 
   register(){
     this.registration = !this.registration
@@ -48,7 +47,6 @@ export class LoginComponent implements OnInit {
       
       this.form.addControl('confirmedPassword', new UntypedFormControl('', [Validators.required, this.validateAreEqual.bind(this)]))
       this.form.controls['username'].addValidators([Validators.minLength(5), Validators.maxLength(15)])
-      // this.form.controls['username'].updateValueAndValidity()
     }
   }
 
