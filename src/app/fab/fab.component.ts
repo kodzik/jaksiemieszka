@@ -30,7 +30,7 @@ export class FabComponent implements OnInit {
           },
           icon: 'pi pi-pencil',
           command: () => {
-            if(this.authService.isAuthenticated()){
+            if(this.authService.isLoggedIn){
               this.fabService.changeCommentsView(commentsView.Add)
             } else {
               this.confirm()

@@ -63,33 +63,33 @@ export class LoginComponent implements OnInit {
     }
     this.loading = true;
 
-    if(this.registration){
-      this.authService.register(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe({
-        next: () => {
-          if(this.error){ this.error = '' };
-          this.registerSuccess = true; this.registration = false; this.loading = false;
-        },
-        error: error => {
-          this.error = error;
-          this.loading = false;
-        }
-      });
-    } else{
-      this.authService.authenticate(this.f.username.value, this.f.password.value)
-      .pipe(first())
-      .subscribe({
-          next: () => {
-            this.loading = false;
-            this.router.navigate([this.returnUrl]);
-          },
-          error: error => {
-            this.error = error;
-            this.loading = false;
-          }
-      });
-    }
+    // if(this.registration){
+    //   this.authService.register(this.f.username.value, this.f.password.value)
+    //   .pipe(first())
+    //   .subscribe({
+    //     next: () => {
+    //       if(this.error){ this.error = '' };
+    //       this.registerSuccess = true; this.registration = false; this.loading = false;
+    //     },
+    //     error: error => {
+    //       this.error = error;
+    //       this.loading = false;
+    //     }
+    //   });
+    // } else{
+    //   this.authService.authenticate(this.f.username.value, this.f.password.value)
+    //   .pipe(first())
+    //   .subscribe({
+    //       next: () => {
+    //         this.loading = false;
+    //         this.router.navigate([this.returnUrl]);
+    //       },
+    //       error: error => {
+    //         this.error = error;
+    //         this.loading = false;
+    //       }
+    //   });
+    // }
 
   }
 

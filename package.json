@@ -1,5 +1,5 @@
 {
-  "name": "djangular",
+  "name": "jaksiemieszka",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
@@ -21,8 +21,7 @@
     "@angular/platform-browser": "^15.2.2",
     "@angular/platform-browser-dynamic": "^15.2.2",
     "@angular/router": "^15.2.2",
-    "@auth0/angular-jwt": "^5.0.2",
-    "firebase": "9.9.1",
+    "firebase": "^9.17.2",
     "leaflet": "^1.7.1",
     "leaflet-geosearch": "^3.6.0",
     "primeflex": "^3.0.1",

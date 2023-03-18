@@ -120,7 +120,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
         this.elementRef.nativeElement
           .querySelector(".addComment")
           .addEventListener("click", (e:any) => {
-            if(this.authService.isAuthenticated()){
+            if(this.authService.isLoggedIn){
               this.fabService.changeCommentsView(commentsView.Add)
             } else {
               this.confirm()

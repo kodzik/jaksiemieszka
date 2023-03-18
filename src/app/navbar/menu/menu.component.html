@@ -1,13 +1,11 @@
 <div class="main">
-
-    <!-- TODO Bars menu -->
-    <!-- <i class="pi pi-bars bars" ></i> -->
-    <!-- shape="circle" -->
     <p-avatar (mouseenter)="menu.show($event)" (mouseleave)="menu.hide()" size="large" >
-        <i *ngIf="!authenticated" class="pi pi-user"></i>
+        <i *ngIf="!isLoggedIn" class="pi pi-user"></i>
         <div class="avatar-label">
-            {{username | titlecase | slice: 0 : 1 }}
+            {{userName | titlecase | slice: 0 : 1 }}
         </div>
         <p-menu [model]="items" #menu [popup]="true" ></p-menu>
     </p-avatar>
 </div>
+<i class="pi pi-user"></i>
+

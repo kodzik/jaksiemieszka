@@ -12,8 +12,7 @@ import { AuthService } from 'src/app/_services/auth.service';
 })
 export class MenuComponent implements OnInit {
 
-  username: string = "";
-  authenticated: boolean = false;
+  // username: string = "";
 
   constructor(
     private authService: AuthService,
@@ -24,20 +23,20 @@ export class MenuComponent implements OnInit {
   items: MenuItem[];
 
   ngOnInit() {
-    this.authenticated = this.getUser(this.authService.isAuthenticated(), localStorage.getItem('username'))
-
-    if(this.authenticated){
+    console.log(this.userName);
+    
+    if(this.isLoggedIn){
       
       this.items = [
         {
-          label: this.username,
+          label: this.userName,
           items: [
             {
               label: 'Dodaj komentarz', 
               icon: 'pi pi-fw pi-plus',
               command: () => {
-                // if(this.authService.isAuthenticated()){
-                //   this.fabService.changeCommentsView(commentsView.Add)
+                // if(this.authService.isLoggedIn){
+                  this.fabService.changeCommentsView(commentsView.Add)
                 // }
               }
             },
@@ -45,7 +44,7 @@ export class MenuComponent implements OnInit {
               label: 'Wyloguj', 
               icon: 'pi pi-fw pi-power-off',
               command: () => {
-                // this.authService.deauthenticate()
+                this.authService.SignOut()
               }
             }
           ]
@@ -58,19 +57,25 @@ export class MenuComponent implements OnInit {
           label: 'Zaloguj', 
           icon: 'pi pi-fw pi-user',
           command: () => {
-            this.router.navigate(['/account/login']);
+            this.router.navigate(['/account/sign-in']);
           }
         }
       ]
     }
   }
 
-  getUser(isAuthenticated: boolean, username: string | null): boolean{
-    let gotUser: boolean = false;
-    if(isAuthenticated && username !== null){
-      this.username = username;
-      gotUser = true;
-    }
-    return gotUser
+  get isLoggedIn(): boolean {
+    return this.authService.isLoggedIn
   }
+
+  get userName(): string {
+    return this.authService.userName
+  }
+
+  // getUser(isAuthenticated: boolean, username: string | null): boolean{
+  //   if(isAuthenticated && username !== null){
+  //     this.username = username;
+  //     return true;
+  //   } else return false;
+  // }
 }
