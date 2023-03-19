@@ -1,11 +1,10 @@
 <div class="main">
     <p-avatar (mouseenter)="menu.show($event)" (mouseleave)="menu.hide()" size="large" >
-        <i *ngIf="!isLoggedIn" class="pi pi-user"></i>
+        <i *ngIf="!username" class="pi pi-user" style="color: --color-light-2;"></i>
         <div class="avatar-label">
-            {{userName | titlecase | slice: 0 : 1 }}
+            {{username | titlecase | slice: 0 : 1 }}
         </div>
         <p-menu [model]="items" #menu [popup]="true" ></p-menu>
     </p-avatar>
 </div>
-<i class="pi pi-user"></i>
 

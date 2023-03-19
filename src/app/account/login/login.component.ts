@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormControl, UntypedFormGroup, Validators } from '@angular/forms';
+import {
+  UntypedFormBuilder,
+  UntypedFormControl,
+  UntypedFormGroup,
+  Validators,
+} from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/_services/auth.service';
 import { first } from 'rxjs/operators';
 
-
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
-  styleUrls: ['./login.component.scss']
+  styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent implements OnInit {
-
   registration: boolean = false;
   registerSuccess: boolean = false;
 
@@ -25,7 +28,7 @@ export class LoginComponent implements OnInit {
     private formBuilder: UntypedFormBuilder,
     private route: ActivatedRoute,
     private router: Router,
-    private authService: AuthService,
+    private authService: AuthService
   ) {}
 
   ngOnInit(): void {
@@ -37,21 +40,34 @@ export class LoginComponent implements OnInit {
   }
 
   // convenience getter for easy access to form fields
-  get f() { return this.form.controls; }
+  get f() {
+    return this.form.controls;
+  }
 
-  register(){
-    this.registration = !this.registration
+  register() {
+    this.registration = !this.registration;
 
-    if(this.registration){
-      this.form.reset()
-      
-      this.form.addControl('confirmedPassword', new UntypedFormControl('', [Validators.required, this.validateAreEqual.bind(this)]))
-      this.form.controls['username'].addValidators([Validators.minLength(5), Validators.maxLength(15)])
+    if (this.registration) {
+      this.form.reset();
+
+      this.form.addControl(
+        'confirmedPassword',
+        new UntypedFormControl('', [
+          Validators.required,
+          this.validateAreEqual.bind(this),
+        ])
+      );
+      this.form.controls['username'].addValidators([
+        Validators.minLength(5),
+        Validators.maxLength(15),
+      ]);
     }
   }
 
   private validateAreEqual(fieldControl: UntypedFormControl) {
-    return fieldControl.value === this.f.password.value ? null : { NotEqual: true };
+    return fieldControl.value === this.f.password.value
+      ? null
+      : { NotEqual: true };
   }
 
   onSubmit() {
@@ -90,7 +106,5 @@ export class LoginComponent implements OnInit {
     //       }
     //   });
     // }
-
   }
-
 }

@@ -1,24 +1,24 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable, NgZone } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/compat/auth';
 import * as auth from 'firebase/auth';
-import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/compat/firestore';
+import {
+  AngularFirestore,
+  AngularFirestoreDocument,
+} from '@angular/fire/compat/firestore';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { User } from '../_models/user';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-
   // private userSubject: BehaviorSubject<boolean> = new BehaviorSubject(this.isAuthenticated());
   public user: Observable<boolean>;
   userData: any; // Save logged in user data
 
   constructor(
     private router: Router,
-    private http: HttpClient,
     public afs: AngularFirestore, // Inject Firestore service
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public ngZone: NgZone // NgZone service to remove outside scope warning
@@ -37,36 +37,33 @@ export class AuthService {
     });
   }
 
-    // Sign in with email/password
-    SignIn(email: string, password: string) {
-      return this.afAuth
-        .signInWithEmailAndPassword(email, password)
-        .then((result) => {
-          this.SetUserData(result.user);
-          this.afAuth.authState.subscribe((user) => {
-            if (user) {
-              this.router.navigate(['home']);
-            }
-          });
-        })
-        .catch((error) => {
-          window.alert(error.message);
+  // Sign in with email/password
+  SignIn(email: string, password: string) {
+    return this.afAuth
+      .signInWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.SetUserData(result.user);
+        this.afAuth.authState.subscribe((user) => {
+          if (user) {
+            this.router.navigate(['home']);
+          }
         });
-    }
+      });
+  }
 
-    SignUp(email: string, password: string) {
-      return this.afAuth
-        .createUserWithEmailAndPassword(email, password)
-        .then((result) => {
-          this.SendVerificationMail();
-          this.SetUserData(result.user);
-        })
-        .catch((error) => {
-          window.alert(error.message);
-        });
-    }
+  SignUp(email: string, password: string) {
+    return this.afAuth
+      .createUserWithEmailAndPassword(email, password)
+      .then((result) => {
+        this.SendVerificationMail();
+        this.SetUserData(result.user);
+      })
+      .catch((error) => {
+        window.alert(error.message);
+      });
+  }
 
-      // Send email verfificaiton when new user sign up
+  // Send email verfificaiton when new user sign up
   SendVerificationMail() {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
@@ -75,35 +72,36 @@ export class AuthService {
       });
   }
 
-    //TODO check if 'any' can be changed to some type
-    SetUserData(user: any) {
-      const userRef: AngularFirestoreDocument<any> = this.afs.doc(
-        `users/${user.uid}`
-      );
-      const userData: User = {
-        uid: user.uid,
-        email: user.email,
-        displayName: user.displayName,
-        photoURL: user.photoURL,
-        emailVerified: user.emailVerified,
-      };
-      return userRef.set(userData, {
-        merge: true,
-      });
-    }
+  //TODO check if 'any' can be changed to some type
+  SetUserData(user: any) {
+    const userRef: AngularFirestoreDocument<any> = this.afs.doc(
+      `users/${user.uid}`
+    );
+    const userData: User = {
+      uid: user.uid,
+      email: user.email,
+      displayName: user.displayName,
+      photoURL: user.photoURL,
+      emailVerified: user.emailVerified,
+    };
+    return userRef.set(userData, {
+      merge: true,
+    });
+  }
 
   // Sign in with Google
   GoogleAuth() {
     return this.AuthLogin(new auth.GoogleAuthProvider()).then((res: any) => {
-      this.router.navigate(['dashboard']);
+      this.router.navigate(['home']);
     });
   }
+
   // Auth logic to run auth providers
   AuthLogin(provider: any) {
     return this.afAuth
       .signInWithPopup(provider)
       .then((result) => {
-        this.router.navigate(['dashboard']);
+        this.router.navigate(['home']);
         this.SetUserData(result.user);
       })
       .catch((error) => {
@@ -113,14 +111,16 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    return user !== null ;
+    console.log(user !== null);
+
+    return user !== null;
     //&& user.emailVerified !== false ? true : false
   }
 
-  get userName(): string{
-    const user = JSON.parse(localStorage.getItem('user')!);
-    return user.appName;
-  }
+  // get userName(): string {
+  //   const user = JSON.parse(localStorage.getItem('user')!);
+  //   return user.appName;
+  // }
 
   SignOut() {
     return this.afAuth.signOut().then(() => {
@@ -129,6 +129,20 @@ export class AuthService {
     });
   }
 
+  errorHandler(error: { code: string; message: string }): string {
+    switch (error.code) {
+      case 'auth/wrong-password':
+        return 'Nieprawidłowe hasło.';
+      case 'auth/user-not-found':
+        return 'Nieprawidłowy email lub hasło.';
+      case 'auth/invalid-email':
+        return 'Nieprawidłowy format email.';
+      case 'auth/unverified-email':
+        return 'Email wymaga weryfikacji.';
+      default:
+        return 'Nieznany błąd.';
+    }
+  }
 
   // public get userValue(): boolean {
   //   return this.userSubject.value;
@@ -144,7 +158,7 @@ export class AuthService {
   // private errorHandler(error: HttpErrorResponse) {
   //   if (error.error instanceof ErrorEvent) {
   //     console.error(`authentication error: ${error.error.message}`);
-  //   } 
+  //   }
   //   if(error.error?.username){
   //     return throwError('Ta nazwa użytkownika jest już zajęta.');
   //   }
@@ -153,5 +167,4 @@ export class AuthService {
   //   }
   //   return throwError('Nieprawidłowe hasło lub nazwa użytkownika.');
   // }
-
 }

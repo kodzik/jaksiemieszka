@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { commentsView } from 'src/app/comments/commentsView';
@@ -8,74 +9,57 @@ import { AuthService } from 'src/app/_services/auth.service';
 @Component({
   selector: 'app-menu',
   templateUrl: './menu.component.html',
-  styleUrls: ['./menu.component.scss']
+  styleUrls: ['./menu.component.scss'],
 })
 export class MenuComponent implements OnInit {
-
-  // username: string = "";
+  username: string | null | undefined;
 
   constructor(
     private authService: AuthService,
     private fabService: FabService,
-    private router: Router
-    ) { }
+    private router: Router,
+    public afAuth: AngularFireAuth
+  ) {}
 
   items: MenuItem[];
 
   ngOnInit() {
-    console.log(this.userName);
-    
-    if(this.isLoggedIn){
-      
-      this.items = [
-        {
-          label: this.userName,
-          items: [
-            {
-              label: 'Dodaj komentarz', 
-              icon: 'pi pi-fw pi-plus',
-              command: () => {
-                // if(this.authService.isLoggedIn){
-                  this.fabService.changeCommentsView(commentsView.Add)
-                // }
-              }
+    this.afAuth.authState.subscribe((user) => {
+      this.username = user?.displayName;
+      if (!!user) {
+        this.items = [
+          {
+            label: user.displayName ? user.displayName : '',
+            items: [
+              {
+                label: 'Dodaj komentarz',
+                icon: 'pi pi-fw pi-plus',
+                command: () => {
+                  this.fabService.changeCommentsView(commentsView.Add);
+                },
+              },
+              {
+                label: 'Wyloguj',
+                icon: 'pi pi-fw pi-power-off',
+                command: () => {
+                  this.authService.SignOut();
+                  window.location.reload();
+                },
+              },
+            ],
+          },
+        ];
+      } else {
+        this.items = [
+          {
+            label: 'Zaloguj',
+            icon: 'pi pi-fw pi-user',
+            command: () => {
+              this.router.navigate(['/account/sign-in']);
             },
-            {
-              label: 'Wyloguj', 
-              icon: 'pi pi-fw pi-power-off',
-              command: () => {
-                this.authService.SignOut()
-              }
-            }
-          ]
-        },
-
-      ];
-    } else {
-      this.items = [
-        {
-          label: 'Zaloguj', 
-          icon: 'pi pi-fw pi-user',
-          command: () => {
-            this.router.navigate(['/account/sign-in']);
-          }
-        }
-      ]
-    }
+          },
+        ];
+      }
+    });
   }
-
-  get isLoggedIn(): boolean {
-    return this.authService.isLoggedIn
-  }
-
-  get userName(): string {
-    return this.authService.userName
-  }
-
-  // getUser(isAuthenticated: boolean, username: string | null): boolean{
-  //   if(isAuthenticated && username !== null){
-  //     this.username = username;
-  //     return true;
-  //   } else return false;
-  // }
 }
