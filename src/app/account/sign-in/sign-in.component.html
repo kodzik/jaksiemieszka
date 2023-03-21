@@ -28,6 +28,9 @@
                         <small class="p-error" *ngIf="(submitted && f.email.errors?.['required'] || f.email.touched && f.email.errors?.['required'] ) ">
                             Podaj email
                         </small>
+                        <small class="p-error" *ngIf="(submitted && f.email.errors?.['email'] || f.email.touched && f.email.errors?.['email'] ) ">
+                          Nieprawidłowy format email
+                        </small>
                     </div>
 
                     <div class="main-input">
@@ -61,7 +64,6 @@
 
         <hr style="width: 100%;">
         <span class="redirect" routerLink="/account/forgot-password"> Zapomniałeś hasła?</span>
-
     </div>
 
 </div>

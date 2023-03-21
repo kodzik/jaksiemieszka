@@ -24,12 +24,11 @@ export class SignInComponent implements OnInit {
 
   ngOnInit(): void {
     this.form = this.formBuilder.group({
-      email: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
     });
   }
 
-  // convenience getter for easy access to form fields
   get f() {
     return this.form.controls;
   }
@@ -39,6 +38,7 @@ export class SignInComponent implements OnInit {
     this.loading = true;
     // stop here if form is invalid
     if (this.form.invalid) {
+      this.loading = false;
       return;
     }
     this.authService

@@ -57,9 +57,6 @@ export class AuthService {
       .then((result) => {
         this.SendVerificationMail();
         this.SetUserData(result.user);
-      })
-      .catch((error) => {
-        window.alert(error.message);
       });
   }
 
@@ -68,7 +65,7 @@ export class AuthService {
     return this.afAuth.currentUser
       .then((u: any) => u.sendEmailVerification())
       .then(() => {
-        this.router.navigate(['verify-email']);
+        this.router.navigate(['account/verify-email']);
       });
   }
 
@@ -111,16 +108,8 @@ export class AuthService {
 
   get isLoggedIn(): boolean {
     const user = JSON.parse(localStorage.getItem('user')!);
-    console.log(user !== null);
-
-    return user !== null;
-    //&& user.emailVerified !== false ? true : false
+    return user !== null && user.emailVerified !== false ? true : false;
   }
-
-  // get userName(): string {
-  //   const user = JSON.parse(localStorage.getItem('user')!);
-  //   return user.appName;
-  // }
 
   SignOut() {
     return this.afAuth.signOut().then(() => {
@@ -139,6 +128,8 @@ export class AuthService {
         return 'Nieprawidłowy format email.';
       case 'auth/unverified-email':
         return 'Email wymaga weryfikacji.';
+      case 'auth/email-already-in-use':
+        return 'Podany adres e-mail jest już zarejestrowany.';
       default:
         return 'Nieznany błąd.';
     }
