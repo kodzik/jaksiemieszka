@@ -1,1 +1,38 @@
-<p>verify-email works!</p>
+<div class="main">
+  <div class="header">
+    <div class="logo">
+      <div class="content">
+        jak<span style="color: #d62e2e">sie</span>mieszka
+      </div>
+    </div>
+  </div>
+
+  <h4 class="card-header">Dziękujemy za rejestrację!</h4>
+  <div class="card sub-card">
+    <div class="formGroup" *ngIf="authService.userData as user">
+      <p class="text-center">
+        Wysłaliśmy link aktywacyjny na adres
+        <strong style="color: #ba68c8">{{ user.email }}</strong
+        >.
+      </p>
+      <p class="text-center">
+        Sprawdź skrzynkę i kliknij na link aby aktywować konto.
+      </p>
+    </div>
+  </div>
+
+  <div class="card sub-card">
+    <span
+      >Masz już konto?
+      <span class="redirect" routerLink="/account/sign-in"> Zaloguj się!</span>
+    </span>
+
+    <hr style="width: 100%" />
+    <span
+      >Wyślij ponownie
+      <span class="redirect" (click)="authService.SendVerificationMail()">
+        link aktywacyjny</span
+      >
+    </span>
+  </div>
+</div>

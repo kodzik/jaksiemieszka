@@ -1,75 +1,112 @@
 <div class="main">
+  <div class="header">
+    <div class="logo">
+      <div class="content">
+        jak<span style="color: #d62e2e">sie</span>mieszka
+      </div>
+    </div>
+  </div>
 
-    <div class="header">
-        <div class="logo">
-            <div class="content">
-            jak<span style="color: #D62E2E">sie</span>mieszka
-            </div>
+  <h4 class="card-header">Rejestracja</h4>
+
+  <div class="card">
+    <div class="card-body">
+      <form [formGroup]="form" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <div class="main-input">
+            <label class="label" for="email">Email</label>
+            <input
+              class="input"
+              type="text"
+              formControlName="email"
+              pInputText
+              required
+              [ngClass]="{
+                'ng-invalid ng-dirty':
+                  (submitted && f.email.errors) ||
+                  (f.email.touched && f.email.errors)
+              }"
+            />
+            <small
+              class="p-error"
+              *ngIf="(submitted && f.email.errors?.['required'] || f.email.touched && f.email.errors?.['required'] ) "
+            >
+              Podaj email
+            </small>
+            <small
+              class="p-error"
+              *ngIf="(submitted && f.email.errors?.['email'] || f.email.touched && f.email.errors?.['email'] ) "
+            >
+              Nieprawidłowy format email
+            </small>
+          </div>
+
+          <div class="main-input">
+            <label class="label" for="password">Hasło</label>
+            <p-password
+              class="input"
+              formControlName="password"
+              promptLabel="Podaj hasło"
+              weakLabel="Słabe"
+              mediumLabel="Średnie"
+              strongLabel="Mocne"
+            >
+            </p-password>
+            <small
+              class="p-error"
+              *ngIf="
+                (submitted && f.password.errors) ||
+                (f.password.touched && f.password.errors)
+              "
+            >
+              Podaj hasło
+            </small>
+          </div>
         </div>
-    </div>
 
-    <h4 class="card-header">Rejestracja</h4>
-    <div class="card">
-
-        <div class="card-body">
-
-            <form [formGroup]="form" (ngSubmit)="onSubmit()">
-                <div class="form-group">
-                    <div class="main-input">
-                        <label class="label" for="email">Email</label>
-                        <input class="input" type="text" formControlName="email" pInputText required [ngClass]="{ 'ng-invalid ng-dirty': (submitted && f.email.errors || f.email.touched && f.email.errors)  }" />
-                        <small class="p-error" *ngIf="(submitted && f.email.errors?.['required'] || f.email.touched && f.email.errors?.['required'] ) ">
-                            Podaj email
-                        </small>
-                        <small class="p-error" *ngIf="(submitted && f.email.errors?.['email'] || f.email.touched && f.email.errors?.['email'] ) ">
-                            Nieprawidłowy format email
-                        </small>
-                    </div>
-
-                    <div class="main-input">
-                        <label class="label" for="password">Hasło</label>
-                        <p-password 
-                            class="input" 
-                            formControlName="password" 
-                            promptLabel="Podaj hasło"
-                            weakLabel="Słabe"
-                            mediumLabel="Średnie"
-                            strongLabel="Mocne">
-                    </p-password>
-                        <small class="p-error" *ngIf="submitted && f.password.errors || f.password.touched  && f.password.errors">
-                            Podaj hasło
-                        </small>
-                    </div>
-                </div>
-
-                <div class="error">
-                    <small class="p-error">
-                        {{error}}
-                    </small>
-                </div>
-
-                <div class="submit-btn">
-                    <button pButton label="Zarejestruj" [loading]="loading" class="p-button-rounded p-button-outlined btn" type="submit" iconPos="right"></button>
-                </div>
-            </form>
-
-            <div class="break-line"> <span class="text">lub</span> </div>
-
-            <div class="formGroup">
-                <button style="width: 100%;" pButton type="button" class="p-button-rounded p-button-outlined" (click)="authService.GoogleAuth()" icon="pi pi-google" label="Sign in with Google">
-                </button >
-            </div>
+        <div class="error">
+          <small class="p-error">
+            {{ error }}
+          </small>
         </div>
+
+        <div class="submit-btn">
+          <button
+            pButton
+            label="Zarejestruj"
+            [loading]="loading"
+            class="p-button-rounded p-button-outlined btn"
+            type="submit"
+            iconPos="right"
+          ></button>
+        </div>
+      </form>
+
+      <div class="break-line"><span class="text">lub</span></div>
+
+      <div class="formGroup">
+        <button
+          style="width: 100%"
+          pButton
+          type="button"
+          class="p-button-rounded p-button-outlined"
+          (click)="authService.GoogleAuth()"
+          icon="pi pi-google"
+          label="Sign in with Google"
+        ></button>
+      </div>
     </div>
+  </div>
 
-    <div class="card sub-card">
-        <span>Masz już konto?
-          <span class="redirect" routerLink="/account/sign-in"> Zaloguj się!</span>
-        </span>
+  <div class="card sub-card">
+    <span
+      >Masz już konto?
+      <span class="redirect" routerLink="/account/sign-in"> Zaloguj się!</span>
+    </span>
 
-        <hr style="width: 100%;">
-        <span class="redirect" routerLink="/account/forgot-password"> Zapomniałeś hasła?</span>
-    </div>
-
+    <hr style="width: 100%" />
+    <span class="redirect" routerLink="/account/forgot-password">
+      Zapomniałeś hasła?</span
+    >
+  </div>
 </div>
-
