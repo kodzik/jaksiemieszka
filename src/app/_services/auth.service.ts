@@ -13,7 +13,6 @@ import { User } from '../_models/user';
   providedIn: 'root',
 })
 export class AuthService {
-  // private userSubject: BehaviorSubject<boolean> = new BehaviorSubject(this.isAuthenticated());
   public user: Observable<boolean>;
   userData: any; // Save logged in user data
 
@@ -23,8 +22,6 @@ export class AuthService {
     public afAuth: AngularFireAuth, // Inject Firebase auth service
     public ngZone: NgZone // NgZone service to remove outside scope warning
   ) {
-    // this.user = this.userSubject.asObservable();
-
     this.afAuth.authState.subscribe((user) => {
       if (user) {
         this.userData = user;
@@ -134,28 +131,4 @@ export class AuthService {
         return 'Nieznany błąd.';
     }
   }
-
-  // public get userValue(): boolean {
-  //   return this.userSubject.value;
-  // }
-
-  // User is logged in
-  // isAuthenticated(): boolean {
-  //   // TODO
-  //   return false;
-  // }
-
-  // // Handle authentication errors
-  // private errorHandler(error: HttpErrorResponse) {
-  //   if (error.error instanceof ErrorEvent) {
-  //     console.error(`authentication error: ${error.error.message}`);
-  //   }
-  //   if(error.error?.username){
-  //     return throwError('Ta nazwa użytkownika jest już zajęta.');
-  //   }
-  //   else {
-  //     console.error(`bad auth response: ${error.status}: ${error.statusText} ${JSON.stringify(error.error)}`);
-  //   }
-  //   return throwError('Nieprawidłowe hasło lub nazwa użytkownika.');
-  // }
 }

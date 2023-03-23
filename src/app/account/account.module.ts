@@ -9,14 +9,12 @@ import { SignInComponent } from './sign-in/sign-in.component';
 import { SignUpComponent } from './sign-up/sign-up.component';
 import { VerifyEmailComponent } from './verify-email/verify-email.component';
 import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
-import { LoginComponent } from './login/login.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
     SignInComponent,
     SignUpComponent,
-    LoginComponent,
     VerifyEmailComponent,
     ForgotPasswordComponent,
   ],
