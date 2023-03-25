@@ -1,8 +1,8 @@
-import { APP_INITIALIZER, NgModule } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
-import { SharedModule } from "./_shared/shared/shared.module";
+import { SharedModule } from './_shared/shared/shared.module';
 import { AccountModule } from './account/account.module';
 import { AppRoutingModule } from './app-routing.module';
 import { CommentsModule } from './comments/comments.module';
@@ -16,8 +16,8 @@ import { HomeComponent } from './home/home.component';
 import { MapComponent } from './map/map.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FabComponent } from './fab/fab.component';
-import { AuthService } from './_services/auth.service';
 import { MenuComponent } from './navbar/menu/menu.component';
+import { FirestoreService } from './_services/firestore.service';
 
 @NgModule({
   declarations: [
@@ -34,14 +34,10 @@ import { MenuComponent } from './navbar/menu/menu.component';
     AccountModule,
     AppRoutingModule,
     ScrollingModule,
-    HttpClientModule
+    HttpClientModule,
   ],
-  exports:[],
-  providers: [
-    MarkerService,
-    PopupService,
-    ShapeService
-  ],
-  bootstrap: [AppComponent]
+  exports: [],
+  providers: [MarkerService, PopupService, ShapeService, FirestoreService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
