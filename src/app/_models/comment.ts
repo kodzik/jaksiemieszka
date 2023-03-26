@@ -15,8 +15,9 @@ export interface ICommentAddress {
 
 export interface IComment {
   id: string;
+  authorUid: string;
   userName: string;
-  location: LatLng; //{ lat: number; lng: number };
+  location: LatLng;
   rating: {
     location: number;
     air: number;
@@ -32,16 +33,35 @@ export interface IComment {
 
 export class CCommentAddress implements ICommentAddress {
   road: string = '';
-  house_number: string | null = '';
+  houseNumber: string | null = '';
   suburb: string = '';
   neighbourhood: string = '';
   quarter: string = '';
+}
+
+export class CCommentHelper implements IComment {
+  id: string;
+  authorUid: string;
+  userName: string;
+  location: LatLng;
+  rating: {
+    location: number;
+    air: number;
+    noise: number;
+    traffic: number;
+  };
+  address: ICommentAddress;
+  whenCreated: Date;
+  lastModified: Date;
+  textContent: string;
+  avgRating?: number;
 }
 
 export class CComment implements IComment {
   constructor(
     readonly id: string,
     readonly userName: string,
+    readonly authorUid: string,
     readonly location: LatLng,
     readonly rating: {
       location: number;
@@ -64,15 +84,18 @@ export const commentConverter = {
       comment.location.lat,
       comment.location.lng
     );
-
+    const ratingValues = Object.values(comment.rating);
+    const averageRating =
+      ratingValues.reduce((a, b) => a + b, 0) / ratingValues.length;
     return {
+      author: comment.authorUid,
       userName: comment.userName,
-      avgRating: comment.avgRating,
+      avgRating: averageRating,
       location: locationConverted,
       rating: { ...comment.rating },
       address: { ...comment.address },
-      whenCreated: comment.whenCreated.getTime(),
-      lastModified: comment.lastModified.getTime(),
+      whenCreated: comment.whenCreated,
+      lastModified: comment.lastModified,
       textContent: comment.textContent,
     };
   },
@@ -84,11 +107,12 @@ export const commentConverter = {
   ) => {
     const data = snapshot.data(options);
     return new CComment(
-      data.id,
+      snapshot.id,
       data.userName,
+      data.author,
       new LatLng(data.location.latitude, data.location.longitude),
       { ...data.rating },
-      { ...data.commentAddress },
+      { ...data.address },
       new Date(data.whenCreated.seconds * 1000),
       new Date(data.lastModified.seconds * 1000),
       data.textContent,

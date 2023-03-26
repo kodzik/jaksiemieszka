@@ -8,10 +8,9 @@ import { FabService } from './fab.service';
 @Component({
   selector: 'app-fab',
   templateUrl: './fab.component.html',
-  styleUrls: ['./fab.component.scss']
+  styleUrls: ['./fab.component.scss'],
 })
 export class FabComponent implements OnInit {
-
   tooltipItems: MenuItem[];
   toggleDistricts: boolean = true;
 
@@ -20,43 +19,42 @@ export class FabComponent implements OnInit {
     private confirmationService: ConfirmationService,
     private router: Router,
     private fabService: FabService
-    ) { }
+  ) {}
 
   ngOnInit(): void {
     this.tooltipItems = [
       {
-          tooltipOptions: {
-              tooltipLabel: "Dodaj komentarz"
-          },
-          icon: 'pi pi-pencil',
-          command: () => {
-            if(this.authService.isLoggedIn){
-              this.fabService.changeCommentsView(commentsView.Add)
-            } else {
-              this.confirm()
-            }
+        tooltipOptions: {
+          tooltipLabel: 'Dodaj komentarz',
+        },
+        icon: 'pi pi-pencil',
+        command: () => {
+          if (this.authService.isLoggedIn) {
+            this.fabService.changeCommentsView(commentsView.Add);
+          } else {
+            this.confirm();
           }
+        },
       },
       {
-          tooltipOptions: {
-              tooltipLabel: "Pokaż dzielnice"
-          },
-          icon: 'pi pi-refresh',
-          command: () => {
-            this.fabService.toggleDistrictsLayer(this.toggleDistricts)
-            this.toggleDistricts = !this.toggleDistricts
-          }
+        tooltipOptions: {
+          tooltipLabel: 'Pokaż dzielnice',
+        },
+        icon: 'pi pi-refresh',
+        command: () => {
+          this.fabService.toggleDistrictsLayer(this.toggleDistricts);
+          this.toggleDistricts = !this.toggleDistricts;
+        },
       },
-  ];
+    ];
   }
 
   confirm() {
     this.confirmationService.confirm({
-        message: 'Zaloguj się, aby dodać swój komentarz!',
-        accept: () => {
-          this.router.navigate(['/account/login']);
-        }
+      message: 'Zaloguj się, aby dodać swój komentarz!',
+      accept: () => {
+        this.router.navigate(['/account/sign-in']);
+      },
     });
   }
-
 }

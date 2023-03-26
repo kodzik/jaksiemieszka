@@ -7,11 +7,13 @@ import {
 } from '@angular/forms';
 import { LatLng } from 'leaflet';
 import { FabService } from 'src/app/fab/fab.service';
-import { CComment, CCommentAddress, IComment } from 'src/app/_models/comment';
+import { CCommentAddress, CCommentHelper } from 'src/app/_models/comment';
 import { AuthService } from 'src/app/_services/auth.service';
 import { CommentService } from 'src/app/_services/comment.service';
 import { MarkerService } from 'src/app/_services/marker.service';
 import { commentsView } from '../commentsView';
+import { from } from 'rxjs';
+import { User } from 'firebase/auth';
 
 @Component({
   selector: 'app-add-comment',
@@ -22,10 +24,12 @@ export class AddCommentComponent implements OnInit, OnDestroy {
   autoResize: boolean = true; //textArea
 
   commentForm: UntypedFormGroup;
-  comment: IComment;
+  comment = new CCommentHelper();
 
   currentMarker: any;
   markerData: any;
+
+  currentUser: any;
 
   submitted: boolean = false;
 
@@ -33,12 +37,19 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     private fb: UntypedFormBuilder,
     private cmtService: CommentService,
     private markerService: MarkerService,
-    private fabService: FabService
+    private fabService: FabService,
+    private authService: AuthService
   ) {
     this.createForm();
   }
 
   ngOnInit(): void {
+    from(this.authService.afAuth.currentUser).subscribe((user) => {
+      if (user) {
+        this.currentUser = user;
+      }
+    });
+
     if (this.markerService.currentMarker) {
       this.currentMarker = this.markerService.currentMarker;
       this.markerService.getAddressFromMarker(this.currentMarker);
@@ -109,17 +120,13 @@ export class AddCommentComponent implements OnInit, OnDestroy {
 
     if (this.commentForm.status === 'VALID') {
       try {
-        // let comment: IComment;
-
-        const user = localStorage.getItem('username');
-        if (user !== null) {
-          this.comment.userName = user;
+        if (this.currentUser !== null) {
+          this.comment.authorUid = this.currentUser.uid;
+          this.comment.userName = this.currentUser.displayName
+            ? this.currentUser.displayName
+            : 'Anonim';
         } else return;
 
-        // comment.location = {
-        //   lat: Number(this.location.lat),
-        //   lng: Number(this.location.lng),
-        // };
         this.comment.location = new LatLng(
           this.location.lat,
           this.location.lng
@@ -130,15 +137,22 @@ export class AddCommentComponent implements OnInit, OnDestroy {
           noise: Number(this.noiseScore),
           traffic: Number(this.trafficScore),
         };
-        // comment.avg = this.cmtService.calculateAvgScore(comment)
         this.comment.address = this.parseMarkerAddress(this.markerData);
         this.comment.textContent = this.textContent;
+        this.comment.whenCreated = new Date();
+        this.comment.lastModified = new Date();
 
-        this.cmtService.addNewComment(this.comment);
+        this.cmtService
+          .addNewComment(this.comment)
+          .then((response) => {
+            console.log(response);
+            this.close();
+          })
+          .catch((error) => console.log('catched error', error));
       } catch (error) {
-        console.error(error);
+        console.log(error);
       } finally {
-        // this.close();
+        //
         // window.location.reload();
       }
     } else {
@@ -146,10 +160,10 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     }
   }
 
-  parseMarkerAddress(data: any): any {
+  parseMarkerAddress(data: any): CCommentAddress {
     const address: CCommentAddress = {
       road: data.address?.road !== undefined ? data.address.road : null,
-      house_number:
+      houseNumber:
         data.address?.house_number !== undefined
           ? data.address.house_number
           : null,
@@ -164,7 +178,7 @@ export class AddCommentComponent implements OnInit, OnDestroy {
     return address;
   }
 
-  close() {
+  close(): void {
     this.fabService.changeCommentsView(commentsView.View);
   }
 

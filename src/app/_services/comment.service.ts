@@ -34,28 +34,17 @@ export class CommentService {
     this.getCommentsQuerySnapshot().then((comments) => {
       from(comments.docs.map((comment) => comment.data())).subscribe(
         (comment) => {
-          this.newCommentSource.next(comment);
-          this.loadingComments = false;
+          if (comment) {
+            this.newCommentSource.next(comment);
+            this.loadingComments = false;
+          }
         }
       );
     });
   }
 
-  // createCourse(comment: IComment) {
-  //   return this.db.collection(this.getCollectionWithConverter()).add(comment);
-  // }
-
   addNewComment(comment: IComment) {
-    console.log(comment);
-    debugger;
-    return this.db
-      .collection(this.getCollectionWithConverter())
-      .add(comment)
-      .then((response) => console.log(response));
-    // this.http
-    //   .post<IComment>(environment.apiUrl + '/api/comments/', comment)
-    //   .subscribe((response: any) => {
-    //     console.log('Response:', response);
-    //   });
+    return this.db.collection(this.getCollectionWithConverter()).add(comment);
+    // .then((response) => console.log(response));
   }
 }

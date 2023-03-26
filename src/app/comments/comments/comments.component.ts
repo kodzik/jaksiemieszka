@@ -1,11 +1,5 @@
-import {
-  Component,
-  OnInit,
-  QueryList,
-  ViewChild,
-  ViewChildren,
-} from '@angular/core';
-import { CComment, IComment } from 'src/app/_models/comment';
+import { Component, OnInit, QueryList, ViewChildren } from '@angular/core';
+import { IComment } from 'src/app/_models/comment';
 import { MarkerService } from 'src/app/_services/marker.service';
 import { CommentService } from '../../_services/comment.service';
 import { CommentComponent } from '../comment/comment.component';
@@ -60,9 +54,11 @@ export class CommentsComponent implements OnInit {
       // comment.scrollIntoView({behavior: 'smooth'} );
       comment.scrollIntoView(true);
     }
-    this.childComment.forEach((elo) => {
-      elo.isOpen = false;
+    this.childComment.forEach((comment) => {
+      comment.isOpen = false;
     });
-    this.childComment.find((elo) => elo.comment.id === e.id)?.expandDiv(e);
+    this.childComment
+      .find((childComment) => childComment.comment.id === e.id)
+      ?.expandDiv(e);
   }
 }

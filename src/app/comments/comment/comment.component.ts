@@ -16,24 +16,25 @@ import {
   animations: [
     trigger('openClose', [
       // ...
-      state('open', style({
-        // height: '375px',
-        opacity: 1,
-      })),
-      state('closed', style({
-        opacity: 0.7,
-      })),
-      transition('open => closed', [
-        animate('0.5s')
-      ]),
-      transition('closed => open', [
-        animate('0.5s')
-      ]),
+      state(
+        'open',
+        style({
+          // height: '375px',
+          opacity: 1,
+        })
+      ),
+      state(
+        'closed',
+        style({
+          opacity: 0.7,
+        })
+      ),
+      transition('open => closed', [animate('0.5s')]),
+      transition('closed => open', [animate('0.5s')]),
     ]),
   ],
 })
 export class CommentComponent implements OnInit {
-  
   @Input() comment: IComment;
 
   changeText: boolean;
@@ -42,23 +43,21 @@ export class CommentComponent implements OnInit {
 
   isOpen: boolean = false;
 
-  constructor(
-    private markerService: MarkerService,
-    ) { }
+  constructor(private markerService: MarkerService) {}
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     this.rating = this.markerService.calculateAvgScore(this.comment);
   }
 
-  expandDiv(e: any){
+  expandDiv(e: any) {
     this.isOpen = !this.isOpen;
   }
 
   //TODO move to markerservice
-  highlightMarker() { 
-    const marker = this.markerService.markersWithId.find(e => e.id === this.comment.id);
-    marker.group.getLayers(marker)[0]
-    .openPopup();
+  highlightMarker() {
+    const marker = this.markerService.markersWithId.find(
+      (e) => e.id === this.comment.id
+    );
+    marker.group.getLayers(marker)[0].openPopup();
   }
-
 }
