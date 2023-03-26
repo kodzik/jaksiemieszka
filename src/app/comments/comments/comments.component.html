@@ -13,7 +13,9 @@
 </div>
 
 <ng-template #elseBlock>
-  <p-progressSpinner strokeWidth="3" *ngIf="loading"></p-progressSpinner>
+  <div class="progress-spinner" *ngIf="loading">
+    <p-progressSpinner strokeWidth="3"></p-progressSpinner>
+  </div>
 
   <div class="no-comments">
     <p>Dodaj pierwszy komentarz!</p>
