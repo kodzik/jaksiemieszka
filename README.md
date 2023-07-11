@@ -1,6 +1,6 @@
 # Jaksiemieszka
 
-## Now you can leave your comment on [jaksiemieszka.herokuapp.com](https://jaksiemieszka.herokuapp.com)!
+## Now you can leave your comment on [jaksiemieszka.web.app](https://jaksiemieszka.web.app)!
 
 Work in progress project of website which gives users the opportunity to comment the area they live in. 
 
