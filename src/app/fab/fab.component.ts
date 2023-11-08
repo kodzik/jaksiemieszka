@@ -40,7 +40,7 @@ export class FabComponent implements OnInit {
         tooltipOptions: {
           tooltipLabel: 'Pokaż dzielnice',
         },
-        icon: 'pi pi-refresh',
+        icon: 'pi pi-map',
         command: () => {
           this.fabService.toggleDistrictsLayer(this.toggleDistricts);
           this.toggleDistricts = !this.toggleDistricts;

@@ -1,7 +1,4 @@
-import {
-  SnapshotOptions,
-  QueryDocumentSnapshot,
-} from '@angular/fire/compat/firestore';
+import { SnapshotOptions } from '@angular/fire/compat/firestore';
 import { GeoPoint } from 'firebase/firestore';
 import { LatLng } from 'leaflet';
 
@@ -99,12 +96,7 @@ export const commentConverter = {
       textContent: comment.textContent,
     };
   },
-  fromFirestore: (
-    // snapshot: QueryDocumentSnapshot<IComment>,
-    // options: any
-    snapshot: any,
-    options: SnapshotOptions
-  ) => {
+  fromFirestore: (snapshot: any, options: SnapshotOptions) => {
     const data = snapshot.data(options);
     return new CComment(
       snapshot.id,
