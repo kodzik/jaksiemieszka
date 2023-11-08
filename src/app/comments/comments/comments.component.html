@@ -1,20 +1,23 @@
-
-<div class="flex w-full " *ngIf="comments.length !== 0; else elseBlock">
-    <p-scrollPanel class="w-full" styleClass="custombar1" [style]="{width: '100%', height: '100%'}" >
-        <div *ngFor="let comment of comments">
-            <div [id]=comment.id>
-                <!-- <app-test-comment [comment]=comment></app-test-comment> -->
-                <app-comment [comment]=comment></app-comment>
-            </div>
-        </div>
-    </p-scrollPanel>
+<div class="flex w-full" *ngIf="comments.length !== 0; else elseBlock">
+  <p-scrollPanel
+    class="w-full"
+    styleClass="custombar1"
+    [style]="{ width: '100%', height: '100%' }"
+  >
+    <div *ngFor="let comment of comments">
+      <div [id]="comment.id">
+        <app-comment [comment]="comment"></app-comment>
+      </div>
+    </div>
+  </p-scrollPanel>
 </div>
 
 <ng-template #elseBlock>
+  <div class="progress-spinner" *ngIf="loading">
+    <p-progressSpinner strokeWidth="3"></p-progressSpinner>
+  </div>
 
-    <!-- <p-progressSpinner strokeWidth="3" *ngIf="loading"></p-progressSpinner> -->
-
-    <div class="no-comments">
-        <p> Dodaj pierwszy komentarz! </p>
-    </div>
+  <div class="no-comments">
+    <p>Dodaj pierwszy komentarz!</p>
+  </div>
 </ng-template>

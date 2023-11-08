@@ -1,11 +1,17 @@
 <div class="h-full w-full speeddial">
-    <p-speedDial [model]="tooltipItems" buttonClassName="p-button-warning" className="speeddial-right" direction="up"></p-speedDial>
+  <p-speedDial
+    [model]="tooltipItems"
+    buttonClassName="p-button-warning"
+    className="speeddial-right"
+    direction="up"
+  ></p-speedDial>
 </div>
 
-<p-confirmDialog 
-    header="Uwaga" 
-    icon="pi pi-exclamation-triangle"
-    acceptLabel="Zaloguj"
-    rejectLabel="Nie teraz">
+<p-confirmDialog
+  key="loginToAddComment"
+  header="Uwaga"
+  icon="pi pi-exclamation-triangle"
+  acceptLabel="Zaloguj"
+  rejectLabel="Nie teraz"
+>
 </p-confirmDialog>
-

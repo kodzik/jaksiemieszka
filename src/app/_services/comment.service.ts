@@ -1,38 +1,50 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { BehaviorSubject, Subject } from 'rxjs';
-import { environment } from 'src/environments/environment';
-import { IComment } from '../_models/comment';
+import { Subject } from 'rxjs';
+import { CComment, commentConverter, IComment } from '../_models/comment';
+import {
+  AngularFirestore,
+  CollectionReference,
+  QuerySnapshot,
+} from '@angular/fire/compat/firestore';
+import { from } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class CommentService {
-
-  addComment: IComment
   loadingComments: boolean = false;
 
   private newCommentSource = new Subject<IComment>();
-  newComment = this.newCommentSource.asObservable();//comments got from db
-  
-  constructor(private http: HttpClient ) {}
+  newComment = this.newCommentSource.asObservable(); //comments got from db
 
-  getComments(): any{
+  constructor(private db: AngularFirestore) {}
+
+  getCollectionWithConverter(): CollectionReference<CComment> {
+    return this.db.firestore
+      .collection('comments')
+      .withConverter(commentConverter);
+  }
+
+  getCommentsQuerySnapshot(): Promise<QuerySnapshot<CComment>> {
+    return this.getCollectionWithConverter().get();
+  }
+
+  getComments() {
     this.loadingComments = true;
-
-    return this.http.get<IComment>(environment.apiUrl + '/api/comments/').subscribe((comments: any) => {
-      comments.data.forEach((element: IComment) => {
-        this.newCommentSource.next(element)
-        this.loadingComments = false;
-      });
-    })
+    this.getCommentsQuerySnapshot().then((comments) => {
+      from(comments.docs.map((comment) => comment.data())).subscribe(
+        (comment) => {
+          if (comment) {
+            this.newCommentSource.next(comment);
+            this.loadingComments = false;
+          }
+        }
+      );
+    });
   }
 
-  addNewComment(comment: IComment){
-    this.http.post<IComment>(environment.apiUrl + '/api/comments/', comment).subscribe((response: any) => {
-      console.log("Response:", response);
-    })
+  addNewComment(comment: IComment) {
+    return this.db.collection(this.getCollectionWithConverter()).add(comment);
+    // .then((response) => console.log(response));
   }
-
-
 }

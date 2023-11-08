@@ -10,7 +10,7 @@ import { SharedModule } from '../_shared/shared/shared.module';
 import { CommentsLayoutComponent } from './comments-layout/comments-layout.component';
 import { FormHelpComponent } from './comment-form/form-help/form-help.component';
 import { TestCommentComponent } from './test-comment/test-comment.component';
-
+import { AngularFirestore } from '@angular/fire/compat/firestore';
 
 @NgModule({
   declarations: [
@@ -20,18 +20,16 @@ import { TestCommentComponent } from './test-comment/test-comment.component';
     CommentsLayoutComponent,
     CommentFormComponent,
     FormHelpComponent,
-    TestCommentComponent
+    TestCommentComponent,
   ],
-  imports: [
-    CommonModule,
-    SharedModule,
-  ],
-  exports:[
+  imports: [CommonModule, SharedModule],
+  exports: [
     CommentsComponent,
     AddCommentComponent,
     CommentFormComponent,
     FormHelpComponent,
-    CommentsLayoutComponent
-  ]
+    CommentsLayoutComponent,
+  ],
+  providers: [AngularFirestore],
 })
-export class CommentsModule { }
+export class CommentsModule {}

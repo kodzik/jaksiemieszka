@@ -42,6 +42,20 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     font-weight: 700;
 }
 
+.leaflet-control-geosearch,
+.leaflet-control-geosearch form,
+.leaflet-geosearch-bar form input,
+.leaflet-control-geosearch .results,
+.leaflet-control-geosearch button.reset
+{
+    background-color: var(--color-dark--1);
+}
+
+.leaflet-control-geosearch .results > :hover {
+    background-color: var(--color-brand--1);
+    border-color: #c6c6c6;
+    cursor: pointer;
+  }
 
 //overflow debugger
 // * {

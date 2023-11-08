@@ -3,23 +3,26 @@ import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { LayoutComponent } from './layout/layout.component';
-import { LoginComponent } from './login/login.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { SharedModule } from 'primeng/api';
 import { PrimesharedModule } from '../_shared/primeshared/primeshared.module';
-
+import { SignInComponent } from './sign-in/sign-in.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { VerifyEmailComponent } from './verify-email/verify-email.component';
+import { ForgotPasswordComponent } from './forgot-password/forgot-password.component';
 
 @NgModule({
   declarations: [
     LayoutComponent,
-    LoginComponent,
+    SignInComponent,
+    SignUpComponent,
+    VerifyEmailComponent,
+    ForgotPasswordComponent,
   ],
   imports: [
     CommonModule,
     ReactiveFormsModule,
     AccountRoutingModule,
-    PrimesharedModule
-    // SharedModule
-    ]
+    PrimesharedModule,
+  ],
 })
-export class AccountModule { }
+export class AccountModule {}

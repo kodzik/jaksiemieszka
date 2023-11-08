@@ -1,80 +1,105 @@
-<div class="pr-2 md: pr-0" [@openClose]="isOpen ? 'open' : 'closed'" (mouseenter)="highlightMarker()" (click)="expandDiv($event)">
-
-    <div class="card" *ngIf="isOpen===false; else expanded">
-        <div class="content">
-            <ng-template [ngTemplateOutlet]="Rating"></ng-template>
-            <ng-template [ngTemplateOutlet]="cmtText"></ng-template>
-        </div>
-        <ng-template [ngTemplateOutlet]="subContent"></ng-template>
+<div
+  class="pr-2 md: pr-0"
+  [@openClose]="isOpen ? 'open' : 'closed'"
+  (mouseenter)="highlightMarker()"
+  (click)="expandDiv($event)"
+>
+  <div class="card" *ngIf="isOpen === false; else expanded">
+    <div class="content">
+      <ng-template [ngTemplateOutlet]="Rating"></ng-template>
+      <ng-template [ngTemplateOutlet]="cmtText"></ng-template>
     </div>
+    <ng-template [ngTemplateOutlet]="subContent"></ng-template>
+  </div>
 
-    <ng-template #expanded>
-        <div *ngIf="true" class="card">
-            <div class="content content-expanded md:flex md:flex-row">
-                <div class="flex flex-row md:flex-column">
-                    <ng-template [ngTemplateOutlet]="Rating"></ng-template>
-                    <ng-template [ngTemplateOutlet]="ratingStarsBlock"></ng-template>
-                </div>
-                <ng-template [ngTemplateOutlet]="cmtText"></ng-template>
-            </div>
-            <ng-template [ngTemplateOutlet]="subContent"></ng-template>
+  <ng-template #expanded>
+    <div *ngIf="true" class="card">
+      <div class="content content-expanded md:flex md:flex-row">
+        <div class="flex flex-row md:flex-column">
+          <ng-template [ngTemplateOutlet]="Rating"></ng-template>
+          <ng-template [ngTemplateOutlet]="ratingStarsBlock"></ng-template>
         </div>
-    </ng-template>
+        <ng-template [ngTemplateOutlet]="cmtText"></ng-template>
+      </div>
+      <ng-template [ngTemplateOutlet]="subContent"></ng-template>
+    </div>
+  </ng-template>
 </div>
 
 <ng-template #ratingStarsBlock>
-    <div class="sm:block add-border">
-        <div>
-            <div class="rating-block" *ngFor="let item of comment.rating | keyvalue">
-                <div class="stars-description">{{item.key}}</div>
-                <div class="stars">
-                    <p-rating [ngModel]="item.value" [cancel]="false" [readonly]="true"></p-rating>
-                </div>
-            </div>
+  <div class="sm:block add-border">
+    <div>
+      <div class="rating-block" *ngFor="let item of comment.rating | keyvalue">
+        <div class="stars-description">{{ item.key }}</div>
+        <div class="stars">
+          <p-rating
+            [ngModel]="item.value"
+            [cancel]="false"
+            [readonly]="true"
+          ></p-rating>
         </div>
+      </div>
     </div>
+  </div>
 </ng-template>
 
 <ng-template #Rating>
-    <div class="rating">
-        <div class="number">
-            {{rating | number: '1.1-1'}}
-        </div>
-        <div class="stars">
-            <p-rating [(ngModel)]="rating" [cancel]="false" [readonly]="true"></p-rating>
-        </div>
+  <div class="rating">
+    <div class="number">
+      {{ rating | number : "1.1-1" }}
     </div>
+    <div class="stars">
+      <p-rating
+        [(ngModel)]="rating"
+        [cancel]="false"
+        [readonly]="true"
+      ></p-rating>
+    </div>
+  </div>
 </ng-template>
 
 <ng-template #cmtText>
-    <div [ngClass]="isOpen ? 'cmt-text-expanded' : 'cmt-text'">
-        <div *ngIf="comment.text_content == undefined || comment.text_content == null; else elseBlock">
-            Niestety, ktoś się nie popisał!
-        </div>
-        <ng-template #elseBlock>
-            {{comment.text_content}}
-        </ng-template>
+  <div [ngClass]="isOpen ? 'cmt-text-expanded' : 'cmt-text'">
+    <div
+      *ngIf="
+        comment.textContent == undefined || comment.textContent == null;
+        else elseBlock
+      "
+    >
+      Niestety, ktoś się nie popisał!
     </div>
+    <ng-template #elseBlock>
+      {{ comment.textContent }}
+    </ng-template>
+  </div>
 </ng-template>
 
-<ng-template #subContent >
-    <div class="subcontent">
-        <div>
-            <i class="pi pi-user icon"></i>
-            {{comment.username}}
-        </div>
-        <div>
-            <i class="pi pi-calendar icon"></i>
-            {{comment.when_added | date: 'dd.MM.yyyy' }}
-        </div>
-        <div>
-            <div *ngIf="comment.address !== undefined && comment.address !== null" class="address">
-                <i class="pi pi-map-marker icon"></i>
-                <span *ngIf="comment.address.road !== null"> {{comment.address.road}} </span>
-                <span *ngIf="comment.address.house_number !== null"> {{comment.address.house_number}}, </span>
-                <span *ngIf="comment.address.suburb !== null"> {{comment.address.suburb}} </span>
-            </div>
-        </div>
+<ng-template #subContent>
+  <div class="subcontent">
+    <div>
+      <i class="pi pi-user icon"></i>
+      {{ comment.userName }}
     </div>
+    <div>
+      <i class="pi pi-calendar icon"></i>
+      {{ comment.whenCreated | date : "dd.MM.yyyy" }}
+    </div>
+    <div>
+      <div
+        *ngIf="comment.address !== undefined && comment.address !== null"
+        class="address"
+      >
+        <i class="pi pi-map-marker icon"></i>
+        <span *ngIf="comment.address.road !== null">
+          {{ comment.address.road }}
+        </span>
+        <span *ngIf="comment.address.houseNumber !== null">
+          {{ comment.address.houseNumber }},
+        </span>
+        <span *ngIf="comment.address.suburb !== null">
+          {{ comment.address.suburb }}
+        </span>
+      </div>
+    </div>
+  </div>
 </ng-template>
-

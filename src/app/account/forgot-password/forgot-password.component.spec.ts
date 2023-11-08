@@ -1,20 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ApolloTestComponent } from './apollo-test.component';
+import { ForgotPasswordComponent } from './forgot-password.component';
 
-describe('ApolloTestComponent', () => {
-  let component: ApolloTestComponent;
-  let fixture: ComponentFixture<ApolloTestComponent>;
+describe('ForgotPasswordComponent', () => {
+  let component: ForgotPasswordComponent;
+  let fixture: ComponentFixture<ForgotPasswordComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ApolloTestComponent ]
+      declarations: [ ForgotPasswordComponent ]
     })
     .compileComponents();
-  });
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ApolloTestComponent);
+    fixture = TestBed.createComponent(ForgotPasswordComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

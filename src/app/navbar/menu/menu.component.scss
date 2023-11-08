@@ -1,7 +1,8 @@
 :host {
     ::ng-deep .p-avatar{
-        background-color: white;
-
+        // font: rgb(223, 218, 218);
+        // color: --color-light-2;
+        // background-color: white;
     }    
     ::ng-deep .p-avatar .p-avatar-circle{
         border-radius: 20%;
@@ -21,18 +22,8 @@
     padding: 0.5rem 0 0.5rem;
 }
 
-.bars{
-    font-size: 2rem;
-    color: whitesmoke;
-    margin-right: 2rem;
-}
-
-.burger{
-    display: flex;
-    flex-direction: row;
-}
-
 .avatar-label{
     font-family: "Poppins";
     font-weight: 300;
+    // color: --color-dark--1;
 }

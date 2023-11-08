@@ -6,11 +6,10 @@ import { IComment } from '../_models/comment';
 import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class MarkerService {
-
-  markersWithId: any[] = []
+  markersWithId: any[] = [];
   currentMarker: any;
 
   tempLayer: L.LayerGroup;
@@ -24,79 +23,87 @@ export class MarkerService {
 
   // capitals: string = '/assets/data/usa-capitals.geojson';
 
-  constructor(
-    private http: HttpClient,
-    private popupService: PopupService ) {}
+  constructor(private http: HttpClient, private popupService: PopupService) {}
 
   static scaledRadius(val: number, maxVal: number): number {
     return 20 * (val / maxVal);
   }
 
   addMarker(map: L.Map, lng: number, lat: number, draggable?: boolean) {
-    let marker = L.marker([lng, lat], {draggable: draggable})
-    .on('dragend', (e) => {
-      this.changeCurrentMarker(e.target._latlng);
-		})
-    this.tempLayer = L.layerGroup()
-    this.tempLayer.addLayer(marker)
-    this.tempLayer.addTo(map)
+    let marker = L.marker([lng, lat], { draggable: draggable }).on(
+      'dragend',
+      (e) => {
+        this.changeCurrentMarker(e.target._latlng);
+      }
+    );
+    this.tempLayer = L.layerGroup();
+    this.tempLayer.addLayer(marker);
+    this.tempLayer.addTo(map);
     return marker;
   }
 
   addMarker2(map: L.Map, lng: number, lat: number, comment: IComment) {
-    const group = L.layerGroup()
+    const group = L.layerGroup();
     let marker = L.marker([lng, lat])
-    // .addTo(map)
-    .on('dragend', (e) => {
-      this.changeCurrentMarker(e.target);
-		})
-    .on('click', (e) => {
-      this.clickedMarker.next(this.markersWithId.find(obj => group.getLayerId(obj.group.getLayers()[0]) === group.getLayerId(marker)));
-    })
-    .bindPopup(`
-    <h4 style="position: absolute; color: #EC5434; font-size: 15px; bottom: 35%">${comment.username}</h4>
-    <div>Ocena: ${this.calculateAvgScore(comment)}</div>`)
+      // .addTo(map)
+      .on('dragend', (e) => {
+        this.changeCurrentMarker(e.target);
+      })
+      .on('click', (e) => {
+        this.clickedMarker.next(
+          this.markersWithId.find(
+            (obj) =>
+              group.getLayerId(obj.group.getLayers()[0]) ===
+              group.getLayerId(marker)
+          )
+        );
+      }).bindPopup(`
+    <h4 style="position: absolute; color: #EC5434; font-size: 15px; bottom: 35%">${
+      comment.userName
+    }</h4>
+    <div>Ocena: ${this.calculateAvgScore(comment)}</div>`);
     group.addLayer(marker);
-    this.markersWithId.push({id: comment.id, group: group})
+    this.markersWithId.push({ id: comment.id, group: group });
     group.addTo(map);
   }
 
-  deleteAllMarkers(){
-    this.markersWithId.forEach(element => {
-      element.group.removeLayer(element.group.getLayerId(element.group.getLayers()[0]))
+  deleteAllMarkers() {
+    this.markersWithId.forEach((element) => {
+      element.group.removeLayer(
+        element.group.getLayerId(element.group.getLayers()[0])
+      );
     });
     this.markersWithId.length = 0;
   }
 
-  deleteMarker(){
-    if(this.tempLayer){
-      this.tempMarkerToDelete.next(this.tempLayer)
+  deleteMarker() {
+    if (this.tempLayer) {
+      this.tempMarkerToDelete.next(this.tempLayer);
     }
   }
 
-  getAddressFromMarker(latlng: any){
-    const apiAddr = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`
-    this.http.get(apiAddr).subscribe(response => {
-      this.markerData.next(response)
-    })
+  getAddressFromMarker(latlng: any) {
+    const apiAddr = `https://nominatim.openstreetmap.org/reverse?lat=${latlng.lat}&lon=${latlng.lng}&format=json`;
+    this.http.get(apiAddr).subscribe((response) => {
+      this.markerData.next(response);
+    });
   }
 
-  calculateAvgScore(comment: IComment): number{
+  calculateAvgScore(comment: IComment): number {
     let index = 0;
     let avg = 0;
 
-    Object.values(comment.rating).forEach(element => {
+    Object.values(comment.rating).forEach((element) => {
       avg += element;
-      index+=1;
-    })
-    return (avg / index);
+      index += 1;
+    });
+    return avg / index;
   }
 
   changeCurrentMarker(location: any) {
     this.currentMarkerChange.next(location);
     this.currentMarker = location;
   }
-
 
   // makeCapitalMarkers(map: L.Map): void {
   //   this.http.get(this.capitals).subscribe((res: any) => {
@@ -128,5 +135,4 @@ export class MarkerService {
   //     }
   //   });
   // }
-
 }

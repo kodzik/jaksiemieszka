@@ -50,12 +50,52 @@
 }
 
 .card .submit-btn{
+    display: flex;
+    justify-content: center;
     margin: 1rem 0 0;
 }
 
-.card .error{
-    margin-top: 1rem;
+.card .submit-btn .btn{
+    width: 70%;
 }
+
+.redirect{
+    color: #BA68C8;
+}
+
+.redirect:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
+
+.break-line {
+    overflow: hidden;
+    text-align: center;
+    margin: 1rem;
+    font-family: "Poppins";
+    font-weight: 200;
+  }
+  
+  .break-line:before,
+  .break-line:after {
+    background-color: #707070;
+    content: "";
+    display: inline-block;
+    height: 1px;
+    position: relative;
+    vertical-align: middle;
+    width: 50%;
+  }
+  
+  .break-line:before {
+    right: 0.5em;
+    margin-left: -50%;
+  }
+  
+  .break-line:after {
+    left: 0.5em;
+    margin-right: -50%;
+  }
 
 .logo{
     height: 2.5rem;
@@ -75,9 +115,8 @@
   
 .sub-card{
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: baseline;
+    flex-direction: column;
+    align-items: center;
 
     font-family: "Poppins";
     font-weight: 300;
@@ -88,18 +127,18 @@
     border-color: var(--color-dark--2);
 }
 
-.sub-card .register{
-    font-family: "Poppins";
-    color: var(--color-light--3);
-}
+// .sub-card .register{
+//     font-family: "Poppins";
+//     color: var(--color-light--3);
+// }
 
-.register-success{
-    font-family: "Poppins";
-    color: var(--color-light--1);
-    border-color: green;
-    padding: 1rem 1rem 1rem;
-    margin-bottom: 1rem;
-}
+// .register-success{
+//     font-family: "Poppins";
+//     color: var(--color-light--1);
+//     border-color: green;
+//     padding: 1rem 1rem 1rem;
+//     margin-bottom: 1rem;
+// }
 
 @media screen and (max-width: 1280px) {
     .card{
